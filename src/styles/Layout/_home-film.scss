@@ -1,0 +1,116 @@
+.home-film {
+  .home-film__content {
+    max-width: 940px;
+    margin: 0 auto;
+    .nav-tabs {
+      border: none;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a {
+        border: none;
+        @include text($color-black, $fs-4);
+        font-family: "SF Medium";
+        transition: all 0.3s;
+      }
+      a:hover {
+        font-size: $fs-5;
+      }
+      a.active {
+        @include text($color-red-1, $fs-5);
+      }
+    }
+    .tab-content {
+      .owl-prev,
+      .owl-next {
+        position: absolute;
+        left: -10%;
+        top: 45%;
+        font-size: 100px;
+        transform: translateY(-50%);
+        img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+      .owl-next {
+        left: initial;
+        right: -10%;
+      }
+      .owl-prev:hover,
+      .owl-next:hover {
+        background: none;
+      }
+      .owl-prev:focus,
+      .owl-next:focus {
+        outline: none;
+      }
+      .home-film__items {
+        padding: 0 $pd-1;
+        height: 370px;
+        span:nth-child(2) {
+          font-weight: 600;
+          margin-bottom: $mg-1;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:hover .layout-film-item {
+          opacity: 1;
+          
+        }
+        .layout-film-item {
+          opacity: 0;
+          position: absolute;
+          background: linear-gradient(to top, #000, transparent 100%);
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+         transition: all 0.2s;
+          a{
+            position: absolute;
+            color: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: $fs-1;
+            border: 1.5px $color-white solid;
+            padding: $pd-3;
+            border-radius: 50%;
+            line-height: $fs-1;
+            background-color: rgba(0, 0, 0, 0.3);
+          }
+          a:hover{
+            opacity: 0.8;
+          }
+        }
+        .card-body{
+          .card-title button:nth-child(1), .card-title span:nth-child(2), p{
+            transition: all 0.2s;
+          }
+          position: relative;
+          .btn-book{
+            background: linear-gradient(to left,#fb4226,#ce3017 100%);
+            color: white;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateY(25%);
+            opacity: 0;
+            transition: all 0.2s;
+          }
+        }
+        &:hover .btn-book{
+          opacity: 1;
+        }
+        &:hover .card-body .btn-success, &:hover .card-body span, &:hover .card-body p{
+          opacity: 0;
+        }
+      }
+    }
+  }
+}

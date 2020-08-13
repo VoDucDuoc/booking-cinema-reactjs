@@ -1,0 +1,111 @@
+.header {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 75px;
+  z-index: 100;
+  .navbar-expand-md {
+    .navbar-toggler{
+      z-index: 5;
+    }
+    .my-collapse {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      transition: all 0.4s;
+      .header__mobile {
+        position: absolute;
+        top: 0;
+        right: -70%;
+        width: 70%;
+        height: 100%;
+        background: #fff;
+        transition: all 0.4s;
+        overflow: hidden;
+        overflow-y: scroll;
+      }
+      // overflow: hidden;
+    }
+    .show .header__mobile {
+      right: 0;
+    }
+    .my-collapse.show {
+      background-color: rgba(0, 0, 0, 0.8);
+      pointer-events: inherit;
+    }
+    .navbar-toggler:focus {
+      outline: none;
+    }
+    .navbar-toggler:focus + .mobile-arrow{
+      display: block;
+    
+  }
+    @include reponds-to-min("medium") {
+      .header__mobile.navbar-collapse {
+        display: none !important;
+      }
+    }
+  }
+  .navbar {
+    
+    .mobile-arrow{
+      display: none;
+    }
+    .header__mobile {
+      padding: $pd-1;
+      .mobile-login {
+        display: flex;
+        align-items: center;
+        i {
+          @include text($color-gray-0, $fs-5)
+        }
+        span {
+          @include text($color-black, $fs-2);
+        }
+        padding: $pd-2;
+      }
+
+      .mobile-item {
+        display: block;
+        @include text($color-black, $fs-3);
+        padding: 20px;
+      }
+    }
+    .nav-item {
+      a {
+        @include text($color-black, $fs-3);
+        padding: 0;
+        margin-right: $mg-4;
+        transition: all 0.2s;
+      }
+      a:hover {
+        color: $color-red-0;
+      }
+    }
+    .right {
+      i {
+        @include text($color-gray-0, $fs-4);
+      }
+      span,
+      a {
+        @include text($color-gray-0, $fs-3);
+      }
+      span {
+        padding-right: $pd-2;
+        border-right: 0.5px solid $color-gray-0;
+      }
+      cursor: pointer;
+    }
+    @include reponds-to-min("extra-large") {
+      .center {
+        margin-left: 100px;
+      }
+    }
+  }
+}

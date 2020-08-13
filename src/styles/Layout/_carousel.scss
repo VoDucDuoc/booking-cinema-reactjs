@@ -1,0 +1,106 @@
+.carousel-film{
+    margin-top: 75px;
+    cursor: pointer;
+    img{
+        width: 100%;
+    }
+    .mfp-fade.mfp-bg {
+        opacity: 0;
+        -webkit-transition: all 0.15s ease-out; 
+        -moz-transition: all 0.15s ease-out; 
+        transition: all 0.15s ease-out;
+    }
+    .mfp-fade.mfp-bg.mfp-ready {
+        opacity: 0.8;
+    }
+    .mfp-fade.mfp-bg.mfp-removing {
+        opacity: 0;
+    }
+    
+    .mfp-fade.mfp-wrap .mfp-content {
+        opacity: 0;
+        -webkit-transition: all 0.15s ease-out; 
+        -moz-transition: all 0.15s ease-out; 
+        transition: all 0.15s ease-out;
+    }
+    .mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+        opacity: 1;
+    }
+    .mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+        opacity: 0;
+    }
+    .carousel-control-play-btn{
+        position: absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border: 2px solid white;
+        background: rgba(0, 0, 0, 0.35);
+        color: white;
+        width: 95px;
+        height: 95px;
+        text-align: center;
+        line-height: 95px;
+        font-size: $fs-5 - 2;
+        border-radius: 50%;
+        i{
+            margin-left: $mg-1;
+        }
+        transition: all 0.2s;
+        opacity: 1;
+    }
+    .carousel-film:hover .carousel-control-play-btn{
+        opacity: 1;
+    }
+    .carousel-control-play-btn:hover{
+        color: rgba(255, 255, 255, 0.8);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.25);
+    
+    }
+    @include reponds-to-max('extra-large'){
+        .carousel-control-play-btn{
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+        }
+        .carousel-control-prev-icon, .carousel-control-next-icon{
+            width: 30px;
+            height: 80px;
+        }
+        .carousel-indicators li{
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            margin: 0 5px;
+        }
+    }
+    @include reponds-to-max('medium'){
+        .carousel-control-play-btn{
+            width: 60px;
+            height: 60px;
+            line-height: 56px;
+            i{
+                font-size: $fs-4;
+            }
+        }
+        .carousel-control-prev-icon, .carousel-control-next-icon{
+            width: 25px;
+            height: 50px;
+        }
+        .carousel-indicators li{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            margin: 0 5px;
+        }
+    }
+
+}
+@include reponds-to-max('small'){
+    .carousel-film{
+        opacity: 0;
+    }
+}

@@ -1,0 +1,33 @@
+.home-tool{
+    .home-tool__content{
+        max-width: 940px;
+        margin: 0 auto;
+        height: 80px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        transform: translateY(-50%);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,.3);
+
+    background-color: #fff;
+    border-radius: 5px;
+    z-index: 2;
+    
+    .home-tool__item{
+        margin: 0 $mg-2;
+        a{
+            @include text($color-black, $fs-3)
+        }
+        a:after{
+            margin-left: 100px;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        button{
+            padding: $pd-2  $pd-4;
+        }
+    }
+}
+}

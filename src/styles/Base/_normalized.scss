@@ -1,0 +1,19 @@
+.carousel-control-prev-icon, .carousel-control-next-icon{
+    width: 35px;
+    height: 80px;
+}
+.carousel-indicators li{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    margin: 0 5px;
+}
+.carousel-indicators{
+    bottom: 12%;
+    .active{
+        background: $color-red-0;
+    }
+}
+
+

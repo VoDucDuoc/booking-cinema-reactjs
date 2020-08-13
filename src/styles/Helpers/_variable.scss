@@ -1,0 +1,40 @@
+//color
+$color-black: black;
+$color-red-0: #fb4226;
+$color-red-1: #FA5238;
+$color-gray-0: #9b9b9b;
+$color-gray-1:#4a4a4a;
+$color-gray-2: #949494;
+$color-white: white;
+
+
+//font size
+$fs-1: 14px;
+$fs-2: 16px;
+$fs-3: 18px;
+$fs-4: 24px;
+$fs-5: 32px;
+
+//font weight
+$fw-1: 700; 
+
+//padding
+$pd-1: 5px;
+$pd-2: 10px;
+$pd-3: 15px;
+$pd-4: 20px;
+
+
+
+//margin
+$mg-1: 5px;
+$mg-2: 10px;
+$mg-3: 15px;
+$mg-4: 20px;
+
+$breakpoints: (
+    'extra-large': 1200px,
+    'large': 992px,
+    'medium': 768px,
+    'small': 576px,
+)
