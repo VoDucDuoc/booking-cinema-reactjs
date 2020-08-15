@@ -26,7 +26,6 @@ export default function FilmBlock() {
 
   const renderShowingFilmBlock = () => {
     return listFilmShowing.map((item, index) => {
-      console.log('trailer ne`', item.trailer);
       return (
         <div key={index}>
           <ItemFilm
