@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import Carousel from "../../components/carousel";
 import HomeTools from "../../components/homeTools";
 import FilmBlock from "../../components/filmBlock";
 import ShowTime from "../../components/showTime";
 import { useDispatch } from "react-redux";
 import { getFilmList } from "../../actions/filmAction";
 import { getCinemaList } from "../../actions/cinemaAction";
+import CarouselHome from "../../components/carousel";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div>
     
-      <Carousel/>
+      <CarouselHome/>
    
       <HomeTools/>
       

@@ -1,19 +1,67 @@
-.carousel-control-prev-icon, .carousel-control-next-icon{
-    width: 35px;
-    height: 80px;
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 35px;
+  height: 80px;
 }
-.carousel-indicators li{
-    width: 12px;
-    height: 12px;
+.carousel-indicators li {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 5px;
+}
+.slick-dots li.slick-active button:before{
+  color: $color-red-0;
+  opacity: 1;
+}
+.carousel-indicators {
+  bottom: 12%;
+  .active {
+    background: $color-red-0;
+  }
+}
+.modal-backdrop {
+  opacity: 0.3 !important;
+}
+.carousel-control-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid white;
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
+  width: 95px;
+  height: 95px;
+  text-align: center;
+  line-height: 95px;
+  font-size: $fs-5 - 2;
+  border-radius: 50%;
+  i {
+    margin-left: $mg-1;
+  }
+  transition: all 0.2s;
+  opacity: 1;
+}
+.modal-content {
+  background-color: transparent;
+  z-index: 1;
+  a {
+      z-index: 2;
+    cursor: pointer;
+    position: absolute;
+    top: -22px;
+    right: -22px;
+    color: white;
+    border: 1px solid white;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    border: none;
-    margin: 0 5px;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+  }
 }
-.carousel-indicators{
-    bottom: 12%;
-    .active{
-        background: $color-red-0;
-    }
+.modal-content a i {
+  color: white;
 }
-
-

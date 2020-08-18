@@ -8,12 +8,14 @@ export default function ItemFilm(props) {
   let openModal = () => {
     setIsOpen(true);
   };
+  let trailerNew = props.trailer.substring(30);
+
   return (
     <div className="card text-left home-film__items" style={{ border: "none" }}>
     <ModalVideo
             channel="youtube"
             isOpen={isOpen}
-            videoId={props.trailer}
+            videoId={trailerNew}
             youtube={{ autoplay: 1 }}
             onClose={() => setIsOpen(false)}
           />
