@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ItemFilm from "./ItemFilm";
 import Slider from "react-slick";
 
-
 export default function FilmBlock() {
   let { listFilmShowing, listFilmComing } = useSelector(
     (state) => state.filmReducer
@@ -71,7 +70,9 @@ export default function FilmBlock() {
             role="tabpanel"
             aria-labelledby="home-tab"
           >
-            { listFilmShowing.length ? <Slider {...settings}>{renderFilmBlock(listFilmShowing)}</Slider> : null}
+            {listFilmShowing.length ? (
+              <Slider {...settings}>{renderFilmBlock(listFilmShowing)}</Slider>
+            ) : null}
           </div>
 
           <div
@@ -80,7 +81,9 @@ export default function FilmBlock() {
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <div></div>
+            {listFilmComing.length ? (
+              <Slider {...settings}>{renderFilmBlock(listFilmComing)}</Slider>
+            ) : null}
           </div>
         </div>
       </div>
@@ -93,10 +96,10 @@ function SampleNextArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block"}}
+      style={{ ...style, display: "block" }}
       onClick={onClick}
     >
-      <img src="./img/next.png" style={{width: '50px', height: '50px'}}/>
+      <img src="./img/next.png" style={{ width: "50px", height: "50px" }} />
     </div>
   );
 }
@@ -106,11 +109,10 @@ function SamplePrevArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block",
-       }}
+      style={{ ...style, display: "block" }}
       onClick={onClick}
     >
-      <img src="./img/prev.png" style={{width: '50px', height: '50px'}}/>
+      <img src="./img/prev.png" style={{ width: "50px", height: "50px" }} />
     </div>
   );
 }
