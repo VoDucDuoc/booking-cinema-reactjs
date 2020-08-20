@@ -1,24 +1,16 @@
 import React, {useState} from "react";
-import ModalVideo from "react-modal-video";
+import MyVerticallyCenteredModal from "../modalTrailer";
+import { useDispatch, useSelector } from "react-redux";
+import { showModal, hideModal } from "../../actions/modalTrailerAction";
 
 
 export default function ItemFilm(props) {
-  // let {trailer, hinhAnh, maNhom, tenPhim} = props;
-  let [isOpen, setIsOpen] = useState(false);
-  let openModal = () => {
-    setIsOpen(true);
-  };
-  let trailerNew = props.trailer.substring(30);
-
+  let {show, url} = useSelector((state) => state.modalTrailerReducer);
+  console.log(show, url)
+  const dispatch = useDispatch();
   return (
     <div className="card text-left home-film__items" style={{ border: "none" }}>
-    <ModalVideo
-            channel="youtube"
-            isOpen={isOpen}
-            videoId={trailerNew}
-            youtube={{ autoplay: 1 }}
-            onClose={() => setIsOpen(false)}
-          />
+    
       <div style={{ position: "relative" }}>
         <img
           className="card-img-top"
@@ -29,7 +21,7 @@ export default function ItemFilm(props) {
         <div className="layout-film-item">
             
           <a
-            onClick={openModal}
+            onClick={() => dispatch(showModal(props.trailer))}
           ><i className="fa fa-play"></i></a>
         </div>
       </div>
@@ -45,6 +37,11 @@ export default function ItemFilm(props) {
         
         <p className="card-text mt-2">105 phút</p>
       </div>
+      <MyVerticallyCenteredModal
+          trailer={url}
+            show={show}
+            onHide={() => dispatch(hideModal())}
+          />
     </div>
   );
 }

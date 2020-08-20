@@ -24,16 +24,6 @@ const filmReducer = (state = initialState, action) => {
       for (let index = 0; index < 19; index++) {
         listFilmShowing.push(listFilmTemp.shift());
       }
-      // listFilmNew.map((item) => {
-      //   return Object.entries(item).map(([props, value]) => {
-      //     if (props === "trailer") {
-      //       let urlNew = value.substring(30);
-      //       let propsNew = { ...item, trailer: urlNew };
-      //       listFilmShowing.push(propsNew);
-      //     }
-      //     return listFilmShowing;
-      //   });
-      // });
 
       listFilmShowing.map((item) => {
         return listFilmComing.unshift(item);

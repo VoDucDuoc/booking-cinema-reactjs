@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
 import MyVerticallyCenteredModal from "../modalTrailer";
+import { showModal, hideModal } from "../../actions/modalTrailerAction";
 export default function CarouselHome(props) {
   const [modalShow, setModalShow] = useState({
     show: false,
-    url: ''
+    url: "",
   });
 
   let imgArr = [
@@ -18,6 +19,7 @@ export default function CarouselHome(props) {
 
   let { listFilmShowing } = useSelector((state) => state.filmReducer);
 
+
   const renderCarousel = () => {
     let listFilmCarousel = [];
     listFilmCarousel = listFilmShowing.slice(0, 5);
@@ -25,7 +27,7 @@ export default function CarouselHome(props) {
     return listFilmCarousel.map((item, index) => {
       let src = imgArr[i];
       i += 1;
-      
+
       return (
         <Carousel.Item key={index}>
           <img
@@ -34,17 +36,16 @@ export default function CarouselHome(props) {
             src={src}
           />
           <a
-            onClick={() => setModalShow({show: true, url: item.trailer})}
+            onClick={() => setModalShow({ show: true, url: item.trailer })}
             style={{ color: "white" }}
             className="carousel-control-play-btn"
           >
             <i className="fa fa-play"></i>
           </a>
-
           <MyVerticallyCenteredModal
-          trailer={modalShow.url}
+            trailer={modalShow.url}
             show={modalShow.show}
-            onHide={() => setModalShow({show: false, url: ''})}
+            onHide={() => setModalShow({ show: false, url: "" })}
           />
         </Carousel.Item>
       );

@@ -1,25 +1,26 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import ItemFilm from "./ItemFilm";
 import Slider from "react-slick";
+
+
 export default function FilmBlock() {
   let { listFilmShowing, listFilmComing } = useSelector(
     (state) => state.filmReducer
   );
   const settings = {
     className: "center",
-
     dots: true,
     arrows: true,
     infinite: true,
-
     speed: 500,
     rows: 2,
     slidesPerRow: 4,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
+
   const renderFilmBlock = (list) => {
-    let isActive = true;
     return list.map((item, index) => {
       return (
         <div key={index}>
@@ -70,7 +71,7 @@ export default function FilmBlock() {
             role="tabpanel"
             aria-labelledby="home-tab"
           >
-            <Slider {...settings}>{renderFilmBlock(listFilmShowing)}</Slider>
+            { listFilmShowing.length ? <Slider {...settings}>{renderFilmBlock(listFilmShowing)}</Slider> : null}
           </div>
 
           <div
@@ -84,5 +85,32 @@ export default function FilmBlock() {
         </div>
       </div>
     </section>
+  );
+}
+
+function SampleNextArrow(props) {
+  const { currentSlide, className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block"}}
+      onClick={onClick}
+    >
+      <img src="./img/next.png" style={{width: '50px', height: '50px'}}/>
+    </div>
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { currentSlide, className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block",
+       }}
+      onClick={onClick}
+    >
+      <img src="./img/prev.png" style={{width: '50px', height: '50px'}}/>
+    </div>
   );
 }
