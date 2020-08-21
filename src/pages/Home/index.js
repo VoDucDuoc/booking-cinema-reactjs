@@ -4,7 +4,7 @@ import FilmBlock from "../../components/filmBlock";
 import ShowTime from "../../components/showTime";
 import { useDispatch } from "react-redux";
 import { getFilmList } from "../../actions/filmAction";
-import { getCinemaList } from "../../actions/cinemaAction";
+import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
 import CarouselHome from "../../components/carousel";
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
     //call API lấy danh sách phim
     dispatch(getFilmList());
     dispatch(getCinemaList());
+    dispatch(getCinemaDetailList());
   }, []);
   return (
     <div>

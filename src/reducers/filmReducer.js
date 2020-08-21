@@ -18,7 +18,6 @@ const filmReducer = (state = initialState, action) => {
       let listFilmNew = [];
       let listFilmShowing = [];
       let listFilmComing = [];
-      listFilmTemp.shift(); //trong API cái phim đầu tiên trong phim nhìn hơi ngáo nên e bỏ
 
       //lấy ds phim
       for (let index = 0; index < 19; index++) {
