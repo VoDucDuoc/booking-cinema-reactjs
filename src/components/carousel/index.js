@@ -3,12 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
 import MyVerticallyCenteredModal from "../modalTrailer";
 import { showModal, hideModal } from "../../actions/modalTrailerAction";
-export default function CarouselHome(props) {
-  const [modalShow, setModalShow] = useState({
-    show: false,
-    url: "",
-  });
-
+export default function CarouselHome() {
+  const {show, url} = useSelector(state => state.modalTrailerReducer);
+  const dispatch = useDispatch();
   let imgArr = [
     "https://vtv1.mediacdn.vn/thumb_w/650/2017/18767610-10155460524695625-7264096587825384151-n-1496327778191-crop-1496328697660.jpg",
     "https://cdn.moveek.com/media/cache/large/wf8ZvpeIRH.jpg",
@@ -18,8 +15,8 @@ export default function CarouselHome(props) {
   ];
 
   let { listFilmShowing } = useSelector((state) => state.filmReducer);
-
-
+  
+  
   const renderCarousel = () => {
     let listFilmCarousel = [];
     listFilmCarousel = listFilmShowing.slice(0, 5);
@@ -36,17 +33,13 @@ export default function CarouselHome(props) {
             src={src}
           />
           <a
-            onClick={() => setModalShow({ show: true, url: item.trailer })}
+            onClick={() => dispatch(showModal(item.trailer))}
             style={{ color: "white" }}
             className="carousel-control-play-btn"
           >
             <i className="fa fa-play"></i>
           </a>
-          <MyVerticallyCenteredModal
-            trailer={modalShow.url}
-            show={modalShow.show}
-            onHide={() => setModalShow({ show: false, url: "" })}
-          />
+          
         </Carousel.Item>
       );
     });
@@ -56,6 +49,11 @@ export default function CarouselHome(props) {
       <section className="carousel-film">
         <Carousel interval={2000}>{renderCarousel()}</Carousel>
       </section>
+      <MyVerticallyCenteredModal
+            trailer={url}
+            show={show}
+            onHide={() => dispatch(hideModal())}
+          />
     </div>
   );
 }

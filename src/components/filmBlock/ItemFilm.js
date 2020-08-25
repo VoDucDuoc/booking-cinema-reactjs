@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import MyVerticallyCenteredModal from "../modalTrailer";
-import { useDispatch, useSelector } from "react-redux";
-import { showModal, hideModal } from "../../actions/modalTrailerAction";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { showModal } from "../../actions/modalTrailerAction";
 
 export default function ItemFilm(props) {
-  const [modalShow, setModalShow] = useState({
-    show: false,
-    url: "",
-  });
+  const dispatch = useDispatch();
   return (
     <div className="card text-left home-film__items" style={{ border: "none" }}>
       <div style={{ position: "relative" }}>
@@ -18,7 +14,7 @@ export default function ItemFilm(props) {
           alt="123"
         />
         <div className="layout-film-item">
-          <a onClick={() => setModalShow({ show: true, url: props.trailer })}>
+          <a onClick={() => dispatch(showModal(props.trailer))}>
             <i className="fa fa-play"></i>
           </a>
         </div>
@@ -35,11 +31,6 @@ export default function ItemFilm(props) {
 
         <p className="card-text mt-2">105 phút</p>
       </div>
-      <MyVerticallyCenteredModal
-        trailer={modalShow.url}
-        show={modalShow.show}
-        onHide={() => setModalShow({ show: false, url: "" })}
-      />
     </div>
   );
 }
