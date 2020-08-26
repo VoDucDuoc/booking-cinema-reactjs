@@ -13,21 +13,50 @@ export default function ShowTime() {
       <img alt={logo} style={{ width: "50px", height: "50px" }} src={logo} />
     );
   };
-  const renderCinemaShowTime = (maHeThongRap) => {
+  const renderButtonTime = (showTimes) => {
+    showTimes.map((item, index) => {
+      return (
+        // <button key={index} className="btn btn-secondary">{item.ngayGioChieu}</button>
+        <div key={index}>aaaa</div>
+      )
+    })
+  }
+  const renderShowtime = (listFilm) => {
+    return listFilm.map((filmItem, index) => {
+      if (filmItem.maPhim === 1314) {
+        return;
+      }
+      return (
+        <div className="mt-3" key={index}>
+          <div className="d-flex align-items-center">
+            <img
+              style={{ width: "70px", height: "70px", margin: "0 10px" }}
+              src={filmItem.hinhAnh}
+              alt={filmItem.hinhAnh}
+            />
+            <p style={{ fontWeight: "bold" }}>{filmItem.tenPhim}</p>
+          </div>
+          {renderButtonTime(filmItem.lstLichChieuTheoPhim)}
+        </div>
+      );
+    });
+  };
+  const renderTabpane = (maHeThongRap) => {
     return listCinemaDetail.map((cinema) => {
-      let renderShowtime = [];
+      let renderTabpane = [];
       if (cinema.maHeThongRap === maHeThongRap) {
         let render = "";
         cinema.lstCumRap.map((cinemaDetail, index) => {
           render = (
             <Tab.Pane key={index} eventKey={`${cinema.maHeThongRap}-${index}`}>
               <p>{cinemaDetail.tenCumRap}</p>
+              {renderShowtime(cinemaDetail.danhSachPhim)}
             </Tab.Pane>
           );
-          renderShowtime.push(render);
+          renderTabpane.push(render);
         });
       }
-      return renderShowtime;
+      return renderTabpane;
     });
   };
   const renderCinemaDetail = (maHeThongRap, logo) => {
@@ -47,9 +76,8 @@ export default function ShowTime() {
                     src={logo}
                     alt={logo}
                   />
-                  <div className="card-body">
-                    <h4 
-                    className="card-title">{cinemaDetail.tenCumRap}</h4>
+                  <div className="card-body px-0">
+                    <h4 className="card-title">{cinemaDetail.tenCumRap}</h4>
                     <p className="card-text">{cinemaDetail.diaChi}</p>
                   </div>
                 </div>
@@ -73,15 +101,13 @@ export default function ShowTime() {
         >
           <Tab.Container defaultActiveKey={`${item.maHeThongRap}-0`}>
             <Row>
-              <Col sm={5}>
+              <Col className="tab-modify" sm={5}>
                 <Nav variant="pills" className="flex-column">
                   {renderCinemaDetail(item.maHeThongRap, item.logo)}
                 </Nav>
               </Col>
-              <Col sm={7}>
-                <Tab.Content>
-                  {renderCinemaShowTime(item.maHeThongRap)}
-                </Tab.Content>
+              <Col style={{ borderLeft: "none" }} className="tab-modify" sm={7}>
+                <Tab.Content>{renderTabpane(item.maHeThongRap)}</Tab.Content>
               </Col>
             </Row>
           </Tab.Container>

@@ -15,10 +15,9 @@ const filmReducer = (state = initialState, action) => {
     }
     case GET_FILM_LIST.SUCCESS: {
       let listFilmTemp = action.payload.data;
-      let listFilmNew = [];
       let listFilmShowing = [];
       let listFilmComing = [];
-
+      listFilmTemp.shift();
       //lấy ds phim
       for (let index = 0; index < 19; index++) {
         listFilmShowing.push(listFilmTemp.shift());

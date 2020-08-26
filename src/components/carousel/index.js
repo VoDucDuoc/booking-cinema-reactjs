@@ -4,7 +4,7 @@ import Carousel from "react-bootstrap/Carousel";
 import MyVerticallyCenteredModal from "../modalTrailer";
 import { showModal, hideModal } from "../../actions/modalTrailerAction";
 export default function CarouselHome() {
-  const {show, url} = useSelector(state => state.modalTrailerReducer);
+  const {show, url, interval} = useSelector(state => state.modalTrailerReducer);
   const dispatch = useDispatch();
   let imgArr = [
     "https://vtv1.mediacdn.vn/thumb_w/650/2017/18767610-10155460524695625-7264096587825384151-n-1496327778191-crop-1496328697660.jpg",
@@ -47,7 +47,7 @@ export default function CarouselHome() {
   return (
     <div>
       <section className="carousel-film">
-        <Carousel interval={2000}>{renderCarousel()}</Carousel>
+        <Carousel interval={interval}>{renderCarousel()}</Carousel>
       </section>
       <MyVerticallyCenteredModal
             trailer={url}
