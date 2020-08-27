@@ -14,13 +14,16 @@ export default function ShowTime() {
     );
   };
   const renderButtonTime = (showTimes) => {
-    showTimes.map((item, index) => {
+    return showTimes.map((item, index) => {
+      console.log(item);
+      let time = item.ngayChieuGioChieu.substring(11, 16);
       return (
-        // <button key={index} className="btn btn-secondary">{item.ngayGioChieu}</button>
-        <div key={index}>aaaa</div>
-      )
-    })
-  }
+        <button key={index} className="btn btn-time">
+          {time}
+        </button>
+      );
+    });
+  };
   const renderShowtime = (listFilm) => {
     return listFilm.map((filmItem, index) => {
       if (filmItem.maPhim === 1314) {
@@ -30,7 +33,7 @@ export default function ShowTime() {
         <div className="mt-3" key={index}>
           <div className="d-flex align-items-center">
             <img
-              style={{ width: "70px", height: "70px", margin: "0 10px" }}
+              style={{ width: "70px", height: "70px", margin: "0 10px 0 20px" }}
               src={filmItem.hinhAnh}
               alt={filmItem.hinhAnh}
             />
@@ -47,9 +50,9 @@ export default function ShowTime() {
       if (cinema.maHeThongRap === maHeThongRap) {
         let render = "";
         cinema.lstCumRap.map((cinemaDetail, index) => {
+          console.log(cinemaDetail);
           render = (
             <Tab.Pane key={index} eventKey={`${cinema.maHeThongRap}-${index}`}>
-              <p>{cinemaDetail.tenCumRap}</p>
               {renderShowtime(cinemaDetail.danhSachPhim)}
             </Tab.Pane>
           );
@@ -100,7 +103,7 @@ export default function ShowTime() {
           title={renderLogo(item.logo)}
         >
           <Tab.Container defaultActiveKey={`${item.maHeThongRap}-0`}>
-            <Row>
+            <Row className="m-0">
               <Col className="tab-modify" sm={5}>
                 <Nav variant="pills" className="flex-column">
                   {renderCinemaDetail(item.maHeThongRap, item.logo)}
