@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import ItemFilm from "./ItemFilm";
 import Slider from "react-slick";
 
@@ -35,7 +35,7 @@ export default function FilmBlock() {
   };
 
   return (
-    <section className="home-film">
+    <section className="home-film" id="filmBlock">
       <div className="home-film__content">
         <ul className="nav nav-tabs" role="tablist">
           <li className="nav-item">

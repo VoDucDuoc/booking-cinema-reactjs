@@ -1,6 +1,7 @@
 .showstime {
   max-width: 940px;
   margin: 0 auto;
+  padding-top: 75px;
   .nav-item .nav-link.active {
     background: none;
     color: black;
@@ -36,6 +37,8 @@
       color: #108f3e;
       font-size: 18px;
       transition: all 0.2s;
+      border-radius: 7px;
+      padding: $pd-1 $pd-3;
       &:hover{
         color: $color-red-0;
       }

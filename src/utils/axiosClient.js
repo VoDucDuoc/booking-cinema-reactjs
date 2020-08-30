@@ -10,7 +10,7 @@ const axiosClient = axios.create({
 //add token cach 2 
 
 axiosClient.interceptors.request.use((config) => {
-    // console.log(config);
+    console.log(config);
     // console.log(localStorage.getItem("userInfo"));
     const userInfo = localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"));
 

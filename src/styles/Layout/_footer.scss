@@ -3,4 +3,14 @@
     margin-top: 20px;
     padding-top: 20px;
     color: $color-white;
+    h4, p{
+        font-size: $fs-1;
+    }
+    p, i{
+        color: $color-gray-0;
+    }
+    i{
+        font-size: $fs-4;
+        margin: 0 10px;
+    }
 }

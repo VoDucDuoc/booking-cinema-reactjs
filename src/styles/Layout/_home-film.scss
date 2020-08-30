@@ -1,5 +1,9 @@
 .home-film {
+  padding-top: 75px;
   .home-film__content {
+    .slick-slider{
+      z-index: -1;
+    }
     max-width: 940px;
     margin: 0 auto;
     .nav-tabs {

@@ -4,10 +4,10 @@ export default function Header() {
   return (
     <section className="header">
       <nav className="navbar navbar-expand-md navbar-light bg-light justify-content-between">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand ml-4 mr-0 p-0" href="#">
           <img
-            src="/img/1200x630wa.png"
-            style={{ width: 100, height: 50 }}
+            src="/img/layer1.png"
+            style={{ width: 50, height: 50 }}
             alt="123"
           />
         </a>
@@ -26,12 +26,12 @@ export default function Header() {
         <div className="collapse navbar-collapse flex-grow-0 center">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="#filmBlock">
                 Lịch chiếu <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="#showTime">
                 Cụm rạp
               </a>
             </li>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
 import MyVerticallyCenteredModal from "../modalTrailer";
@@ -31,6 +31,7 @@ export default function CarouselHome() {
             style={{ height: "600px" }}
             className="d-block w-100"
             src={src}
+            alt={src}
           />
           <a
             onClick={() => dispatch(showModal(item.trailer))}

@@ -1,9 +1,18 @@
-body{
-    font-family: 'SF Text Regular';
-    line-height: 1.42857143;
+body {
+  font-family: "SF Text Regular";
+  line-height: 1.42857143;
 }
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }

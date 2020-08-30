@@ -15,7 +15,7 @@ export default function ShowTime() {
   };
   const renderButtonTime = (showTimes) => {
     return showTimes.map((item, index) => {
-      console.log(item);
+
       let time = item.ngayChieuGioChieu.substring(11, 16);
       return (
         <button key={index} className="btn btn-time">
@@ -50,7 +50,7 @@ export default function ShowTime() {
       if (cinema.maHeThongRap === maHeThongRap) {
         let render = "";
         cinema.lstCumRap.map((cinemaDetail, index) => {
-          console.log(cinemaDetail);
+
           render = (
             <Tab.Pane key={index} eventKey={`${cinema.maHeThongRap}-${index}`}>
               {renderShowtime(cinemaDetail.danhSachPhim)}
@@ -67,7 +67,7 @@ export default function ShowTime() {
       let renderAddress = [];
       if (cinema.maHeThongRap === maHeThongRap) {
         let render = "";
-        console.log(maHeThongRap);
+ 
         cinema.lstCumRap.map((cinemaDetail, index) => {
           render = (
             <Nav.Item key={index}>
@@ -119,7 +119,7 @@ export default function ShowTime() {
     });
   };
   return (
-    <div className="mt-5 showstime">
+    <div className="showstime" id="showTime">
       <Tabs
         id="controlled-tab-example"
         activeKey={key}

@@ -1,33 +1,86 @@
-.home-tool{
-    .home-tool__content{
-        max-width: 940px;
-        margin: 0 auto;
-        height: 80px;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        transform: translateY(-50%);
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0,0,0,.3);
-
+.home-tool {
+  height: 0;
+  .home-tool__content {
+    padding: 0 $pd-3;
+    max-width: 940px;
+    margin: 0 auto;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    font-size: $fs-1;
+    font-weight: 400;
     background-color: #fff;
     border-radius: 5px;
     z-index: 2;
-    
-    .home-tool__item{
-        margin: 0 $mg-2;
-        a{
-            @include text($color-black, $fs-3)
-        }
-        a:after{
-            margin-left: 100px;
-        }
-        a:hover{
-            text-decoration: none;
-        }
-        button{
-            padding: $pd-2  $pd-4;
-        }
+    .dropdown{
+     width: 180px;
+     text-align: left;
     }
-}
+    .dropdown:focus{
+      outline: none;
+    }
+    .dropdown-menu {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+    .dropdown-toggle::after{
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%);
+      right: 0;
+    }
+    .dropdown-toggle:active:focus{
+      box-shadow: none;
+    }
+    .btn-primary.dropdown-toggle{
+      color: black;
+    }
+    .dropdown-toggle:focus {
+      border: none;
+      box-shadow: none;
+      background-color: white;
+      outline: none;
+    }
+    .dropdown-toggle {
+      color: black;
+      background-color: white;
+      border: none;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 100%;
+      outline: none;
+      text-align: left;
+
+    }
+    .btn-modify {
+      background-color: $color-gray-1;
+      color: white;
+    }
+    .btn-booking{
+      background-color: $color-red-0;
+      color: white;
+    }
+    .btn-booking:focus, .btn-modify:focus{
+      box-shadow: none;
+    }
+    .home-tool__item {
+      margin: 0 $mg-2;
+      a {
+        @include text($color-black, $fs-3);
+      }
+      a:after {
+        margin-left: 100px;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      button {
+        padding: $pd-2 $pd-4;
+      }
+    }
+  }
 }

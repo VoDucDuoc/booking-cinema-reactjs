@@ -26,7 +26,6 @@ const filmReducer = (state = initialState, action) => {
       listFilmShowing.map((item) => {
         return listFilmComing.unshift(item);
       });
-
       return {
         ...state,
         loading: false,
