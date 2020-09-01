@@ -7,8 +7,9 @@ export default function FilmBlock() {
   let { listFilmShowing, listFilmComing } = useSelector(
     (state) => state.filmReducer
   );
+
   const settings = {
-    className: "center",
+
     dots: true,
     arrows: true,
     infinite: true,

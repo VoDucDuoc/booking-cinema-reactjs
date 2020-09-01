@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Dropdown } from "react-bootstrap";
+
 export default function HomeTools() {
   const [film, setFilm] = useState({
     filmName: "Phim",
@@ -17,12 +18,41 @@ export default function HomeTools() {
   const { listCinemaDetail } = useSelector(
     (state) => state.cinemaDetailReducer
   );
+ 
+
+
+  const resetState = (value) => {
+    switch (value) {
+      case "film":
+        {
+          setCinema({ cinemaId: "", cinemaName: "Rạp" });
+          setDate("Ngày xem");
+          setTime("Suất chiếu");
+        }
+        break;
+      case "cinema":
+        {
+          setDate("Ngày xem");
+          setTime("Suất chiếu");
+        }
+        break;
+      case "date":
+        {
+          setTime("Suất chiếu");
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const colorBtnBooking = () => {
     if(film.filmName !== "Phim" && cinema.cinemaName !=="Rạp" && date !== "Ngày xem" && time !=="Suất chiếu"){
       return true
     }
   }
+
   const checkCinema = () => {
     if (film.filmName === "Phim") {
       return <Dropdown.Item>Hãy chọn phim</Dropdown.Item>;
@@ -81,7 +111,6 @@ export default function HomeTools() {
   };
 
   const renderDate = () => {
-    console.log(cinema.cinemaName);
     return listCinemaDetail.map((cinemaGroup) => {
       return cinemaGroup.lstCumRap.map((cinemaDetail) => {
         return cinemaDetail.danhSachPhim.map((propsFilm) => {
@@ -114,32 +143,6 @@ export default function HomeTools() {
     });
   };
 
-  const resetState = (value) => {
-    switch (value) {
-      case "film":
-        {
-          setCinema({ cinemaId: "", cinemaName: "Rạp" });
-          setDate("Ngày xem");
-          setTime("Suất chiếu");
-        }
-        break;
-      case "cinema":
-        {
-          setDate("Ngày xem");
-          setTime("Suất chiếu");
-        }
-        break;
-      case "date":
-        {
-          setTime("Suất chiếu");
-        }
-        break;
-
-      default:
-        break;
-    }
-  };
-
   const renderFilm = () => {
     return listFilmShowing.map((film, index) => {
       return (
@@ -157,7 +160,6 @@ export default function HomeTools() {
   };
 
   const renderCinema = () => {
-    console.log("idddd", film.filmId);
     return listCinemaDetail.map((cinemaGroup) => {
       return cinemaGroup.lstCumRap.map((cinemaDetail) => {
         return cinemaDetail.danhSachPhim.map((propsFilm, index) => {
@@ -181,11 +183,14 @@ export default function HomeTools() {
       });
     });
   };
+
+
+
   return (
     <section className="home-tool">
       <div className="row home-tool__content">
         <Dropdown>
-          <Dropdown.Toggle id="dropdown-film">{film.filmName}</Dropdown.Toggle>
+          <Dropdown.Toggle  id="dropdown-film">{film.filmName}</Dropdown.Toggle>
           <Dropdown.Menu flip={false}>{renderFilm()}</Dropdown.Menu>
         </Dropdown>
         <Dropdown>

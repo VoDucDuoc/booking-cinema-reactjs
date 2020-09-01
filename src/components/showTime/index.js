@@ -7,15 +7,17 @@ export default function ShowTime() {
   const { listCinemaDetail } = useSelector(
     (state) => state.cinemaDetailReducer
   );
+
   const [key, setKey] = useState("BHDStar");
+
   const renderLogo = (logo) => {
     return (
       <img alt={logo} style={{ width: "50px", height: "50px" }} src={logo} />
     );
   };
+
   const renderButtonTime = (showTimes) => {
     return showTimes.map((item, index) => {
-
       let time = item.ngayChieuGioChieu.substring(11, 16);
       return (
         <button key={index} className="btn btn-time">
@@ -24,6 +26,7 @@ export default function ShowTime() {
       );
     });
   };
+
   const renderShowtime = (listFilm) => {
     return listFilm.map((filmItem, index) => {
       if (filmItem.maPhim === 1314) {
@@ -44,6 +47,7 @@ export default function ShowTime() {
       );
     });
   };
+
   const renderTabpane = (maHeThongRap) => {
     return listCinemaDetail.map((cinema) => {
       let renderTabpane = [];
@@ -62,6 +66,7 @@ export default function ShowTime() {
       return renderTabpane;
     });
   };
+
   const renderCinemaDetail = (maHeThongRap, logo) => {
     return listCinemaDetail.map((cinema) => {
       let renderAddress = [];
@@ -69,6 +74,7 @@ export default function ShowTime() {
         let render = "";
  
         cinema.lstCumRap.map((cinemaDetail, index) => {
+          console.log(cinemaDetail)
           render = (
             <Nav.Item key={index}>
               <Nav.Link eventKey={`${cinema.maHeThongRap}-${index}`}>
@@ -94,6 +100,7 @@ export default function ShowTime() {
       return renderAddress;
     });
   };
+
   const renderCinema = () => {
     return listCinema.map((item, index) => {
       return (
@@ -118,6 +125,7 @@ export default function ShowTime() {
       );
     });
   };
+
   return (
     <div className="showstime" id="showTime">
       <Tabs
