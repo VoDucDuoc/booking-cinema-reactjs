@@ -1,0 +1,10 @@
+.film-detail{
+    .film-detail__btn{
+        background-color: $color-red-0;
+        color: white;
+        &:hover{
+            background-color: #b42a14;
+        }
+    }
+    
+}

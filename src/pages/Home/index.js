@@ -9,20 +9,23 @@ import CarouselHome from "../../components/carousel";
 
 export default function Home() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     //call API lấy danh sách phim
     dispatch(getFilmList());
     dispatch(getCinemaList());
     dispatch(getCinemaDetailList());
   }, []);
+  
   return (
     <div style={{width: '100%'}}>
     
-      <CarouselHome/>
+      <CarouselHome />
    
       <HomeTools/>
       
       <FilmBlock/>
+      
       <ShowTime/>
 
     </div>

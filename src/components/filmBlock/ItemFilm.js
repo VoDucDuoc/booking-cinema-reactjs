@@ -8,6 +8,7 @@ export default function ItemFilm(props) {
     <div className="card text-left home-film__items" style={{ border: "none" }}>
       <div style={{ position: "relative" }}>
         <img
+        onError={(e)=>{e.target.onerror = null; e.target.src="/img/loading.png"}}
           className="card-img-top"
           style={{ width: "100%", height: "270px" }}
           src={props.hinhAnh}

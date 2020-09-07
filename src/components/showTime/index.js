@@ -4,9 +4,7 @@ import { Tab, Row, Nav, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 export default function ShowTime() {
   const { listCinema } = useSelector((state) => state.cinemaReducer);
-  const { listCinemaDetail } = useSelector(
-    (state) => state.cinemaDetailReducer
-  );
+  const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
 
   const [key, setKey] = useState("BHDStar");
 
@@ -18,6 +16,9 @@ export default function ShowTime() {
 
   const renderButtonTime = (showTimes) => {
     return showTimes.map((item, index) => {
+      if(item.ngayChieuGioChieu.substring(0,10) !== "2019-01-01"){
+        return
+      }
       let time = item.ngayChieuGioChieu.substring(11, 16);
       return (
         <button key={index} className="btn btn-time">
@@ -29,13 +30,14 @@ export default function ShowTime() {
 
   const renderShowtime = (listFilm) => {
     return listFilm.map((filmItem, index) => {
-      if (filmItem.maPhim === 1314) {
-        return;
-      }
       return (
         <div className="mt-3" key={index}>
           <div className="d-flex align-items-center">
             <img
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "./img/loading.png";
+              }}
               style={{ width: "70px", height: "70px", margin: "0 10px 0 20px" }}
               src={filmItem.hinhAnh}
               alt={filmItem.hinhAnh}
@@ -54,7 +56,6 @@ export default function ShowTime() {
       if (cinema.maHeThongRap === maHeThongRap) {
         let render = "";
         cinema.lstCumRap.map((cinemaDetail, index) => {
-
           render = (
             <Tab.Pane key={index} eventKey={`${cinema.maHeThongRap}-${index}`}>
               {renderShowtime(cinemaDetail.danhSachPhim)}
@@ -72,9 +73,8 @@ export default function ShowTime() {
       let renderAddress = [];
       if (cinema.maHeThongRap === maHeThongRap) {
         let render = "";
- 
+
         cinema.lstCumRap.map((cinemaDetail, index) => {
-          console.log(cinemaDetail)
           render = (
             <Nav.Item key={index}>
               <Nav.Link eventKey={`${cinema.maHeThongRap}-${index}`}>

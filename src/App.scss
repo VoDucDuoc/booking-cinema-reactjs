@@ -1,6 +1,5 @@
 @import './styles/Base/reset';
 
-@import 'node_modules/react-modal-video/scss/modal-video.scss';
 @import "slick-carousel/slick/slick.scss";
 @import "slick-carousel/slick/slick-theme.scss";
 
@@ -15,5 +14,6 @@
 @import './styles/Layout/showstime';
 @import './styles/Base/normalized';
 @import './styles/Layout/footer';
+@import './styles/Layout/film-detail';
 
 @import './styles/Components/button';

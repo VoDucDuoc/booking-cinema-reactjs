@@ -1,4 +1,4 @@
-import { GET_FILM_LIST } from "../constants/filmConstant";
+import { GET_FILM_LIST, GET_FILM_DETAIL } from "../constants/filmConstant";
 
 const initialState = {
   listFilmShowing: [],
@@ -17,12 +17,9 @@ const filmReducer = (state = initialState, action) => {
       let listFilmTemp = action.payload.data;
       let listFilmShowing = [];
       let listFilmComing = [];
-      listFilmTemp.shift();
-      //lấy ds phim
-      for (let index = 0; index < 19; index++) {
-        listFilmShowing.push(listFilmTemp.shift());
-      }
-
+      
+     
+      listFilmShowing = listFilmTemp;
       listFilmShowing.map((item) => {
         return listFilmComing.unshift(item);
       });
@@ -39,6 +36,16 @@ const filmReducer = (state = initialState, action) => {
       return { ...state, loading: false, error: true };
     }
 
+
+    case GET_FILM_DETAIL.REQUEST: {
+      return {...state, loading: true, error: false};
+    }
+    case GET_FILM_DETAIL.SUCCESS: {
+      return {...state,detailFilm: action.payload.data, loading: false, error: false };
+    }
+    case GET_FILM_DETAIL.FAIL: {
+      return {...state, loading: false, error: true};
+    }
     default:
       return state;
   }

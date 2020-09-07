@@ -16,10 +16,8 @@ export default function HomeTools() {
 
   const { listFilmShowing } = useSelector((state) => state.filmReducer);
   const { listCinemaDetail } = useSelector(
-    (state) => state.cinemaDetailReducer
+    (state) => state.cinemaReducer
   );
- 
-
 
   const resetState = (value) => {
     switch (value) {

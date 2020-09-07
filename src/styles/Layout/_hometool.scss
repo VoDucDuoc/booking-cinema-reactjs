@@ -1,4 +1,6 @@
 .home-tool {
+  z-index: 2;
+  position: relative;
   height: 0;
   .home-tool__content {
     padding: 0 $pd-3;

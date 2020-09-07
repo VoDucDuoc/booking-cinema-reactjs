@@ -30,7 +30,7 @@ export const getCinemaDetailList = () =>{
     dispatch({
       type: GET_CINEMA_DETAIL_LIST.REQUEST,
     });
-    axios.get(`QuanLyRap/LayThongTinLichChieuHeThongRap`)
+    axios.get(`QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP02`)
   .then((result)=>{
     dispatch({
       type: GET_CINEMA_DETAIL_LIST.SUCCESS,

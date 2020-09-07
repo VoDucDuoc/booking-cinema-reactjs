@@ -1,10 +1,13 @@
 import React from "react";
-
+import { useHistory } from "react-router-dom";
 export default function Header() {
+  const history = useHistory();
   return (
     <section className="header">
       <nav className="navbar navbar-expand-md navbar-light bg-light justify-content-between">
-        <a className="navbar-brand ml-4 mr-0 p-0" href="#">
+        <a onClick={()=>{
+          history.push('/')
+        }} className="navbar-brand ml-4 mr-0 p-0" href="">
           <img
             src="/img/layer1.png"
             style={{ width: 50, height: 50 }}

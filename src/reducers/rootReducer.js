@@ -1,12 +1,13 @@
 import { combineReducers } from "redux";
 import filmReducer from "./filmReducer";
-import {cinemaReducer, cinemaDetailReducer} from './cinemaReducer';
+import cinemaReducer from './cinemaReducer';
 import modalTrailerReducer from './modalTrailerReducer';
+import scrollReducer from "./scrollReducer";
 const rootReducer = combineReducers({
    filmReducer,
    cinemaReducer,
    modalTrailerReducer,
-   cinemaDetailReducer,
+   scrollReducer,
 });
 
 export default rootReducer
