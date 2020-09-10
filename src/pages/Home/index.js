@@ -7,9 +7,8 @@ import { getFilmList } from "../../actions/filmAction";
 import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
 import CarouselHome from "../../components/carousel";
 
-export default function Home() {
+export default function Home(props) {
   const dispatch = useDispatch();
-
   useEffect(() => {
     //call API lấy danh sách phim
     dispatch(getFilmList());

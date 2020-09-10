@@ -79,6 +79,7 @@
       }
     }
     .nav-item {
+      cursor: pointer;
       a {
         @include text($color-black, $fs-3);
         padding: 0;

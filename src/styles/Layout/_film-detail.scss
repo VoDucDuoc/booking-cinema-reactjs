@@ -1,10 +1,29 @@
-.film-detail{
-    .film-detail__btn{
-        background-color: $color-red-0;
-        color: white;
-        &:hover{
-            background-color: #b42a14;
-        }
+.film-detail {
+  .film-detail__btn {
+    background-color: $color-red-0;
+    color: white;
+    &:hover {
+      background-color: #b42a14;
     }
-    
+  }
+  .film-detail__rating {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0%;
+    display: flex;
+    flex-direction: column;
+    p{
+      color: white;
+      margin: 0 auto;
+    }
+    .CircularProgressbar {
+      width: 130px;
+      height: 130px;
+        margin-bottom: $mg-2;
+      .CircularProgressbar-text {
+        font-size: $fs-5;
+      }
+    }
+  }
 }

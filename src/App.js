@@ -4,14 +4,17 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import UserRoute from './components/UserRoute';
 import Home from "./pages/Home";
 import FilmDetail from './pages/FilmDetail';
+import Test from './test';
 
 
 function App() {
+  
   return (
     <BrowserRouter>
       <Switch>
         <UserRoute exact path="/" component={Home}/>
-        <UserRoute path="/film/:id" component={FilmDetail}/>
+        <UserRoute path="/film/:filmId" component={FilmDetail}/>
+    {/* <Test/> */}
       </Switch>
     </BrowserRouter>
   );

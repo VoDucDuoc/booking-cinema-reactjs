@@ -51,7 +51,7 @@ export default function CarouselHome() {
   };
   return (
     <div>
-      <section className="carousel-film">
+      <section className="carousel-film" id="carousel">
         <Carousel interval={interval}>{renderCarousel()}</Carousel>
       </section>
       <MyVerticallyCenteredModal

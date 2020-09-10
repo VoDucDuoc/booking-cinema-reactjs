@@ -1,13 +1,28 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 export default function Header() {
   const history = useHistory();
+  const params = useParams();
+
+  const scrollTo = (element) =>{
+    document.getElementById(element).scrollIntoView({behavior: "smooth"})
+  }
+  const handleClickLogo = () =>{
+    const count = Object.keys(params).length;
+    if(count === 0 ){
+      scrollTo('carousel')
+    }
+    else{
+      history.push('/')
+    }
+  }
   return (
     <section className="header">
       <nav className="navbar navbar-expand-md navbar-light bg-light justify-content-between">
-        <a onClick={()=>{
-          history.push('/')
-        }} className="navbar-brand ml-4 mr-0 p-0" href="">
+        <a style={{cursor: 'pointer'}} onClick={()=>{
+          // history.push('/')
+          handleClickLogo();
+        }} className="navbar-brand ml-4 mr-0 p-0">
           <img
             src="/img/layer1.png"
             style={{ width: 50, height: 50 }}
@@ -29,12 +44,12 @@ export default function Header() {
         <div className="collapse navbar-collapse flex-grow-0 center">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="#filmBlock">
-                Lịch chiếu <span className="sr-only">(current)</span>
+              <a className="nav-link" onClick={()=>{scrollTo("filmBlock")}}>
+                Lịch chiếu
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#showTime">
+              <a className="nav-link" onClick={()=>{scrollTo("showTime")}}>
                 Cụm rạp
               </a>
             </li>

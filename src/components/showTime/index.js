@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import { Tab, Row, Nav, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
+
+export const renderLogo = (logo) => {
+  return (
+    <img alt={logo} style={{ width: "50px", height: "50px" }} src={logo} />
+  );
+};
+
 export default function ShowTime() {
   const { listCinema } = useSelector((state) => state.cinemaReducer);
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
 
-  const [key, setKey] = useState("BHDStar");
+  const keyDefault = listCinema[0]?.maHeThongRap;
 
-  const renderLogo = (logo) => {
-    return (
-      <img alt={logo} style={{ width: "50px", height: "50px" }} src={logo} />
-    );
-  };
+  const [key, setKey] = useState(keyDefault);
+
+  
 
   const renderButtonTime = (showTimes) => {
     return showTimes.map((item, index) => {
@@ -129,7 +134,7 @@ export default function ShowTime() {
   return (
     <div className="showstime" id="showTime">
       <Tabs
-        id="controlled-tab-example"
+        
         activeKey={key}
         onSelect={(k) => setKey(k)}
       >

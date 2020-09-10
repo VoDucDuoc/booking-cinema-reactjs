@@ -79,17 +79,3 @@
   left: unset;
   right: -10%;
 }
-
-.film-detail {
-  .CircularProgressbar {
-    width: 130px;
-    height: 130px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0%;
-    .CircularProgressbar-text {
-      font-size: $fs-5;
-    }
-  }
-}
