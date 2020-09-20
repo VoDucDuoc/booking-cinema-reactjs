@@ -1,2 +1,3 @@
-# My project booking movie with Reactjs
+# My project booking movie with Reactjs (in progress)
 ##### Using Reactjs, Html, Scss, Redux, Redux-Thunk, Axios, Bootstrap,...
+##### Click [there](https://youtu.be/XmqtIKY8FMo) to watch demo. 
