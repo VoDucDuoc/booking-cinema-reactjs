@@ -1,4 +1,33 @@
 .film-detail {
+  .showstime{
+    .tab-modify{
+      height: 500px;
+    }
+    
+    .tab-title.nav-tabs a{
+      opacity: 1;
+    }
+  }
+  .tab-modify .nav-item {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      height: 1px;
+      background-color: #ebebec;
+      width: 70%;
+      display: block;
+      opacity: 1;
+      transform: translateX(-50%);
+    }
+    a {
+      text-align: center;
+      display: flex;
+      align-items: center;
+    }
+  }
   .film-detail__btn {
     background-color: $color-red-0;
     color: white;
@@ -13,14 +42,14 @@
     right: 0%;
     display: flex;
     flex-direction: column;
-    p{
+    p {
       color: white;
       margin: 0 auto;
     }
     .CircularProgressbar {
       width: 130px;
       height: 130px;
-        margin-bottom: $mg-2;
+      margin-bottom: $mg-2;
       .CircularProgressbar-text {
         font-size: $fs-5;
       }

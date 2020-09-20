@@ -79,3 +79,23 @@
   left: unset;
   right: -10%;
 }
+
+.nav-tabs.tab-title {
+  border: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  a {
+    border: none;
+    @include text($color-black, $fs-4);
+    font-family: "SF Medium";
+    transition: all 0.3s;
+  }
+  a:hover {
+    font-size: $fs-5;
+  }
+  a.active {
+    @include text($color-red-1, $fs-5);
+  }
+}

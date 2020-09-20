@@ -3,7 +3,7 @@ import {  useSelector } from "react-redux";
 import ItemFilm from "./ItemFilm";
 import Slider from "react-slick";
 
-export default function FilmBlock() {
+export default function HomeFilm() {
   let { listFilmShowing, listFilmComing } = useSelector(
     (state) => state.filmReducer
   );
@@ -38,15 +38,14 @@ export default function FilmBlock() {
   return (
     <section className="home-film" id="filmBlock">
       <div className="home-film__content">
-        <ul className="nav nav-tabs" role="tablist">
+        <ul className="nav nav-tabs tab-title" role="tablist">
           <li className="nav-item">
             <a
               className="nav-link active"
               data-toggle="tab"
               href="#nowShowing"
               role="tab"
-              aria-controls="nowShowing"
-              aria-selected="true"
+              
             >
               Đang chiếu
             </a>
@@ -57,8 +56,8 @@ export default function FilmBlock() {
               data-toggle="tab"
               href="#comingSoon"
               role="tab"
-              aria-controls="comingSoon"
-              aria-selected="false"
+              
+              
             >
               Sắp chiếu
             </a>
@@ -69,7 +68,7 @@ export default function FilmBlock() {
             className="tab-pane fade show active"
             id="nowShowing"
             role="tabpanel"
-            aria-labelledby="home-tab"
+           
           >
             {listFilmShowing.length ? (
               <Slider {...settings}>{renderFilmBlock(listFilmShowing)}</Slider>
@@ -80,7 +79,7 @@ export default function FilmBlock() {
             className="tab-pane fade"
             id="comingSoon"
             role="tabpanel"
-            aria-labelledby="profile-tab"
+            
           >
             {listFilmComing.length ? (
               <Slider {...settings}>{renderFilmBlock(listFilmComing)}</Slider>

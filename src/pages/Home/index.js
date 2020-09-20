@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import HomeTools from "../../components/homeTools";
-import FilmBlock from "../../components/filmBlock";
+import HomeFilm from "../../components/homeFilm";
 import ShowTime from "../../components/showTime";
 import { useDispatch } from "react-redux";
 import { getFilmList } from "../../actions/filmAction";
 import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
 import CarouselHome from "../../components/carousel";
-
+import News  from "../../components/news";
 export default function Home(props) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,9 +23,11 @@ export default function Home(props) {
    
       <HomeTools/>
       
-      <FilmBlock/>
+      <HomeFilm/>
       
       <ShowTime/>
+
+      <News />
 
     </div>
   );

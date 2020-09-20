@@ -20,7 +20,6 @@ export default function Header() {
     <section className="header">
       <nav className="navbar navbar-expand-md navbar-light bg-light justify-content-between">
         <a style={{cursor: 'pointer'}} onClick={()=>{
-          // history.push('/')
           handleClickLogo();
         }} className="navbar-brand ml-4 mr-0 p-0">
           <img
@@ -54,7 +53,7 @@ export default function Header() {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" onClick={()=>{scrollTo("news")}}>
                 Tin tức
               </a>
             </li>

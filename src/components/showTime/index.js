@@ -3,11 +3,7 @@ import Tabs from "react-bootstrap/Tabs";
 import { Tab, Row, Nav, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-export const renderLogo = (logo) => {
-  return (
-    <img alt={logo} style={{ width: "50px", height: "50px" }} src={logo} />
-  );
-};
+
 
 export default function ShowTime() {
   const { listCinema } = useSelector((state) => state.cinemaReducer);
@@ -17,12 +13,10 @@ export default function ShowTime() {
 
   const [key, setKey] = useState(keyDefault);
 
-  
-
   const renderButtonTime = (showTimes) => {
     return showTimes.map((item, index) => {
-      if(item.ngayChieuGioChieu.substring(0,10) !== "2019-01-01"){
-        return
+      if (item.ngayChieuGioChieu.substring(0, 10) !== "2019-01-01") {
+        return;
       }
       let time = item.ngayChieuGioChieu.substring(11, 16);
       return (
@@ -31,6 +25,12 @@ export default function ShowTime() {
         </button>
       );
     });
+  };
+
+  const renderLogo = (logo) => {
+    return (
+      <img alt={logo} style={{ width: "50px", height: "50px" }} src={logo} />
+    );
   };
 
   const renderShowtime = (listFilm) => {
@@ -47,8 +47,30 @@ export default function ShowTime() {
               src={filmItem.hinhAnh}
               alt={filmItem.hinhAnh}
             />
-            <p style={{ fontWeight: "bold" }}>{filmItem.tenPhim}</p>
+            <div className="d-flex flex-column">
+              <div className="d-flex align-items-end">
+                <button
+                  style={{ padding: "1px 3px" }}
+                  className="btn btn-success"
+                >
+                  C16
+                </button>
+
+                <p
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: 0,
+                    marginLeft: "5px",
+                  }}
+                >
+                  {filmItem.tenPhim}
+                </p>
+              </div>
+              <p style={{margin: 0, fontSize: '12px', color: '#9b9b9b'}}>100 phút - TIX 6.2 - IMDb 7</p>
+            </div>
+            
           </div>
+
           {renderButtonTime(filmItem.lstLichChieuTheoPhim)}
         </div>
       );
@@ -133,11 +155,7 @@ export default function ShowTime() {
 
   return (
     <div className="showstime" id="showTime">
-      <Tabs
-        
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
-      >
+      <Tabs activeKey={key} onSelect={(k) => setKey(k)}>
         {renderCinema()}
       </Tabs>
     </div>

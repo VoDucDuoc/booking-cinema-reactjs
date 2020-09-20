@@ -5,46 +5,76 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "antd/dist/antd.css";
 import { Rate } from "antd";
-import {Popover, OverlayTrigger, Tab, Row, Col, Nav} from "react-bootstrap";
+import { Tabs, Row, Col, Nav, Tab } from "react-bootstrap";
 import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
 export default function FilmDetail(props) {
-  
   const { location, match } = props;
   console.log(location, match);
 
   const dispatch = useDispatch();
   const { detailFilm } = useSelector((state) => state.filmReducer);
 
+  
+
+  const filmId = match.params.filmId;
   useEffect(() => {
-    const FilmId = match.params.filmId;
-    dispatch(getFilmDetail(FilmId));
+    dispatch(getFilmDetail(filmId));
     dispatch(getCinemaList());
     dispatch(getCinemaDetailList());
   }, []);
-  console.log(detailFilm);
 
   const { listCinema } = useSelector((state) => state.cinemaReducer);
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
 
-const popover = (
-    <Popover>
-      <Popover.Title as="h3">Mô tả</Popover.Title>
-      <Popover.Content>
-        {detailFilm.moTa}
-      </Popover.Content>
-    </Popover>
-  );
-  
-  const PopoverDetail = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-      <a style={{marginLeft: '15px', marginTop: '15px', textDecorationLine: 'underline'}}>Chi tiết</a>
-    </OverlayTrigger>
-  );
+  const [key, setKey] = useState("show");
 
-  const renderNav = () => {
-    
-  }
-    
+  const firstKey = detailFilm?.heThongRapChieu?.[0].maHeThongRap;
+  const renderCinema = () => {
+    return listCinema.map((cinema, index) => {
+      
+      return (
+        <Nav.Item key={index}>
+          <Nav.Link eventKey={cinema.maHeThongRap}>
+            <img
+              src={cinema.logo}
+              alt={cinema.logo}
+              style={{ width: "50px", height: "50px", marginLeft: '10px',marginRight: '10px' }}
+            />
+            <p style={{margin: 0}}>{cinema.tenHeThongRap}</p>
+          </Nav.Link>
+        </Nav.Item>
+      );
+    });
+  };
+
+  const renderSchedule = () => {
+    return listCinemaDetail.map((cinema, indexCinema) => {
+      const tabPane = [];
+      let count = 0;
+      cinema.lstCumRap.map((cinemaDetail) => {
+        cinemaDetail.danhSachPhim.forEach((film, index) => {
+          console.log(film);
+          if (parseInt(filmId) === film.maPhim) {
+            count += 1;
+            tabPane.push(
+              <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
+                <p>{film.tenPhim}</p>
+                <p>{cinemaDetail.tenCumRap}</p>
+              </Tab.Pane>
+            );
+          }
+        });
+      });
+      if (count === 0) {
+        return (
+          <Tab.Pane key={indexCinema} eventKey={cinema.maHeThongRap}>
+            <p>Không có suất chiếu</p>
+          </Tab.Pane>
+        );
+      }
+      return tabPane;
+    });
+  };
 
   return (
     <div
@@ -96,16 +126,15 @@ const popover = (
                 src={detailFilm.hinhAnh}
                 alt={detailFilm.hinhAnh}
               />
-              <div  style={{ color: "#e9e9e9", marginLeft: "10px" }}>
+              <div style={{ color: "#e9e9e9", marginLeft: "10px" }}>
                 <p style={{ fontSize: "14px", marginBottom: "5px" }}>
                   {detailFilm.ngayKhoiChieu?.substring(0, 10)}
                 </p>
                 <p style={{ fontSize: "24px", fontWeight: 550 }}>
                   {detailFilm.tenPhim}
                 </p>
-                <div style={{width: '85px'}} className="d-flex flex-column">
-                <button className="btn film-detail__btn">MUA VÉ</button>
-                <PopoverDetail/>
+                <div style={{ width: "85px" }} className="d-flex flex-column">
+                  <button className="btn film-detail__btn">MUA VÉ</button>
                 </div>
               </div>
             </div>
@@ -135,33 +164,40 @@ const popover = (
           </div>
         </div>
       </div>
-      
-      <div className="showstime" style={{ paddingTop: "40px", maxWidth: '840px' }}>
-      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-  <Row>
-    <Col sm={3}>
-      <Nav variant="pills" className="flex-column">
-        <Nav.Item>
-          <Nav.Link eventKey="first">Tab 1</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="second">Tab 2</Nav.Link>
-        </Nav.Item>
-        {renderNav()}
-      </Nav>
-    </Col>
-    <Col sm={9}>
-      <Tab.Content>
-        <Tab.Pane eventKey="first">
-          11111111111111
-        </Tab.Pane>
-        <Tab.Pane eventKey="second">
-          22222222222
-        </Tab.Pane>
-      </Tab.Content>
-    </Col>
-  </Row>
-</Tab.Container>
+
+      <div
+        className="showstime"
+        style={{ paddingTop: "40px", maxWidth: "840px" }}
+      >
+        <Tabs
+        className="tab-title"
+          id="controlled-tab-example"
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+        >
+          <Tab eventKey="show" title="Lịch chiếu">
+            {firstKey ? (
+              <Tab.Container defaultActiveKey={firstKey}>
+                <Row>
+                  <Col className="tab-modify" sm={3}>
+                    <Nav variant="pills" className="flex-column">
+                      {renderCinema()}
+                    </Nav>
+                  </Col>
+                  <Col className="tab-modify" sm={9}>
+                    <Tab.Content>{renderSchedule()}</Tab.Content>
+                  </Col>
+                </Row>
+              </Tab.Container>
+            ) : null}
+          </Tab>
+          <Tab eventKey="info" title="Thông Tin">
+            info
+          </Tab>
+          <Tab eventKey="rate" title="Đánh Giá">
+            rate
+          </Tab>
+        </Tabs>
       </div>
     </div>
   );
