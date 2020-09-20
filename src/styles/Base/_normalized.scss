@@ -99,3 +99,7 @@
     @include text($color-red-1, $fs-5);
   }
 }
+.btn:focus{
+  outline: none;
+  box-shadow: none;
+}

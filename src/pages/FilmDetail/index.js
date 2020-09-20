@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFilmDetail } from "../../actions/filmAction";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import "antd/dist/antd.css";
 import { Rate } from "antd";
 import { Tabs, Row, Col, Nav, Tab } from "react-bootstrap";
 import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
@@ -13,8 +12,6 @@ export default function FilmDetail(props) {
 
   const dispatch = useDispatch();
   const { detailFilm } = useSelector((state) => state.filmReducer);
-
-  
 
   const filmId = match.params.filmId;
   useEffect(() => {
@@ -27,39 +24,61 @@ export default function FilmDetail(props) {
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
 
   const [key, setKey] = useState("show");
+  const [keyDate, setKeyDate] = useState("");
 
   const firstKey = detailFilm?.heThongRapChieu?.[0].maHeThongRap;
   const renderCinema = () => {
     return listCinema.map((cinema, index) => {
-      
       return (
         <Nav.Item key={index}>
           <Nav.Link eventKey={cinema.maHeThongRap}>
             <img
               src={cinema.logo}
               alt={cinema.logo}
-              style={{ width: "50px", height: "50px", marginLeft: '10px',marginRight: '10px' }}
+              style={{
+                width: "50px",
+                height: "50px",
+                marginRight: "10px",
+              }}
             />
-            <p style={{margin: 0}}>{cinema.tenHeThongRap}</p>
+            <p style={{ margin: 0 }}>{cinema.tenHeThongRap}</p>
           </Nav.Link>
         </Nav.Item>
       );
     });
   };
 
-  const renderSchedule = () => {
+  const renderTime = () => {
     return listCinemaDetail.map((cinema, indexCinema) => {
+      console.log(cinema);
       const tabPane = [];
       let count = 0;
       cinema.lstCumRap.map((cinemaDetail) => {
         cinemaDetail.danhSachPhim.forEach((film, index) => {
-          console.log(film);
           if (parseInt(filmId) === film.maPhim) {
             count += 1;
             tabPane.push(
               <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
-                <p>{film.tenPhim}</p>
-                <p>{cinemaDetail.tenCumRap}</p>
+                <div className="d-flex align-items-center">
+                  <img
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      marginRight: "10px",
+                      marginLeft: "10px",
+                    }}
+                    src={cinema.logo}
+                    alt={cinema.logo}
+                  />
+                  <div>
+                    <p style={{ fontSize: "1.2rem" }}>
+                      {cinemaDetail.tenCumRap}
+                    </p>
+                    <p style={{ color: "#949494", fontSize: "1rem" }}>
+                      {cinemaDetail.diaChi}
+                    </p>
+                  </div>
+                </div>
               </Tab.Pane>
             );
           }
@@ -68,12 +87,16 @@ export default function FilmDetail(props) {
       if (count === 0) {
         return (
           <Tab.Pane key={indexCinema} eventKey={cinema.maHeThongRap}>
-            <p>Không có suất chiếu</p>
+            <p className="text-center">Không có suất chiếu</p>
           </Tab.Pane>
         );
       }
       return tabPane;
     });
+  };
+
+  const renderSchedule = () => {
+
   };
 
   return (
@@ -133,7 +156,16 @@ export default function FilmDetail(props) {
                 <p style={{ fontSize: "24px", fontWeight: 550 }}>
                   {detailFilm.tenPhim}
                 </p>
-                <div style={{ width: "85px" }} className="d-flex flex-column">
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    opacity: "0.9",
+                    marginBottom: "15px",
+                  }}
+                >
+                  100 phút - 0 IMDb - 2D/Digital
+                </p>
+                <div style={{ width: "90px" }} className="d-flex flex-column">
                   <button className="btn film-detail__btn">MUA VÉ</button>
                 </div>
               </div>
@@ -170,7 +202,7 @@ export default function FilmDetail(props) {
         style={{ paddingTop: "40px", maxWidth: "840px" }}
       >
         <Tabs
-        className="tab-title"
+          className="tab-title"
           id="controlled-tab-example"
           activeKey={key}
           onSelect={(k) => setKey(k)}
@@ -185,7 +217,7 @@ export default function FilmDetail(props) {
                     </Nav>
                   </Col>
                   <Col className="tab-modify" sm={9}>
-                    <Tab.Content>{renderSchedule()}</Tab.Content>
+                    <Tab.Content>{renderTime()}</Tab.Content>
                   </Col>
                 </Row>
               </Tab.Container>
