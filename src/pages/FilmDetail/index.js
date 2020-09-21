@@ -24,7 +24,7 @@ export default function FilmDetail(props) {
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
 
   const [key, setKey] = useState("show");
-  const [keyDate, setKeyDate] = useState("");
+  const [keyDate, setKeyDate] = useState("CGV-2019-01-01");
 
   const firstKey = detailFilm?.heThongRapChieu?.[0].maHeThongRap;
   const renderCinema = () => {
@@ -48,55 +48,133 @@ export default function FilmDetail(props) {
     });
   };
 
-  const renderTime = () => {
-    return listCinemaDetail.map((cinema, indexCinema) => {
-      console.log(cinema);
-      const tabPane = [];
-      let count = 0;
-      cinema.lstCumRap.map((cinemaDetail) => {
-        cinemaDetail.danhSachPhim.forEach((film, index) => {
-          if (parseInt(filmId) === film.maPhim) {
-            count += 1;
-            tabPane.push(
-              <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
-                <div className="d-flex align-items-center">
-                  <img
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      marginRight: "10px",
-                      marginLeft: "10px",
-                    }}
-                    src={cinema.logo}
-                    alt={cinema.logo}
-                  />
-                  <div>
-                    <p style={{ fontSize: "1.2rem" }}>
-                      {cinemaDetail.tenCumRap}
-                    </p>
-                    <p style={{ color: "#949494", fontSize: "1rem" }}>
-                      {cinemaDetail.diaChi}
-                    </p>
-                  </div>
-                </div>
-              </Tab.Pane>
-            );
-          }
-        });
-      });
-      if (count === 0) {
-        return (
-          <Tab.Pane key={indexCinema} eventKey={cinema.maHeThongRap}>
-            <p className="text-center">Không có suất chiếu</p>
-          </Tab.Pane>
-        );
-      }
-      return tabPane;
+  // const renderSchedule = () => {
+  //   return listCinemaDetail.map((cinema, indexCinema) => {
+  //     const tabPane = [];
+  //     let count = 0;
+  //     cinema.lstCumRap.map((cinemaDetail) => {
+  //       cinemaDetail.danhSachPhim.forEach((film, index) => {
+  //         if (parseInt(filmId) === film.maPhim) {
+  //           count += 1;
+  //           tabPane.push(
+  //             <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
+  //               <Tabs activeKey={keyDate} onSelect={(k) => setKeyDate(k)}>
+  //                 <div className="d-flex align-items-center">
+  //                   <img
+  //                     style={{
+  //                       width: "50px",
+  //                       height: "50px",
+  //                       marginRight: "10px",
+  //                       marginLeft: "10px",
+  //                     }}
+  //                     src={cinema.logo}
+  //                     alt={cinema.logo}
+  //                   />
+  //                   <div>
+  //                     <p style={{ fontSize: "1.2rem" }}>
+  //                       {cinemaDetail.tenCumRap}
+  //                     </p>
+  //                     <p style={{ color: "#949494", fontSize: "1rem" }}>
+  //                       {cinemaDetail.diaChi}
+  //                     </p>
+  //                   </div>
+  //                 </div>
+  //               </Tabs>
+  //             </Tab.Pane>
+  //           );
+  //         }
+  //       });
+  //     });
+  //     if (count === 0) {
+  //       return (
+  //         <Tab.Pane key={indexCinema} eventKey={cinema.maHeThongRap}>
+  //           <p className="text-center">Không có suất chiếu</p>
+  //         </Tab.Pane>
+  //       );
+  //     }
+  //     return tabPane;
+  //   });
+  // };
+
+  const renderDate = () => {
+    return detailFilm.heThongRapChieu.map((cinema, index) => {
+      return (
+        <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
+          <Tabs activeKey={keyDate} onSelect={(k) => setKeyDate(k)}>
+            {renderDay(
+              cinema.cumRapChieu,
+              cinema.maHeThongRap,
+              detailFilm.heThongRapChieu[index]
+            )}
+          </Tabs>
+        </Tab.Pane>
+      );
     });
   };
 
-  const renderSchedule = () => {
+  const renderDay = (cinema, cinemaId, cinemaSystem) => {
+    return cinema.map((cinemaDetail) => {
+      const content = [];
+      let checkDay = "";
+      cinemaDetail.lichChieuPhim.map((item, index) => {
+        if (checkDay === item.ngayChieuGioChieu.substring(0, 10)) {
+          content.push(
+            <Tab
+              key={`${cinemaId}-${index}`}
+              eventKey={`${cinemaId}-${item.ngayChieuGioChieu.substring(
+                0,
+                10
+              )}`}
+            >
+              <button className="btn btn-time">
+                {item.ngayChieuGioChieu.substring(11, 16)}
+              </button>
+            </Tab>
+          );
+        } else {
+          content.push(
+            <Tab
+              key={`${cinemaId}-${index}`}
+              eventKey={`${cinemaId}-${item.ngayChieuGioChieu.substring(
+                0,
+                10
+              )}`}
+              title={item.ngayChieuGioChieu.substring(0, 10)}
+            >
+              {renderCinemaDetail(cinemaSystem.logo, cinemaDetail.tenCumRap)}
+              <button className="btn btn-time">
+                {item.ngayChieuGioChieu.substring(11, 16)}
+              </button>
+            </Tab>
+          );
+          checkDay = item.ngayChieuGioChieu.substring(0, 10);
+        }
+      });
+      return content;
+    });
+  };
 
+  const renderCinemaDetail = (logo, cinemaName) => {
+    return (
+      <div className="d-flex align-items-center">
+        <img
+          style={{
+            width: "50px",
+            height: "50px",
+            marginRight: "10px",
+            marginLeft: "10px",
+          }}
+          src={logo}
+          alt={logo}
+        />
+        <div>
+          <p style={{ fontSize: "1.2rem" }}>{cinemaName}</p>
+          {/* <p style={{ color: "#949494", fontSize: "1rem" }}>
+                        {cinemaDetail.diaChi}
+                      </p> */}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -201,12 +279,7 @@ export default function FilmDetail(props) {
         className="showstime"
         style={{ paddingTop: "40px", maxWidth: "840px" }}
       >
-        <Tabs
-          className="tab-title"
-          id="controlled-tab-example"
-          activeKey={key}
-          onSelect={(k) => setKey(k)}
-        >
+        <Tabs className="tab-title" activeKey={key} onSelect={(k) => setKey(k)}>
           <Tab eventKey="show" title="Lịch chiếu">
             {firstKey ? (
               <Tab.Container defaultActiveKey={firstKey}>
@@ -217,7 +290,7 @@ export default function FilmDetail(props) {
                     </Nav>
                   </Col>
                   <Col className="tab-modify" sm={9}>
-                    <Tab.Content>{renderTime()}</Tab.Content>
+                    <Tab.Content>{renderDate()}</Tab.Content>
                   </Col>
                 </Row>
               </Tab.Container>
