@@ -96,12 +96,12 @@ export default function FilmDetail(props) {
   //   });
   // };
 
-  const renderDate = () => {
+  const renderSchedule = () => {
     return detailFilm.heThongRapChieu.map((cinema, index) => {
       return (
         <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
-          <Tabs activeKey={keyDate} onSelect={(k) => setKeyDate(k)}>
-            {renderDay(
+          <Tabs  activeKey={keyDate} onSelect={(k) => setKeyDate(k)}>
+            {renderDate(
               cinema.cumRapChieu,
               cinema.maHeThongRap,
               detailFilm.heThongRapChieu[index]
@@ -112,7 +112,7 @@ export default function FilmDetail(props) {
     });
   };
 
-  const renderDay = (cinema, cinemaId, cinemaSystem) => {
+  const renderDate = (cinema, cinemaId, cinemaSystem) => {
     return cinema.map((cinemaDetail) => {
       const content = [];
       let checkDay = "";
@@ -120,6 +120,7 @@ export default function FilmDetail(props) {
         if (checkDay === item.ngayChieuGioChieu.substring(0, 10)) {
           content.push(
             <Tab
+            
               key={`${cinemaId}-${index}`}
               eventKey={`${cinemaId}-${item.ngayChieuGioChieu.substring(
                 0,
@@ -134,6 +135,7 @@ export default function FilmDetail(props) {
         } else {
           content.push(
             <Tab
+
               key={`${cinemaId}-${index}`}
               eventKey={`${cinemaId}-${item.ngayChieuGioChieu.substring(
                 0,
@@ -141,6 +143,7 @@ export default function FilmDetail(props) {
               )}`}
               title={item.ngayChieuGioChieu.substring(0, 10)}
             >
+            
               {renderCinemaDetail(cinemaSystem.logo, cinemaDetail.tenCumRap)}
               <button className="btn btn-time">
                 {item.ngayChieuGioChieu.substring(11, 16)}
@@ -290,7 +293,7 @@ export default function FilmDetail(props) {
                     </Nav>
                   </Col>
                   <Col className="tab-modify" sm={9}>
-                    <Tab.Content>{renderDate()}</Tab.Content>
+                    <Tab.Content>{renderSchedule()}</Tab.Content>
                   </Col>
                 </Row>
               </Tab.Container>
