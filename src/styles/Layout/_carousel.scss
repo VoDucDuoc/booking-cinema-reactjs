@@ -1,4 +1,9 @@
 .carousel-film {
+  .carousel-item {
+    img {
+      max-height: 600px;
+    }
+  }
   padding-top: 75px;
   cursor: pointer;
   img {
@@ -29,7 +34,7 @@
   .mfp-fade.mfp-wrap.mfp-removing .mfp-content {
     opacity: 0;
   }
-  
+
   .carousel-film:hover .carousel-control-play-btn {
     opacity: 1;
   }
@@ -57,6 +62,10 @@
       margin: 0 5px;
     }
   }
+
+  @include reponds-to-max("large") {
+  }
+
   @include reponds-to-max("medium") {
     .carousel-control-play-btn {
       width: 60px;
@@ -81,7 +90,12 @@
   }
 }
 @include reponds-to-max("small") {
-  .carousel-film {
+  .carousel-film{
+    pointer-events: none;
     opacity: 0;
+  .carousel-item {
+    img {
+      height: 320px;
+    }
   }
-}
+}}

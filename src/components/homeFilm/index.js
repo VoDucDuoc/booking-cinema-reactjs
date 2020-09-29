@@ -1,5 +1,5 @@
 import React from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ItemFilm from "./ItemFilm";
 import Slider from "react-slick";
 
@@ -9,7 +9,6 @@ export default function HomeFilm() {
   );
 
   const settings = {
-
     dots: true,
     arrows: true,
     infinite: true,
@@ -29,6 +28,7 @@ export default function HomeFilm() {
             hinhAnh={item.hinhAnh}
             maNhom={item.maNhom}
             tenPhim={item.tenPhim}
+            maPhim={item.maPhim}
           />
         </div>
       );
@@ -45,7 +45,6 @@ export default function HomeFilm() {
               data-toggle="tab"
               href="#nowShowing"
               role="tab"
-              
             >
               Đang chiếu
             </a>
@@ -56,8 +55,6 @@ export default function HomeFilm() {
               data-toggle="tab"
               href="#comingSoon"
               role="tab"
-              
-              
             >
               Sắp chiếu
             </a>
@@ -68,19 +65,13 @@ export default function HomeFilm() {
             className="tab-pane fade show active"
             id="nowShowing"
             role="tabpanel"
-           
           >
             {listFilmShowing.length ? (
               <Slider {...settings}>{renderFilmBlock(listFilmShowing)}</Slider>
             ) : null}
           </div>
 
-          <div
-            className="tab-pane fade"
-            id="comingSoon"
-            role="tabpanel"
-            
-          >
+          <div className="tab-pane fade" id="comingSoon" role="tabpanel">
             {listFilmComing.length ? (
               <Slider {...settings}>{renderFilmBlock(listFilmComing)}</Slider>
             ) : null}
@@ -92,7 +83,7 @@ export default function HomeFilm() {
 }
 
 function SampleNextArrow(props) {
-  const { currentSlide, className, style, onClick } = props;
+  const { className, style, onClick } = props;
   return (
     <div
       className={className}
@@ -105,7 +96,7 @@ function SampleNextArrow(props) {
 }
 
 function SamplePrevArrow(props) {
-  const { currentSlide, className, style, onClick } = props;
+  const { className, style, onClick } = props;
   return (
     <div
       className={className}

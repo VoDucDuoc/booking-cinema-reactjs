@@ -1,11 +1,98 @@
 .film-detail {
   font-size: $fs-3;
-  .showstime{
-    .tab-modify{
-      height: 500px;
+  .layout-film-item:hover {
+    opacity: 1;
+  }
+  .layout-film-item {
+    opacity: 0;
+    position: absolute;
+    background: linear-gradient(to top, #000, transparent 100%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: all 0.2s;
+    a {
+      position: absolute;
+      color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: $fs-1;
+      border: 1.5px $color-white solid;
+      padding: $pd-3;
+      border-radius: 50%;
+      line-height: $fs-1;
+      background-color: rgba(0, 0, 0, 0.3);
+     
     }
-    
-    .tab-title.nav-tabs a{
+    a:hover {
+      opacity: 0.8;
+      color: white;
+    }
+  }
+  &__rate {
+    .rate__item {
+      padding: 10px 20px;
+      border: 0.5px solid $color-white;
+      border-radius: 5px;
+      box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+      margin-bottom: 10px;
+      .rate__cmt {
+        &::after {
+          content: "";
+          width: 100%;
+          height: 0.5px;
+          background: $color-gray-2;
+          opacity: 0.5;
+          display: block;
+        }
+      }
+    }
+  }
+  &__info {
+    margin: 20px 0;
+    .info__title {
+      font-weight: bold;
+      font-family: "SF Medium";
+    }
+  }
+  .showstime {
+    .tab-modify {
+      height: 500px;
+      .tab-content {
+        .nav {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+          white-space: nowrap;
+          overflow-y: hidden;
+          overflow-x: auto;
+        }
+      }
+      .tab-content-modify {
+        margin-left: $mg-3;
+      }
+      .nav-item.nav-link {
+        opacity: 0.5;
+        color: #495057;
+        font-size: $fs-3;
+        padding: 0 10px 10px;
+      }
+      .nav-item.nav-link:hover {
+        opacity: 1;
+        color: #495057;
+      }
+      .nav-item.nav-link.active {
+        opacity: 1;
+      }
+      .disabled-date {
+        pointer-events: none;
+        cursor: default;
+      }
+    }
+
+    .tab-title.nav-tabs a {
       opacity: 1;
     }
   }
@@ -24,7 +111,6 @@
       transform: translateX(-50%);
     }
     a {
-
       display: flex;
       align-items: center;
     }

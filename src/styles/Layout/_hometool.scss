@@ -86,3 +86,8 @@
     }
   }
 }
+@include reponds-to-max("large") {
+  .home-tool{
+    display: none;
+  }
+}

@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFilmDetail } from "../../actions/filmAction";
+import { clearFilmDetail, getFilmDetail } from "../../actions/filmAction";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Rate } from "antd";
 import { Tabs, Row, Col, Nav, Tab } from "react-bootstrap";
 import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
+import { showModal, hideModal } from "../../actions/modalTrailerAction";
+import MyVerticallyCenteredModal from "../../components/modalTrailer";
 export default function FilmDetail(props) {
   const { location, match } = props;
   console.log(location, match);
+
+  const { show, url } = useSelector(
+    (state) => state.modalTrailerReducer
+  );
 
   const dispatch = useDispatch();
   const { detailFilm } = useSelector((state) => state.filmReducer);
@@ -18,20 +24,29 @@ export default function FilmDetail(props) {
     dispatch(getFilmDetail(filmId));
     dispatch(getCinemaList());
     dispatch(getCinemaDetailList());
+    return () => {
+      dispatch(clearFilmDetail());
+    };
   }, []);
 
   const { listCinema } = useSelector((state) => state.cinemaReducer);
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
 
   const [key, setKey] = useState("show");
-  const [keyDate, setKeyDate] = useState("CGV-2019-01-01");
+  const [keyDate, setKeyDate] = useState(0);
 
   const firstKey = detailFilm?.heThongRapChieu?.[0].maHeThongRap;
+
   const renderCinema = () => {
     return listCinema.map((cinema, index) => {
       return (
         <Nav.Item key={index}>
-          <Nav.Link eventKey={cinema.maHeThongRap}>
+          <Nav.Link
+            onClick={() => {
+              setKeyDate(0);
+            }}
+            eventKey={cinema.maHeThongRap}
+          >
             <img
               src={cinema.logo}
               alt={cinema.logo}
@@ -48,138 +63,293 @@ export default function FilmDetail(props) {
     });
   };
 
-  // const renderSchedule = () => {
-  //   return listCinemaDetail.map((cinema, indexCinema) => {
-  //     const tabPane = [];
-  //     let count = 0;
-  //     cinema.lstCumRap.map((cinemaDetail) => {
-  //       cinemaDetail.danhSachPhim.forEach((film, index) => {
-  //         if (parseInt(filmId) === film.maPhim) {
-  //           count += 1;
-  //           tabPane.push(
-  //             <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
-  //               <Tabs activeKey={keyDate} onSelect={(k) => setKeyDate(k)}>
-  //                 <div className="d-flex align-items-center">
-  //                   <img
-  //                     style={{
-  //                       width: "50px",
-  //                       height: "50px",
-  //                       marginRight: "10px",
-  //                       marginLeft: "10px",
-  //                     }}
-  //                     src={cinema.logo}
-  //                     alt={cinema.logo}
-  //                   />
-  //                   <div>
-  //                     <p style={{ fontSize: "1.2rem" }}>
-  //                       {cinemaDetail.tenCumRap}
-  //                     </p>
-  //                     <p style={{ color: "#949494", fontSize: "1rem" }}>
-  //                       {cinemaDetail.diaChi}
-  //                     </p>
-  //                   </div>
-  //                 </div>
-  //               </Tabs>
-  //             </Tab.Pane>
-  //           );
-  //         }
-  //       });
-  //     });
-  //     if (count === 0) {
-  //       return (
-  //         <Tab.Pane key={indexCinema} eventKey={cinema.maHeThongRap}>
-  //           <p className="text-center">Không có suất chiếu</p>
-  //         </Tab.Pane>
-  //       );
-  //     }
-  //     return tabPane;
-  //   });
-  // };
-
   const renderSchedule = () => {
-    return detailFilm.heThongRapChieu.map((cinema, index) => {
+    return listCinemaDetail.map((cinema, index) => {
       return (
         <Tab.Pane key={index} eventKey={cinema.maHeThongRap}>
-          <Tabs  activeKey={keyDate} onSelect={(k) => setKeyDate(k)}>
-            {renderDate(
-              cinema.cumRapChieu,
-              cinema.maHeThongRap,
-              detailFilm.heThongRapChieu[index]
-            )}
+          <Tabs activeKey={keyDate} onSelect={(k) => setKeyDate(k)}>
+            {renderDate(cinema)}
           </Tabs>
         </Tab.Pane>
       );
     });
   };
 
-  const renderDate = (cinema, cinemaId, cinemaSystem) => {
-    return cinema.map((cinemaDetail) => {
-      const content = [];
-      let checkDay = "";
-      cinemaDetail.lichChieuPhim.map((item, index) => {
-        if (checkDay === item.ngayChieuGioChieu.substring(0, 10)) {
-          content.push(
-            <Tab
-            
-              key={`${cinemaId}-${index}`}
-              eventKey={`${cinemaId}-${item.ngayChieuGioChieu.substring(
-                0,
-                10
-              )}`}
-            >
-              <button className="btn btn-time">
-                {item.ngayChieuGioChieu.substring(11, 16)}
-              </button>
-            </Tab>
-          );
-        } else {
-          content.push(
-            <Tab
+  const getDate = () => {
+    const arrDate = [];
+    let date = "";
+    const eachDate = detailFilm.heThongRapChieu?.[0].cumRapChieu?.[0].lichChieuPhim.forEach(
+      (schedule) => {
+        let dateNext = schedule.ngayChieuGioChieu.substring(0, 10);
 
-              key={`${cinemaId}-${index}`}
-              eventKey={`${cinemaId}-${item.ngayChieuGioChieu.substring(
-                0,
-                10
-              )}`}
-              title={item.ngayChieuGioChieu.substring(0, 10)}
-            >
-            
-              {renderCinemaDetail(cinemaSystem.logo, cinemaDetail.tenCumRap)}
-              <button className="btn btn-time">
-                {item.ngayChieuGioChieu.substring(11, 16)}
-              </button>
-            </Tab>
-          );
-          checkDay = item.ngayChieuGioChieu.substring(0, 10);
+        if (dateNext !== date) {
+          arrDate.push(dateNext);
+          date = dateNext;
         }
+      }
+    );
+    return arrDate;
+  };
+
+  const renderDate = (cinema) => {
+    const arrDate = getDate();
+    let index = detailFilm.heThongRapChieu.findIndex(
+      (cinemaShowing) => cinemaShowing.maHeThongRap === cinema.maHeThongRap
+    );
+    let cinemaShowing = detailFilm.heThongRapChieu[index];
+    if (index === -1) {
+      return arrDate.map((date, index) => {
+        let modDate = `${date.substring(8, 10)}-${date.substring(5, 7)}`;
+
+        return (
+          <Tab
+            key={index}
+            eventKey={index}
+            title={modDate}
+            tabClassName="disabled-date"
+          >
+            <div className="tab-content-modify">
+              <p>Không có suất chiếu</p>
+            </div>
+          </Tab>
+        );
       });
-      return content;
+    } else {
+      return arrDate.map((date, index) => {
+        let modDate = `${date.substring(8, 10)}-${date.substring(5, 7)}`;
+        return (
+          <Tab key={index} eventKey={index} title={modDate}>
+            {renderCinemaDetail(cinemaShowing, cinema, date)}
+          </Tab>
+        );
+      });
+    }
+  };
+
+  const renderCinemaDetail = (cinemaShowing, cinema, date) => {
+    return cinemaShowing.cumRapChieu.map((cinemaShowingDetail, index) => {
+      let indexCheck = cinema.lstCumRap.findIndex(
+        (cinema) => cinema.maCumRap === cinemaShowingDetail.maCumRap
+      );
+      if (indexCheck !== -1) {
+        return (
+          <div className="tab-content-modify" key={index}>
+            <div className="d-flex align-items-center">
+              <img
+                src={cinema.logo}
+                alt={cinema.logo}
+                style={{ width: "60px", height: "60px" }}
+              />
+              <div className="ml-2">
+                <p>{cinemaShowingDetail.tenCumRap}</p>
+                <p style={{ fontSize: "14px", opacity: 0.8 }}>
+                  {cinema.lstCumRap[indexCheck].diaChi}
+                </p>
+              </div>
+            </div>
+            {renderTime(cinemaShowingDetail, date)}
+          </div>
+        );
+      }
     });
   };
 
-  const renderCinemaDetail = (logo, cinemaName) => {
+  const renderTime = (cinemaShowingDetail, date) => {
+    return cinemaShowingDetail.lichChieuPhim.map((schedule, index) => {
+      if (date === schedule.ngayChieuGioChieu.substring(0, 10)) {
+        return (
+          <button key={index} className="btn btn-time ml-0 mr-2">
+            {schedule.ngayChieuGioChieu.substring(11, 16)}
+          </button>
+        );
+      }
+    });
+  };
+
+  const renderInfo = () => {
     return (
-      <div className="d-flex align-items-center">
-        <img
-          style={{
-            width: "50px",
-            height: "50px",
-            marginRight: "10px",
-            marginLeft: "10px",
-          }}
-          src={logo}
-          alt={logo}
-        />
-        <div>
-          <p style={{ fontSize: "1.2rem" }}>{cinemaName}</p>
-          {/* <p style={{ color: "#949494", fontSize: "1rem" }}>
-                        {cinemaDetail.diaChi}
-                      </p> */}
+      <div className="row film-detail__info">
+        <div className="col-6">
+          <div className="row">
+            <div className="col-6 mb-2">
+              <p className="info__title">Ngày công chiếu</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p>{detailFilm?.ngayKhoiChieu?.substring(0, 10)}</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p className="info__title">Đạo diễn</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p>Trần Thanh Huy</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p className="info__title">Diễn viên</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p>Cát Phượng, Trấn Thành</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p className="info__title">Thể loại</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p>Tội phạm, drama</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p className="info__title">Định dạng</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p>2D/Digital</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p className="info__title">Quốc gia SX</p>
+            </div>
+            <div className="col-6 mb-2">
+              <p>Việt Nam</p>
+            </div>
+          </div>
+        </div>
+        <div className="col-6">
+          <p className="info__title mb-2">Nội dung</p>
+          <p>{detailFilm.moTa}</p>
         </div>
       </div>
     );
   };
 
+  const renderRate = () => {
+    return (
+      <div
+        className="film-detail__rate"
+        style={{ maxWidth: "580px", margin: "20px auto" }}
+      >
+        <div className="d-flex align-items-center justify-content-between rate__item">
+          <div>
+            <img
+              style={{ width: "50px", height: "50px" }}
+              src="/img/loading.png"
+              alt="/img/loading.png"
+            />
+            <span style={{ opacity: "0.8" }}>Bạn nghĩ gì về phim này?</span>
+          </div>
+          <div style={{ color: "#fb4226", opacity: "0.5" }}>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+        </div>
+        <div className="rate__item">
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex ">
+              <img
+                style={{ width: "50px", height: "50px" }}
+                src="/img/loading.png"
+                alt="/img/loading.png"
+              />
+              <div>
+                <p style={{ fontWeight: "bold" }}>User 1</p>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    opacity: "0.8",
+                  }}
+                >
+                  2 giờ trước
+                </p>
+              </div>
+            </div>
+            <div style={{ color: "#fb4226", fontSize: "14px" }}>
+              <p
+                style={{
+                  color: "#91d25a",
+                  textAlign: "center",
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                }}
+              >
+                10
+              </p>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+          <div style={{ padding: "10px 0" }} className="rate__cmt">
+            <p style={{ paddingBottom: "10px" }}>
+              Ko biết mọi người như thế nào chứ mình xem Ròm mình cảm nhận dc
+              góc sống rất thật của Sài Gòn .Hi vọng Ròm sẽ dc nhiều ng ủng hộ
+              hơn
+            </p>
+          </div>
+          <div className="d-flex align-items-center">
+            <i class="fa fa-thumbs-up" style={{ color: "#737576" }}></i>
+            <span style={{ margin: "0 10px", fontWeight: "bold" }}>0</span>
+            <p style={{ color: "#737576" }}>Thích</p>
+          </div>
+        </div>
+        <div className="rate__item">
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex ">
+              <img
+                style={{ width: "50px", height: "50px" }}
+                src="/img/loading.png"
+                alt="/img/loading.png"
+              />
+              <div>
+                <p style={{ fontWeight: "bold" }}>User 1</p>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    opacity: "0.8",
+                  }}
+                >
+                  2 giờ trước
+                </p>
+              </div>
+            </div>
+            <div style={{ color: "#fb4226", fontSize: "14px" }}>
+              <p
+                style={{
+                  color: "#91d25a",
+                  textAlign: "center",
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                }}
+              >
+                10
+              </p>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+          <div style={{ padding: "10px 0" }} className="rate__cmt">
+            <p style={{ paddingBottom: "10px" }}>
+              Ko biết mọi người như thế nào chứ mình xem Ròm mình cảm nhận dc
+              góc sống rất thật của Sài Gòn .Hi vọng Ròm sẽ dc nhiều ng ủng hộ
+              hơn
+            </p>
+          </div>
+          <div className="d-flex align-items-center">
+            <i class="fa fa-thumbs-up" style={{ color: "#737576" }}></i>
+            <span style={{ margin: "0 10px", fontWeight: "bold" }}>0</span>
+            <p style={{ color: "#737576" }}>Thích</p>
+          </div>
+        </div>
+        <div style={{ margin: "20px 0", textAlign: "center" }}>
+          <button className="btn film-detail__btn">Xem thêm</button>
+        </div>
+      </div>
+    );
+  };
   return (
     <div
       className="film-detail"
@@ -221,15 +391,22 @@ export default function FilmDetail(props) {
                 width: "60%",
               }}
             >
-              <img
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "";
-                }}
-                style={{ width: "250px", height: "300px" }}
-                src={detailFilm.hinhAnh}
-                alt={detailFilm.hinhAnh}
-              />
+              <div style={{ position: "relative" }}>
+                <img
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "";
+                  }}
+                  style={{ width: "250px", height: "300px" }}
+                  src={detailFilm.hinhAnh}
+                  alt={detailFilm.hinhAnh}
+                />
+                <div className="layout-film-item">
+                  <a onClick={() => dispatch(showModal(detailFilm.trailer))}>
+                    <i className="fa fa-play"></i>
+                  </a>
+                </div>
+              </div>
               <div style={{ color: "#e9e9e9", marginLeft: "10px" }}>
                 <p style={{ fontSize: "14px", marginBottom: "5px" }}>
                   {detailFilm.ngayKhoiChieu?.substring(0, 10)}
@@ -282,10 +459,15 @@ export default function FilmDetail(props) {
         className="showstime"
         style={{ paddingTop: "40px", maxWidth: "840px" }}
       >
-        <Tabs className="tab-title" activeKey={key} onSelect={(k) => setKey(k)}>
+        <Tabs
+          id="tabs-FilmDetail"
+          className="tab-title"
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+        >
           <Tab eventKey="show" title="Lịch chiếu">
             {firstKey ? (
-              <Tab.Container defaultActiveKey={firstKey}>
+              <Tab.Container id="tab-cinema" defaultActiveKey={firstKey}>
                 <Row>
                   <Col className="tab-modify" sm={3}>
                     <Nav variant="pills" className="flex-column">
@@ -300,13 +482,18 @@ export default function FilmDetail(props) {
             ) : null}
           </Tab>
           <Tab eventKey="info" title="Thông Tin">
-            info
+            {renderInfo()}
           </Tab>
           <Tab eventKey="rate" title="Đánh Giá">
-            rate
+            {renderRate()}
           </Tab>
         </Tabs>
       </div>
+      <MyVerticallyCenteredModal
+        trailer={url}
+        show={show}
+        onHide={() => dispatch(hideModal())}
+      />
     </div>
   );
 }

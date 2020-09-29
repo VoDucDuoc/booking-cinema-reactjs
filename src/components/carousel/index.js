@@ -33,7 +33,7 @@ export default function CarouselHome() {
             onClick={() => {
               history.push(`/film/${item.maPhim}`);
             }}
-            style={{ height: "600px" }}
+            
             className="d-block w-100"
             src={src}
             alt={src}

@@ -1,4 +1,4 @@
-import { GET_FILM_LIST, GET_FILM_DETAIL } from "../constants/filmConstant";
+import { GET_FILM_LIST, GET_FILM_DETAIL, CLEAR_FILM_DETAIL } from "../constants/filmConstant";
 import axios from "../utils/axiosClient";
 
 export const getFilmList = () => {
@@ -46,3 +46,9 @@ export const getFilmDetail = (id) => {
       });
   };
 };
+
+export const clearFilmDetail = () =>{
+  return {
+    type: CLEAR_FILM_DETAIL
+  }
+}

@@ -1,14 +1,24 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { showModal } from "../../actions/modalTrailerAction";
-
+import { useHistory } from "react-router-dom";
 export default function ItemFilm(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
   return (
-    <div className="card text-left home-film__items" style={{ border: "none" }}>
+    <div
+      className="card text-left home-film__items"
+      onClick={() => {
+        history.push(`/film/${props.maPhim}`);
+      }}
+      style={{ border: "none" }}
+    >
       <div style={{ position: "relative" }}>
         <img
-        onError={(e)=>{e.target.onerror = null; e.target.src="/img/loading.png"}}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "/img/loading.png";
+          }}
           className="card-img-top"
           style={{ width: "100%", height: "270px" }}
           src={props.hinhAnh}

@@ -1,4 +1,4 @@
-import { GET_FILM_LIST, GET_FILM_DETAIL } from "../constants/filmConstant";
+import { GET_FILM_LIST, GET_FILM_DETAIL, CLEAR_FILM_DETAIL } from "../constants/filmConstant";
 
 const initialState = {
   listFilmShowing: [],
@@ -45,6 +45,9 @@ const filmReducer = (state = initialState, action) => {
     }
     case GET_FILM_DETAIL.FAIL: {
       return {...state, loading: false, error: true};
+    }
+    case CLEAR_FILM_DETAIL: {
+      return {...state, detailFilm: {}}
     }
     default:
       return state;
