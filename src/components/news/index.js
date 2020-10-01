@@ -33,7 +33,7 @@ export default function News() {
       <div className="tab-content news__modify">
         <div className="tab-pane fade show active" id="hotNews" role="tabpanel">
           <div className="row mb-3">
-            <div className="col-6">
+            <div className="col-sm-6 col-xs-12">
               <img
                 src="https://static.molo.vn/2020/09/antebellum-home-bg-aug21-1024x576.jpg"
                 alt="https://static.molo.vn/2020/09/antebellum-home-bg-aug21-1024x576.jpg"
@@ -59,7 +59,7 @@ export default function News() {
                 </div>
               </div>
             </div>
-            <div className="col-6">
+            <div className=" col-sm-6 col-xs-12">
               <img
                 src="https://ss-images.catscdn.vn/pc/1594717139468/jsjs1.jpg"
                 alt="https://ss-images.catscdn.vn/pc/1594717139468/jsjs1.jpg"
@@ -87,7 +87,7 @@ export default function News() {
             </div>
           </div>
           <div className="row">
-            <div className="col-4">
+            <div className="col-sm-4 col-xs-12">
               <img
                 src="https://s3img.vcdn.vn/123phim/2020/08/da-n-my-nhan-trong-the-gio-i-die-n-a-nh-cu-a-qua-i-kie-t-christopher-nolan-15970503918450.png"
                 alt="https://s3img.vcdn.vn/123phim/2020/08/da-n-my-nhan-trong-the-gio-i-die-n-a-nh-cu-a-qua-i-kie-t-christopher-nolan-15970503918450.png"
@@ -112,7 +112,7 @@ export default function News() {
                 </div>
               </div>
             </div>
-            <div className="col-4">
+            <div className="col-sm-4 col-xs-12">
               <img
                 src="https://s3img.vcdn.vn/123phim/2020/08/truy-cung-giet-tan-cuoc-tai-ngo-cua-hai-ong-hoang-phong-ve-xu-han-15966122361852.png"
                 alt="https://s3img.vcdn.vn/123phim/2020/08/truy-cung-giet-tan-cuoc-tai-ngo-cua-hai-ong-hoang-phong-ve-xu-han-15966122361852.png"
@@ -137,7 +137,7 @@ export default function News() {
                 </div>
               </div>
             </div>
-            <div className="col-4">
+            <div className="col-sm-4 col-xs-12">
               <div className="row">
                 <div className="col-12 news__small">
                   <img

@@ -1,6 +1,9 @@
 .header {
+  &__backMobile {
+    display: none;
+  }
   background-color: white;
-  box-shadow: 0 0 15px rgba(0,0,0,.3);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
   right: 0;
@@ -8,7 +11,7 @@
   height: 75px;
   z-index: 100;
   .navbar-expand-md {
-    .navbar-toggler{
+    .navbar-toggler {
       z-index: 5;
     }
     .my-collapse {
@@ -43,10 +46,9 @@
     .navbar-toggler:focus {
       outline: none;
     }
-    .navbar-toggler:focus + .mobile-arrow{
+    .navbar-toggler:focus + .mobile-arrow {
       display: block;
-    
-  }
+    }
     @include reponds-to-min("medium") {
       .header__mobile.navbar-collapse {
         display: none !important;
@@ -54,8 +56,7 @@
     }
   }
   .navbar {
-    
-    .mobile-arrow{
+    .mobile-arrow {
       display: none;
     }
     .header__mobile {
@@ -64,7 +65,7 @@
         display: flex;
         align-items: center;
         i {
-          @include text($color-gray-0, $fs-5)
+          @include text($color-gray-0, $fs-5);
         }
         span {
           @include text($color-black, $fs-2);
@@ -108,6 +109,13 @@
       .center {
         margin-left: 100px;
       }
+    }
+  }
+}
+@include reponds-to-max("medium") {
+  .header {
+    &__backMobile {
+      display: block;
     }
   }
 }

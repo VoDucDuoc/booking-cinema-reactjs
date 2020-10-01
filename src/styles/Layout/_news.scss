@@ -60,3 +60,25 @@
     }
   }
 }
+@include reponds-to-min('small'){
+  .news{
+    .news__small{
+      .news__title{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    }
+  }
+}
+@include reponds-to-min('medium'){
+  .news{
+    .news__small{
+      .news__title{
+      text-overflow: unset;
+      overflow: unset;
+      white-space: unset;
+    }
+    }
+  }
+}

@@ -1,12 +1,12 @@
 .home-film {
   padding-top: 75px;
   .home-film__content {
-    .slick-slider{
+    .slick-slider {
       // z-index: -1;
     }
     max-width: 940px;
     margin: 0 auto;
-    
+
     .tab-content {
       .owl-prev,
       .owl-next {
@@ -33,6 +33,10 @@
         outline: none;
       }
       .home-film__items {
+        .card-img-top {
+          max-width: 100%;
+          max-height: 270px;
+        }
         padding: 0 $pd-1;
         height: 370px;
         span:nth-child(2) {
@@ -45,7 +49,6 @@
 
         &:hover .layout-film-item {
           opacity: 1;
-          
         }
         .layout-film-item {
           opacity: 0;
@@ -55,8 +58,8 @@
           height: 100%;
           top: 0;
           left: 0;
-         transition: all 0.2s;
-          a{
+          transition: all 0.2s;
+          a {
             position: absolute;
             color: white;
             top: 50%;
@@ -69,17 +72,19 @@
             line-height: $fs-1;
             background-color: rgba(0, 0, 0, 0.3);
           }
-          a:hover{
+          a:hover {
             opacity: 0.8;
           }
         }
-        .card-body{
-          .card-title button:nth-child(1), .card-title span:nth-child(2), p{
+        .card-body {
+          .card-title button:nth-child(1),
+          .card-title span:nth-child(2),
+          p {
             transition: all 0.2s;
           }
           position: relative;
-          .btn-book{
-            background: linear-gradient(to left,#fb4226,#ce3017 100%);
+          .btn-book {
+            background: linear-gradient(to left, #fb4226, #ce3017 100%);
             color: white;
             width: 100%;
             position: absolute;
@@ -90,12 +95,46 @@
             transition: all 0.2s;
           }
         }
-        &:hover .btn-book{
+        &:hover .btn-book {
           opacity: 1;
         }
-        &:hover .card-body .btn-success, &:hover .card-body span, &:hover .card-body p{
+        &:hover .card-body .btn-success,
+        &:hover .card-body span,
+        &:hover .card-body p {
           opacity: 0;
         }
+      }
+    }
+  }
+}
+
+@include reponds-to-max("small") {
+  .home-film {
+    .home-film__items {
+      .card-img-top {
+        max-width: 100%;
+        height: 210px;
+      }
+    }
+    .card-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+@include reponds-to-max("medium") {
+  .home-film {
+    .card-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .home-film__items {
+      .card-img-top {
+        max-width: 100%;
+        height: 230px;
       }
     }
   }

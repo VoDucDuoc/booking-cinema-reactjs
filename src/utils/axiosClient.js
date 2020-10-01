@@ -1,6 +1,6 @@
 import axios from "axios";
 const axiosClient = axios.create({
-    baseURL: "http://movie0706.cybersoft.edu.vn/api/"
+    baseURL: "https://movie0706.cybersoft.edu.vn/api/"
 });
 
 // export const setToken = (token) =>{

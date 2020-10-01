@@ -62,11 +62,27 @@
       margin: 0 5px;
     }
   }
-
+  @include reponds-to-max("extra-large") {
+    .carousel-item {
+      img {
+        max-height: 450px;
+      }
+    }
+  }
   @include reponds-to-max("large") {
+    .carousel-item {
+      img {
+        max-height: 380px;
+      }
+    }
   }
 
   @include reponds-to-max("medium") {
+    .carousel-item {
+      img {
+        height: 350px;
+      }
+    }
     .carousel-control-play-btn {
       width: 60px;
       height: 60px;

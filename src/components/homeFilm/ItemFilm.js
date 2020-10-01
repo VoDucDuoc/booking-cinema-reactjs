@@ -20,7 +20,7 @@ export default function ItemFilm(props) {
             e.target.src = "/img/loading.png";
           }}
           className="card-img-top"
-          style={{ width: "100%", height: "270px" }}
+          
           src={props.hinhAnh}
           alt="123"
         />

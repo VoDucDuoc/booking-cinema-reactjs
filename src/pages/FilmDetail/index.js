@@ -12,9 +12,7 @@ export default function FilmDetail(props) {
   const { location, match } = props;
   console.log(location, match);
 
-  const { show, url } = useSelector(
-    (state) => state.modalTrailerReducer
-  );
+  const { show, url } = useSelector((state) => state.modalTrailerReducer);
 
   const dispatch = useDispatch();
   const { detailFilm } = useSelector((state) => state.filmReducer);
@@ -31,7 +29,7 @@ export default function FilmDetail(props) {
 
   const { listCinema } = useSelector((state) => state.cinemaReducer);
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
-
+  
   const [key, setKey] = useState("show");
   const [keyDate, setKeyDate] = useState(0);
 
@@ -168,7 +166,7 @@ export default function FilmDetail(props) {
 
   const renderInfo = () => {
     return (
-      <div className="row film-detail__info">
+      <div className="row filmDetail__info">
         <div className="col-6">
           <div className="row">
             <div className="col-6 mb-2">
@@ -220,7 +218,7 @@ export default function FilmDetail(props) {
   const renderRate = () => {
     return (
       <div
-        className="film-detail__rate"
+        className="filmDetail__rate"
         style={{ maxWidth: "580px", margin: "20px auto" }}
       >
         <div className="d-flex align-items-center justify-content-between rate__item">
@@ -233,11 +231,11 @@ export default function FilmDetail(props) {
             <span style={{ opacity: "0.8" }}>Bạn nghĩ gì về phim này?</span>
           </div>
           <div style={{ color: "#fb4226", opacity: "0.5" }}>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
           </div>
         </div>
         <div className="rate__item">
@@ -272,11 +270,11 @@ export default function FilmDetail(props) {
               >
                 10
               </p>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
             </div>
           </div>
           <div style={{ padding: "10px 0" }} className="rate__cmt">
@@ -287,7 +285,7 @@ export default function FilmDetail(props) {
             </p>
           </div>
           <div className="d-flex align-items-center">
-            <i class="fa fa-thumbs-up" style={{ color: "#737576" }}></i>
+            <i className="fa fa-thumbs-up" style={{ color: "#737576" }}></i>
             <span style={{ margin: "0 10px", fontWeight: "bold" }}>0</span>
             <p style={{ color: "#737576" }}>Thích</p>
           </div>
@@ -324,11 +322,11 @@ export default function FilmDetail(props) {
               >
                 10
               </p>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i>
             </div>
           </div>
           <div style={{ padding: "10px 0" }} className="rate__cmt">
@@ -339,45 +337,31 @@ export default function FilmDetail(props) {
             </p>
           </div>
           <div className="d-flex align-items-center">
-            <i class="fa fa-thumbs-up" style={{ color: "#737576" }}></i>
+            <i className="fa fa-thumbs-up" style={{ color: "#737576" }}></i>
             <span style={{ margin: "0 10px", fontWeight: "bold" }}>0</span>
             <p style={{ color: "#737576" }}>Thích</p>
           </div>
         </div>
         <div style={{ margin: "20px 0", textAlign: "center" }}>
-          <button className="btn film-detail__btn">Xem thêm</button>
+          <button className="btn filmDetail__btn">Xem thêm</button>
         </div>
       </div>
     );
   };
   return (
     <div
-      className="film-detail"
+      className="filmDetail"
       style={{ marginTop: "70px", position: "relative" }}
     >
       <div style={{ position: "relative", height: "400px", width: "100%" }}>
         <div
+          className="filmDetail__backGround"
           style={{
             backgroundImage: `url('${detailFilm.hinhAnh}'), url("")`,
-            height: "400px",
-            backgroundSize: "cover",
-            backgroundRepeat: "none",
-            backgroundPosition: "center center",
-            filter: "blur(10px)",
           }}
         ></div>
 
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            maxWidth: "840px",
-            width: "100%",
-            height: "300px",
-          }}
-        >
+        <div className="filmDetail__layout">
           <div
             className="d-flex align-items-center"
             style={{ position: "relative", width: "100%", height: "100%" }}
@@ -424,11 +408,11 @@ export default function FilmDetail(props) {
                   100 phút - 0 IMDb - 2D/Digital
                 </p>
                 <div style={{ width: "90px" }} className="d-flex flex-column">
-                  <button className="btn film-detail__btn">MUA VÉ</button>
+                  <button className="btn filmDetail__btn">MUA VÉ</button>
                 </div>
               </div>
             </div>
-            <div className="film-detail__rating">
+            <div className="filmDetail__rating">
               <CircularProgressbar
                 value={detailFilm.danhGia}
                 text={`${detailFilm.danhGia}`}
@@ -451,6 +435,13 @@ export default function FilmDetail(props) {
               ) : null}
               <p>44 người đánh giá</p>
             </div>
+          </div>
+        </div>
+        <div className="filmDetail__layout-mobile">
+          <div className="layout-film-item">
+            <a onClick={() => dispatch(showModal(detailFilm.trailer))}>
+              <i className="fa fa-play"></i>
+            </a>
           </div>
         </div>
       </div>
