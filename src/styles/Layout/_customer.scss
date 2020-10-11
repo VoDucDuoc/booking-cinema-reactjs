@@ -1,0 +1,35 @@
+.customer {
+  margin-top: 100px;
+  height: 550px;
+  font-size: 18px;
+  &__content{
+      max-width: 840px;
+      margin: 0 auto;
+      .tab-content{
+          padding: 20px;
+            border: 1px solid transparent;
+          border-color: white #dee2e6 #dee2e6 #dee2e6;
+      }
+      .input-group-prepend{
+          width: 110px;
+          
+      }
+      .input-group-text{
+        width: 100%;
+      }
+      .input-group{
+          
+      }
+      .nav-link{
+        color: black;
+        opacity: 0.5;
+        transition: all 0.2s;
+      }
+      .nav-link.active{
+        opacity: 1;
+      }
+      .nav-link:hover{
+        opacity: 1;
+      }
+  }
+}

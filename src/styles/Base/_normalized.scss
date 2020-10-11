@@ -100,7 +100,7 @@
     @include text($color-red-1, $fs-5);
   }
 }
-.btn:focus{
+.btn:focus {
   outline: none;
   box-shadow: none;
 }
@@ -114,11 +114,44 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: $color-gray-0;
   border-radius: 10px;
+}
+input.form-control:focus {
+  border: 1px solid #ced4da;
+  box-shadow: none;
+}
+#modal-timeup {
+  .modal-content {
+    background-color: white;
+    max-height: 200px;
+  }
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+#modal-changePassword {
+  .modal-content {
+    background-color: white;
+    a {
+      background-color: white;
+      i {
+        color: black;
+      }
+    }
+    .modal-body {
+      padding-top: 40px;
+      display: flex;
+      flex-direction: column;
+      
+    }
+  }
 }

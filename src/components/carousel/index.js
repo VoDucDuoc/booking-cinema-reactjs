@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
 import MyVerticallyCenteredModal from "../modalTrailer";
+
 import { showModal, hideModal } from "../../actions/modalTrailerAction";
 import { useHistory } from "react-router-dom";
 export default function CarouselHome() {
@@ -59,6 +60,7 @@ export default function CarouselHome() {
         show={show}
         onHide={() => dispatch(hideModal())}
       />
+
     </div>
   );
 }

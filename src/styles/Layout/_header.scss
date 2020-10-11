@@ -1,4 +1,23 @@
 .header {
+  &__user{
+    .dropdown-item:active{
+      background-color: transparent;
+    }
+  }
+  .btn-logout::after{
+    display: none;
+  }
+  .btn-logout{
+    border: none;
+    background-color: unset;
+    color: #9b9b9b;
+    font-size: 18px;
+    width: 100px;
+  }
+  .btn-logout:focus{
+    border: none;
+    outline: none;
+  }
   &__backMobile {
     display: none;
   }
@@ -9,7 +28,7 @@
   right: 0;
   width: 100%;
   height: 75px;
-  z-index: 100;
+  z-index: 201;
   .navbar-expand-md {
     .navbar-toggler {
       z-index: 5;

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import HomeTools from "../../components/homeTools";
 import HomeFilm from "../../components/homeFilm";
 import ShowTime from "../../components/showTime";
@@ -6,7 +6,10 @@ import { useDispatch } from "react-redux";
 import { getFilmList } from "../../actions/filmAction";
 import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
 import CarouselHome from "../../components/carousel";
-import News  from "../../components/news";
+import News from "../../components/news";
+
+import useLoader from "../../hook/useLoader";
+
 export default function Home(props) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,20 +18,20 @@ export default function Home(props) {
     dispatch(getCinemaList());
     dispatch(getCinemaDetailList());
   }, []);
-  
+
+  const [loader] = useLoader();
   return (
-    <div style={{width: '100%'}}>
-    
+    <div style={{ width: "100%" }}>
+    {loader}
       <CarouselHome />
-   
-      <HomeTools/>
       
-      <HomeFilm/>
-      
-      <ShowTime/>
+      <HomeTools />
+
+      <HomeFilm />
+
+      <ShowTime />
 
       <News />
-
     </div>
   );
 }

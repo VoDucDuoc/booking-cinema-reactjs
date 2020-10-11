@@ -2,25 +2,33 @@ import React, { useState } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import { Tab, Row, Nav, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
-
-
+import { useHistory } from "react-router-dom";
 
 export default function ShowTime() {
   const { listCinema } = useSelector((state) => state.cinemaReducer);
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
-
+  const history = useHistory();
   const keyDefault = listCinema[0]?.maHeThongRap;
-
+  const {user} = useSelector(state => state.userReducer);
   const [key, setKey] = useState(keyDefault);
 
   const renderButtonTime = (showTimes) => {
     return showTimes.map((item, index) => {
       if (item.ngayChieuGioChieu.substring(0, 10) !== "2019-01-01") {
-        return;
+        return null;
       }
       let time = item.ngayChieuGioChieu.substring(11, 16);
       return (
-        <button key={index} className="btn btn-time">
+        <button
+          onClick={() => {
+            if(user === null){
+              history.push("/login");
+            }else{
+            window.open(`/checkout/${item.maLichChieu}`, "_blank");}
+          }}
+          key={index}
+          className="btn btn-time"
+        >
           {time}
         </button>
       );
@@ -66,9 +74,10 @@ export default function ShowTime() {
                   {filmItem.tenPhim}
                 </p>
               </div>
-              <p style={{margin: 0, fontSize: '12px', color: '#9b9b9b'}}>100 phút - TIX 6.2 - IMDb 7</p>
+              <p style={{ margin: 0, fontSize: "12px", color: "#9b9b9b" }}>
+                100 phút - TIX 6.2 - IMDb 7
+              </p>
             </div>
-            
           </div>
 
           {renderButtonTime(filmItem.lstLichChieuTheoPhim)}

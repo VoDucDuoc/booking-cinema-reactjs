@@ -8,10 +8,11 @@ import { Tabs, Row, Col, Nav, Tab } from "react-bootstrap";
 import { getCinemaList, getCinemaDetailList } from "../../actions/cinemaAction";
 import { showModal, hideModal } from "../../actions/modalTrailerAction";
 import MyVerticallyCenteredModal from "../../components/modalTrailer";
+import useLoader from "../../hook/useLoader";
 export default function FilmDetail(props) {
-  const { location, match } = props;
-  console.log(location, match);
+  const { match } = props;
 
+  const [loader] = useLoader();
   const { show, url } = useSelector((state) => state.modalTrailerReducer);
 
   const dispatch = useDispatch();
@@ -29,11 +30,15 @@ export default function FilmDetail(props) {
 
   const { listCinema } = useSelector((state) => state.cinemaReducer);
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
-  
+
   const [key, setKey] = useState("show");
   const [keyDate, setKeyDate] = useState(0);
 
   const firstKey = detailFilm?.heThongRapChieu?.[0].maHeThongRap;
+
+  const scrollTo = (element) => {
+    document.getElementById(element).scrollIntoView({ behavior: "smooth" });
+  };
 
   const renderCinema = () => {
     return listCinema.map((cinema, index) => {
@@ -151,12 +156,21 @@ export default function FilmDetail(props) {
       }
     });
   };
+  const {user} = useSelector(state => state.userReducer);
 
+  const isLogin = (scheduleId) =>{
+    if(user === null){
+      props.history.push("/login")
+    }else{
+      window.open(`/checkout/${scheduleId}`, "_blank");
+    }
+  }
   const renderTime = (cinemaShowingDetail, date) => {
     return cinemaShowingDetail.lichChieuPhim.map((schedule, index) => {
       if (date === schedule.ngayChieuGioChieu.substring(0, 10)) {
+        
         return (
-          <button key={index} className="btn btn-time ml-0 mr-2">
+          <button onClick={()=>{isLogin(schedule.maLichChieu)}} key={index} className="btn btn-time ml-0 mr-2">
             {schedule.ngayChieuGioChieu.substring(11, 16)}
           </button>
         );
@@ -353,6 +367,7 @@ export default function FilmDetail(props) {
       className="filmDetail"
       style={{ marginTop: "70px", position: "relative" }}
     >
+      {loader}
       <div style={{ position: "relative", height: "400px", width: "100%" }}>
         <div
           className="filmDetail__backGround"
@@ -408,7 +423,14 @@ export default function FilmDetail(props) {
                   100 phút - 0 IMDb - 2D/Digital
                 </p>
                 <div style={{ width: "90px" }} className="d-flex flex-column">
-                  <button className="btn filmDetail__btn">MUA VÉ</button>
+                  <button
+                    onClick={() => {
+                      scrollTo('detailFilmShowsTime')
+                    }}
+                    className="btn filmDetail__btn"
+                  >
+                    MUA VÉ
+                  </button>
                 </div>
               </div>
             </div>
@@ -448,6 +470,7 @@ export default function FilmDetail(props) {
 
       <div
         className="showstime"
+        id="detailFilmShowsTime"
         style={{ paddingTop: "40px", maxWidth: "840px" }}
       >
         <Tabs

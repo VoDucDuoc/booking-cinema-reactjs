@@ -20,12 +20,16 @@ export default function ItemFilm(props) {
             e.target.src = "/img/loading.png";
           }}
           className="card-img-top"
-          
           src={props.hinhAnh}
           alt="123"
         />
         <div className="layout-film-item">
-          <a onClick={() => dispatch(showModal(props.trailer))}>
+          <a
+            onClick={(e) => {
+              dispatch(showModal(props.trailer));
+              e.stopPropagation();
+            }}
+          >
             <i className="fa fa-play"></i>
           </a>
         </div>
@@ -37,7 +41,12 @@ export default function ItemFilm(props) {
           </button>
 
           <span className="ml-1">{props.tenPhim}</span>
-          <button className="btn btn-book">MUA VÉ</button>
+          <button
+            
+            className="btn btn-book"
+          >
+            MUA VÉ
+          </button>
         </div>
 
         <p className="card-text mt-2">105 phút</p>

@@ -1,10 +1,16 @@
 import React from "react";
-import { useHistory, useParams, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { DropdownButton, Dropdown } from "react-bootstrap";
+import { logoutAction } from "../../actions/userAction";
 export default function Header() {
   const history = useHistory();
-  const params = useParams();
+  const dispatch = useDispatch();
+  
+  
   const location = useLocation();
-  console.log("location neeee", location.pathname);
+
+  const { user } = useSelector((state) => state.userReducer);
   const scrollToMobile = (element) => {
     document.getElementById(element).scrollIntoView({ behavior: "smooth" });
     document.querySelector("#toggleNavBar").click();
@@ -15,8 +21,8 @@ export default function Header() {
   };
 
   const handleClickLogo = () => {
-    const count = Object.keys(params).length;
-    if (count === 0) {
+    
+    if (location.pathname === "/") {
       scrollTo("carousel");
     } else {
       history.push("/");
@@ -28,6 +34,15 @@ export default function Header() {
       return true;
     } else {
       return false;
+    }
+  };
+
+  const logout = () => {
+    
+    dispatch(logoutAction());
+    localStorage.removeItem("user");
+    if(location.pathname === "/customer"){
+      history.replace("/");
     }
   };
 
@@ -122,9 +137,28 @@ export default function Header() {
           </ul>
         </div>
         <div className="right navbar-collapse flex-grow-0 collapse">
-          <div className="d-flex align-items-center">
-            <i className="fa fa-user-circle mr-2" /> <span>Đăng Nhập</span>
-          </div>
+          {user ? (
+            <div className="header__user">
+              <DropdownButton bsPrefix="btn-logout" title={user.hoTen}>
+              <Dropdown.Item onClick={() => {history.push("/customer")}}>
+                  Thông tin tài khoản
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => logout()}>
+                  Đăng xuất
+                </Dropdown.Item>
+              </DropdownButton>
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                history.push("/login");
+              }}
+              className="d-flex  align-items-center"
+            >
+              <i className="fa fa-user-circle mr-2" /> <span>Đăng Nhập</span>
+            </div>
+          )}
+
           <div className="ml-3 dropdown d-flex align-items-center">
             <i className="fa fa-map-marker" />
             <a
@@ -149,10 +183,27 @@ export default function Header() {
         </div>
         <div id="collapsibleNavId" className=" my-collapse flex-grow-0">
           <div className="header__mobile">
-            <div className="mobile-login">
-              <i className="fa fa-user-circle mr-2" />
-              <span>Đăng Nhập</span>
-            </div>
+            {user ? (
+              <div
+                style={{ cursor: "pointer" }}
+                className="mobile-login"
+                onClick={()=>{document.querySelector("#toggleNavBar").click();history.push("/customer")}}
+              >
+                <i className="fa fa-user-circle mr-2" />
+                <span>{user.hoTen}</span>
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  history.push("/login");
+                }}
+                style={{ cursor: "pointer" }}
+                className="mobile-login"
+              >
+                <i className="fa fa-user-circle mr-2" />
+                <span>Đăng Nhập</span>
+              </div>
+            )}
             <a
               onClick={() => {
                 if (checkHomePage()) {
@@ -203,6 +254,9 @@ export default function Header() {
             </a>
             <a className="mobile-item" href="#">
               Hồ Chí Minh
+            </a>
+            <a onClick={() => logout()} className="mobile-item">
+              Đăng xuất
             </a>
           </div>
         </div>
