@@ -5,6 +5,7 @@ import modalTrailerReducer from './modalTrailerReducer';
 import scrollReducer from "./scrollReducer";
 import userReducer from './userReducer';
 import checkoutReducer from "./checkoutReducer";
+import adminReducer from "./adminReducer";
 const rootReducer = combineReducers({
    filmReducer,
    cinemaReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
    scrollReducer,
    userReducer,
    checkoutReducer,
+   adminReducer,
 });
 
 export default rootReducer

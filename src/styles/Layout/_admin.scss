@@ -1,0 +1,27 @@
+.admin-home {
+  font-size: 18px;
+  .header {
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 0 20px;
+  }
+  .dashboard {
+    position: fixed;
+    width: 220px;
+    height: 100vh;
+    z-index: 202;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    top: 0;
+    left: 0;
+  }
+  .admin-content {
+    .table-film {
+      width: 95%;
+      margin: 0 auto;
+      height: 700px;
+      margin-top: 20px;
+      text-align: center;
+    }
+  }
+}

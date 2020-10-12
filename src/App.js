@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 
 import Checkout from "./pages/CheckOut";
 import Customer from "./pages/Customer";
+import AdminLogin from "./pages/Admin/AdminLogin";
+import Admin from "./pages/Admin/Admin";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +38,8 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/checkout/:scheduleId" component={Checkout} />
         <UserRoute path="/customer" component={Customer}/>
+        <Route path="/private/login" component={AdminLogin} />
+        <Route path="/private/home" component={Admin} />
         {/* <Test/> */}
       </Switch>
     </BrowserRouter>

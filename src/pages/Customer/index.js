@@ -254,25 +254,43 @@ export default function Customer() {
     console.log(userInfo);
     return userInfo.thongTinDatVe.map((item, index) => {
       return (
-        <div key={index} className="d-flex align-items-center history-booking__items">
+        <div
+          key={index}
+          className="d-flex align-items-center history-booking__items"
+        >
           <img src="/img/loading.png" alt="/img/loading.png" />
           <div>
-            <p>Phim: <span style={{ fontWeight: "bold" }}> {item.tenPhim} </span></p>
-            <p>Thời lượng:<span style={{ fontWeight: "bold" }}> {item.thoiLuongPhim} phút</span> </p>
+            <p>
+              Phim: <span style={{ fontWeight: "bold" }}> {item.tenPhim} </span>
+            </p>
+            <p>
+              Thời lượng:
+              <span style={{ fontWeight: "bold" }}>
+                {" "}
+                {item.thoiLuongPhim} phút
+              </span>{" "}
+            </p>
             <p>
               Giá: <span style={{ fontWeight: "bold" }}> {item.giaVe} đ</span>
             </p>
-            {item.danhSachGhe.map((chair, indexChair) => {
-              return (
-                <div key={indexChair}>
-                  <p >{chair.tenHeThongRap}</p>
-                  <p >{chair.tenCumRap}</p>
-                  <p>Ghế: <span style={{ fontWeight: "bold" }}> {chair.tenGhe}</span></p>
-                  
-                </div>
-              );
-            })}
-            <p>Ngày đặt vé:<span style={{ fontWeight: "bold" }}> {item.ngayDat.substring(0,10)}</span> </p>
+            <p>{item.danhSachGhe[0].tenHeThongRap}</p>
+            <p>{item.danhSachGhe[0].tenCumRap}</p>
+            <p>
+              {" "}
+              Ghế:
+              {item.danhSachGhe.map((chair, indexChair) => {
+                return (
+                  <span key={indexChair} style={{ fontWeight: "bold" }}> {chair.tenGhe}</span>
+                );
+              })}
+            </p>
+            <p>
+              Ngày đặt vé:
+              <span style={{ fontWeight: "bold" }}>
+                {" "}
+                {item.ngayDat.substring(0, 10)}
+              </span>{" "}
+            </p>
           </div>
         </div>
       );

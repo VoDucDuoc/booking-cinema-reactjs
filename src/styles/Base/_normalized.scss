@@ -138,7 +138,8 @@ input.form-control:focus {
     align-items: center;
   }
 }
-#modal-changePassword {
+#modal-changePassword,
+#modal-describeFilm, #modal-editFilm {
   .modal-content {
     background-color: white;
     a {
@@ -151,7 +152,20 @@ input.form-control:focus {
       padding-top: 40px;
       display: flex;
       flex-direction: column;
-      
     }
+  }
+}
+#modal-describeFilm {
+  .modal-content {
+    height: 200px;
+  }
+}
+#modal-editFilm{
+  .modal-content {
+    width: 600px;
+    height: unset;
+  }
+  .modal-body {
+    width: 600px;
   }
 }

@@ -1,0 +1,12 @@
+#adminLogin {
+  .login__form {
+    width: 480px;
+  }
+}
+@include reponds-to-max("small") {
+  #adminLogin {
+    .login__form {
+      width: 100vw;
+    }
+  }
+}
