@@ -249,11 +249,36 @@ export default function Customer() {
       .required("Mật khẩu không được bỏ trống")
       .min(6, "Mật khẩu cần dài hơn 6 kí tự"),
   });
-  
+
   const renderHistoryBooking = () => {
     console.log(userInfo);
-  }
-  
+    return userInfo.thongTinDatVe.map((item, index) => {
+      return (
+        <div key={index} className="d-flex align-items-center history-booking__items">
+          <img src="/img/loading.png" alt="/img/loading.png" />
+          <div>
+            <p>Phim: <span style={{ fontWeight: "bold" }}> {item.tenPhim} </span></p>
+            <p>Thời lượng:<span style={{ fontWeight: "bold" }}> {item.thoiLuongPhim} phút</span> </p>
+            <p>
+              Giá: <span style={{ fontWeight: "bold" }}> {item.giaVe} đ</span>
+            </p>
+            {item.danhSachGhe.map((chair, indexChair) => {
+              return (
+                <div key={indexChair}>
+                  <p >{chair.tenHeThongRap}</p>
+                  <p >{chair.tenCumRap}</p>
+                  <p>Ghế: <span style={{ fontWeight: "bold" }}> {chair.tenGhe}</span></p>
+                  
+                </div>
+              );
+            })}
+            <p>Ngày đặt vé:<span style={{ fontWeight: "bold" }}> {item.ngayDat.substring(0,10)}</span> </p>
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <>
       {userInfo === null ? (
@@ -261,12 +286,12 @@ export default function Customer() {
       ) : (
         <div className="customer">
           <div className="customer__content">
-            <Tabs defaultActiveKey="historybooking">
+            <Tabs defaultActiveKey="info">
               <Tab eventKey="info" title="Thông tin cá nhân">
                 {renderInfo()}
               </Tab>
               <Tab eventKey="historybooking" title="Lịch sử đặt vé">
-                {renderHistoryBooking()}
+                <div className="history-booking">{renderHistoryBooking()}</div>
               </Tab>
             </Tabs>
           </div>
@@ -398,17 +423,19 @@ export default function Customer() {
                     </div>
                   )}
                 </div>
-                {changePasswordDone ? <div
-                  className="text-success text-center"
-                  style={{ height: "20px"}}
-                >
-                  <p>Đổi mật khẩu thành công</p>
-                </div> : <div
-                  className="text-success text-center"
-                  style={{ height: "20px"}}
-                >
-                 
-                </div>}
+                {changePasswordDone ? (
+                  <div
+                    className="text-success text-center"
+                    style={{ height: "20px" }}
+                  >
+                    <p>Đổi mật khẩu thành công</p>
+                  </div>
+                ) : (
+                  <div
+                    className="text-success text-center"
+                    style={{ height: "20px" }}
+                  ></div>
+                )}
                 <div className="text-center">
                   <button type="submit" className="btn btn-secondary mt-4">
                     Đổi mật khẩu

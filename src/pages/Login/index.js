@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions/userAction";
-import { Link, useHistory } from "react-router-dom";
+import { login, signupAction } from "../../actions/userAction";
+import { useHistory } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import * as yup from "yup";
 export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user, error } = useSelector((state) => state.userReducer);
-
+  const { user, error, errorSignin, userSignin } = useSelector(
+    (state) => state.userReducer
+  );
   const checkAccount = () => {
     if (user && error === false) {
       history.goBack();
@@ -76,8 +77,49 @@ export default function Login() {
     checkAccount();
   }, [error, user]);
   const [signupShow, setSignupShow] = useState(false);
+  const [checkPassword, setCheckPassword] = useState(true);
+  const [signinDone, setSigninDone] = useState(true);
+
+  const renderErrorOrNot = () => {
+    console.log('signinDone', signinDone);
+    console.log('errorSignin', errorSignin);
+    console.log('userSignin', userSignin);
+    if (signinDone === true) {
+      if (errorSignin === false && userSignin !== null) {
+        return (
+          <>
+            <div
+              className="text-success text-center"
+              style={{ height: "10px", margin: " 5px 0" }}
+            >
+              <p>Đăng ký thành công</p>
+            </div>
+          </>
+        );
+      } else {
+        return (
+          <div
+            className="text-danger text-center"
+            style={{ height: "10px", margin: " 5px 0" }}
+          ></div>
+        );
+      }
+    } else if (errorSignin === true) {
+      return (
+        <>
+          <div
+            className="text-danger text-center"
+            style={{ height: "10px", margin: " 5px 0" }}
+          >
+            <p>Đã xảy ra lỗi</p>
+          </div>
+        </>
+      );
+    }
+  };
   const handleClose = () => {
     setSignupShow(false);
+    setSigninDone(false);
   };
   return (
     <div className="login">
@@ -188,7 +230,30 @@ export default function Login() {
                   hoTen: "",
                   nhapLaiMatKhau: "",
                 }}
-                onSubmit={(values) => {}}
+                onSubmit={(values) => {
+                  if (values.nhapLaiMatKhau === values.matKhau) {
+                    dispatch(
+                      signupAction({
+                        taiKhoan: values.taiKhoan,
+                        matKhau: values.matKhau,
+                        email: values.email,
+                        soDt: values.soDt,
+                        maNhom: "GP02",
+                        maLoaiNguoiDung: "KhachHang",
+                        hoTen: values.hoTen,
+                      })
+                    );
+                    setTimeout(() => {
+                      if (errorSignin !== false) {
+                        setSigninDone(true);
+                      } else {
+                        setSigninDone(false);
+                      }
+                    }, 1000);
+                  } else {
+                    setCheckPassword(false);
+                  }
+                }}
                 validationSchema={signupValidation}
                 render={(formikProps) => (
                   <Form>
@@ -201,6 +266,7 @@ export default function Login() {
                             className="form-control"
                             placeholder="Tài khoản"
                             onChange={formikProps.handleChange}
+                            
                           />
 
                           <div
@@ -217,6 +283,7 @@ export default function Login() {
                             className="form-control"
                             placeholder="Mật khẩu"
                             onChange={formikProps.handleChange}
+                            
                           />
 
                           <div
@@ -233,14 +300,23 @@ export default function Login() {
                             className="form-control"
                             placeholder="Nhập lại mật khẩu"
                             onChange={formikProps.handleChange}
+                            
                           />
-
-                          <div
-                            className="text-danger text-center"
-                            style={{ height: "20px", margin: " 5px 0" }}
-                          >
-                            <ErrorMessage name="nhapLaiMatKhau" />
-                          </div>
+                          {checkPassword ? (
+                            <div
+                              className="text-danger text-center"
+                              style={{ height: "20px", margin: " 5px 0" }}
+                            >
+                              <ErrorMessage name="nhapLaiMatKhau" />
+                            </div>
+                          ) : (
+                            <div
+                              className="text-danger text-center"
+                              style={{ height: "20px", margin: " 5px 0" }}
+                            >
+                              <p>Mật khẩu nhập lại không đúng</p>
+                            </div>
+                          )}
                         </div>
                         <div className="form-group m-0">
                           <Field
@@ -249,6 +325,7 @@ export default function Login() {
                             className="form-control"
                             placeholder="Email"
                             onChange={formikProps.handleChange}
+                            
                           />
 
                           <div
@@ -267,6 +344,7 @@ export default function Login() {
                             className="form-control"
                             placeholder="Họ tên"
                             onChange={formikProps.handleChange}
+                            
                           />
 
                           <div
@@ -283,6 +361,7 @@ export default function Login() {
                             className="form-control"
                             placeholder="Số điện thoại"
                             onChange={formikProps.handleChange}
+                            
                           />
 
                           <div
@@ -292,15 +371,15 @@ export default function Login() {
                             <ErrorMessage name="soDt" />
                           </div>
                         </div>
-                      </div>
-
-                      <div className="text-center">
-                        <button
-                          type="submit"
-                          className="btn btn-secondary mt-4"
-                        >
-                          Đăng ký
-                        </button>
+                        {renderErrorOrNot()}
+                        <div className="text-center">
+                          <button
+                            type="submit"
+                            className="btn btn-secondary mt-2"
+                          >
+                            Đăng ký
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </Form>

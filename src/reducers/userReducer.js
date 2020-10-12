@@ -1,10 +1,13 @@
-import { LOGIN, UPDATE, GET_USER_INFO } from "../constants/userConstant";
+import { LOGIN, UPDATE, GET_USER_INFO, SIGNUP } from "../constants/userConstant";
 
 const initalState = {
     user: null,
     loading: false,
     error: false,
     userInfo: null,
+    errorSignin: false,
+    loadingSignin: false,
+    userSignin: null,
 };
 
 const userReducer = (state = initalState, action) => {
@@ -47,6 +50,16 @@ const userReducer = (state = initalState, action) => {
       }
       case GET_USER_INFO.FAIL: {
         return {...state, error:true, loading: false}
+      }
+      case SIGNUP.REQUEST: {
+        return {...state, loading:true, errorSignin: false}
+      }
+      case SIGNUP.SUCCESS: {
+        
+        return {...state, loading:false, errorSignin: false, userSignin: action.payload.data}
+      }
+      case SIGNUP.FAIL: {
+        return {...state, errorSignin:true, loading: false}
       }
     default:
       return state;

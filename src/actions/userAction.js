@@ -1,4 +1,4 @@
-import { LOGIN, UPDATE, GET_USER_INFO } from "../constants/userConstant";
+import { LOGIN, UPDATE, GET_USER_INFO, SIGNUP } from "../constants/userConstant";
 import axios from "../utils/axiosClient";
 
 export const login = (values) => {
@@ -73,6 +73,32 @@ export const updateAction = (values) => {
       });
   };
 };
+
+export const signupAction = (values) => {
+  return (dispatch) => {
+    dispatch({
+      type: SIGNUP.REQUEST,
+    });
+    axios
+      .post(`QuanLyNguoiDung/DangKy`, values)
+      .then((result) => {
+        dispatch({
+          type: SIGNUP.SUCCESS,
+          payload: {
+            data: result.data,
+          },
+        });
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: SIGNUP.FAIL,
+        });
+      });
+  };
+};
+
 export const getUserFromLocal = (values) => {
   return (dispatch) => {
     dispatch({
