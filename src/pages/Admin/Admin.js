@@ -45,7 +45,7 @@ export default function Admin(props) {
     statusEditUser,
     statusDeleteUser,
     statusAddUser,
-    statusAddSchedule
+    statusAddSchedule,
   } = useSelector((state) => state.adminReducer);
 
   useEffect(() => {
@@ -142,6 +142,17 @@ export default function Admin(props) {
     setShowEditUser(false);
     setShowDeleteUser(false);
     setShowAddUser(false);
+    setValuesAddFilm({
+      maPhim: "",
+      tenPhim: "",
+      biDanh: "",
+      trailer: "",
+      hinhAnh: {},
+      moTa: "",
+      maNhom: "GP02",
+      ngayKhoiChieu: "",
+      danhGia: "",
+    });
   };
 
   const changeFormatDate = (date) => {
@@ -851,11 +862,13 @@ export default function Admin(props) {
                     />
                   </div>
                 </div>
-                <div style={{height: '30px', width: '250px'}}>
+                <div style={{ height: "30px", width: "250px" }}>
                   {statusAddSchedule && !error ? (
                     <p className="text-success">Tạo lịch chiếu thành công</p>
                   ) : null}
-                  { error && !statusAddSchedule ? (<p className="text-danger">Đã xảy ra lỗi</p>) : null}
+                  {error && !statusAddSchedule ? (
+                    <p className="text-danger">Đã xảy ra lỗi</p>
+                  ) : null}
                 </div>
                 <div style={{ width: "250px", margin: "10px auto 10px 0" }}>
                   <button
