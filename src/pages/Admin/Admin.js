@@ -5,12 +5,17 @@ import { getFilmList } from "../../actions/filmAction";
 import {
   addFilmAction,
   addScheduleAction,
+  addUserAction,
   deleteFilmAction,
+  deleteUserAction,
   editFilmAction,
   editFilmUploadAction,
+  editUserAction,
   getAdminFromLocal,
+  getUserList,
   logoutAction,
   reloadErrorAction,
+  searchUserAction,
 } from "../../actions/adminAction";
 import {
   getCinemaDetailList,
@@ -25,19 +30,30 @@ export default function Admin(props) {
       dispatch(getAdminFromLocal(JSON.parse(adminLocal)));
     }
   };
-
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCinemaDetailList());
     getAdmin();
   }, []);
 
-  const { error, statusEdit, statusDelete, statusAddFilm } = useSelector(
-    (state) => state.adminReducer
-  );
+  const {
+    error,
+    statusEdit,
+    statusDelete,
+    statusAddFilm,
+    userList,
+    statusEditUser,
+    statusDeleteUser,
+    statusAddUser,
+  } = useSelector((state) => state.adminReducer);
 
   useEffect(() => {
     dispatch(getFilmList());
   }, [statusEdit, statusDelete, statusAddFilm]);
+
+  useEffect(() => {
+    dispatch(getUserList());
+  }, [statusEditUser, statusDeleteUser, statusAddUser]);
 
   const { listFilmShowing } = useSelector((state) => state.filmReducer);
 
@@ -47,7 +63,6 @@ export default function Admin(props) {
 
   const { userInfo, user } = useSelector((state) => state.userReducer);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserInfo({ taiKhoan: user?.taiKhoan }));
   }, [user]);
@@ -73,10 +88,11 @@ export default function Admin(props) {
     ngayChieuGioChieu: "",
     giaVe: "",
   });
-  const [filmActive, setFilmActive] = useState(true);
-  const [userActive, setUserActive] = useState(false);
+  const [filmActive, setFilmActive] = useState(false);
+  const [userActive, setUserActive] = useState(true);
   const [showAddFilm, setShowAddFilm] = useState(false);
   const [activeAddSchedule, setActiveAddSchedule] = useState(false);
+  const [showEditUser, setShowEditUser] = useState(false);
   const [valuesAddFilm, setValuesAddFilm] = useState({
     maPhim: "",
     tenPhim: "",
@@ -88,13 +104,35 @@ export default function Admin(props) {
     ngayKhoiChieu: "",
     danhGia: "",
   });
+  const [editUser, setEditUser] = useState({});
+  const [showDeleteUser, setShowDeleteUser] = useState(false);
+  const [showAddUser, setShowAddUser] = useState(false);
+  const [addUser, setAddUser] = useState({
+    taiKhoan: "",
+    matKhau: "",
+    email: "",
+    soDt: "",
+    maNhom: "GP02",
+    maLoaiNguoiDung: "",
+    hoTen: "",
+  });
 
+  const [searchUser, setSearchUser] = useState("");
+  const handleChangeSearchUser = (evt) => {
+    const { value } = evt.target;
+    console.log(value);
+    setSearchUser(value);
+    dispatch(searchUserAction(searchUser));
+    if (value === "") {
+      dispatch(getUserList());
+    }
+  };
   const logout = () => {
     dispatch(logoutAction());
     localStorage.removeItem("user");
     props.history.replace("/private/login");
   };
-console.log(error);
+
   const handleClose = () => {
     setShowDescribeFilm(false);
     setShowEditFilm(false);
@@ -104,6 +142,9 @@ console.log(error);
     setShowAddFilm(false);
     setPasswordDeleteFilm("");
     dispatch(reloadErrorAction());
+    setShowEditUser(false);
+    setShowDeleteUser(false);
+    setShowAddUser(false);
   };
 
   const changeFormatDate = (date) => {
@@ -122,9 +163,10 @@ console.log(error);
 
   const handleChangeInput = (evt) => {
     const { name, value } = evt.target;
+
     if (name === "hinhAnh") {
       setUploadImg(evt.target.files[0]);
-    } else {
+    } else if (showEditFilm) {
       setValuesEditFilm((values) => {
         return {
           ...values,
@@ -150,6 +192,18 @@ console.log(error);
         [name]: value,
       });
     }
+    if (showEditUser) {
+      setEditUser({
+        ...editUser,
+        [name]: value,
+      });
+    }
+    if (showAddUser) {
+      setAddUser({
+        ...addUser,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmitAddFilm = () => {
@@ -161,7 +215,7 @@ console.log(error);
         danhGia: parseInt(valuesAddFilm.danhGia),
         maPhim: parseInt(valuesAddFilm.maPhim),
       };
-      console.log(obj);
+
       for (let key in obj) {
         form_data.append(key, obj[key]);
       }
@@ -454,6 +508,202 @@ console.log(error);
     dispatch(addScheduleAction(submitValues));
   };
 
+  const renderListUser = () => {
+    return userList.map((user, index) => {
+      return (
+        <tr key={index}>
+          <td>
+            <p>{++index}</p>
+          </td>
+          <td>
+            <div
+              style={{
+                width: "120px",
+                margin: "0 auto",
+                overflowWrap: "break-word",
+              }}
+            >
+              <p>{user.taiKhoan}</p>
+            </div>
+          </td>
+          <td>
+            <div
+              style={{
+                width: "120px",
+                margin: "0 auto",
+                overflowWrap: "break-word",
+              }}
+            >
+              <p>{user.matKhau}</p>
+            </div>
+          </td>
+          <td>
+            <div
+              style={{
+                width: "120px",
+                margin: "0 auto",
+                overflowWrap: "break-word",
+              }}
+            >
+              <p>{user.hoTen}</p>
+            </div>
+          </td>
+          <td>
+            <div
+              style={{
+                width: "120px",
+                margin: "0 auto",
+                overflowWrap: "break-word",
+              }}
+            >
+              <p>{user.email}</p>
+            </div>
+          </td>
+          <td>
+            <div
+              style={{
+                width: "120px",
+                margin: "0 auto",
+                overflowWrap: "break-word",
+              }}
+            >
+              <p>{user.soDt}</p>
+            </div>
+          </td>
+          <td>
+            <div className="d-flex justify-content-around">
+              <button
+                onClick={() => {
+                  setShowEditUser(true);
+                  setEditUser({ ...user, maNhom: "GP02" });
+                }}
+                className="btn btn-primary"
+              >
+                Sửa
+              </button>
+              <button
+                onClick={() => {
+                  setIdDelete(user.taiKhoan);
+                  setShowDeleteUser(true);
+                }}
+                className="btn btn-danger"
+              >
+                Xoá
+              </button>
+            </div>
+          </td>
+        </tr>
+      );
+    });
+  };
+
+  const renderEditUser = (user) => {
+    return (
+      <tr>
+        <td style={{ width: "100px" }}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="taiKhoan"
+              aria-describedby="helpId"
+              value={user?.taiKhoan}
+              disabled
+            />
+          </div>
+        </td>
+        <td style={{ width: "120px" }}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="matKhau"
+              aria-describedby="helpId"
+              value={user?.matKhau}
+              onChange={handleChangeInput}
+            />
+          </div>
+        </td>
+        <td style={{ width: "150px" }}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="hoTen"
+              aria-describedby="helpId"
+              value={user?.hoTen}
+              onChange={handleChangeInput}
+            />
+          </div>
+        </td>
+        <td style={{ width: "150px" }}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="email"
+              aria-describedby="helpId"
+              value={user?.email}
+              onChange={handleChangeInput}
+            />
+          </div>
+        </td>
+        <td style={{ width: "100px" }}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="soDt"
+              aria-describedby="helpId"
+              value={user?.soDt}
+              onChange={handleChangeInput}
+            />
+          </div>
+        </td>
+        <td style={{ width: "100px" }}>
+          <div className="form-group">
+            <select
+              onChange={handleChangeInput}
+              value={editUser.maLoaiNguoiDung}
+              name="maLoaiNguoiDung"
+              className="custom-select"
+            >
+              {user.maLoaiNguoiDung === "KhachHang" ? (
+                <>
+                  <option defaultValue value="KhachHang">
+                    Khách hàng
+                  </option>
+                  <option value="QuanTri">Quản Trị</option>
+                </>
+              ) : (
+                <>
+                  <option defaultValue value="KhachHang">
+                    Khách hàng
+                  </option>
+                  <option defaultValue value="QuanTri">
+                    Quản Trị
+                  </option>
+                </>
+              )}
+            </select>
+          </div>
+        </td>
+        <td style={{ width: "80px" }}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="maNhom"
+              aria-describedby="helpId"
+              value={user?.maNhom}
+              onChange={handleChangeInput}
+            />
+          </div>
+        </td>
+      </tr>
+    );
+  };
+
   return (
     <div className="admin-home">
       <div className="header d-flex align-items-center justify-content-end">
@@ -480,21 +730,27 @@ console.log(error);
         </div>
         <div style={{ marginTop: "50px" }}>
           <p
-          onClick={()=>{setFilmActive(true); setUserActive(false)}}
+            onClick={() => {
+              setFilmActive(true);
+              setUserActive(false);
+            }}
             style={{
               textDecoration: "underline",
               margin: "10px 0",
-              cursor:'pointer'
+              cursor: "pointer",
             }}
           >
             Quản lý phim
           </p>
           <p
-          onClick={()=>{setFilmActive(false); setUserActive(true)}}
+            onClick={() => {
+              setFilmActive(false);
+              setUserActive(true);
+            }}
             style={{
               textDecoration: "underline",
               margin: "10px 0",
-              cursor:'pointer'
+              cursor: "pointer",
             }}
           >
             Quản lý người dùng
@@ -505,7 +761,10 @@ console.log(error);
         style={{ marginTop: "90px", marginLeft: "250px" }}
         className="admin-content"
       >
-        <div id="admin-content-film" className={`admin-content-film ${filmActive ? 'active' : ''}`}>
+        <div
+          id="admin-content-film"
+          className={`admin-content-film ${filmActive ? "active" : ""}`}
+        >
           <button
             onClick={() => {
               setShowAddFilm(true);
@@ -610,9 +869,47 @@ console.log(error);
             </div>
           </div>
         </div>
-                    <div id="admin-content-user" className={`admin-content-user ${userActive ? 'active' : ''}`}>
-                      admin content user work!
-                    </div>
+        <div
+          id="admin-content-user"
+          className={`admin-content-user ${userActive ? "active" : ""}`}
+        >
+          <button
+            onClick={() => {
+              setShowAddUser(true);
+            }}
+            className="btn btn-secondary"
+          >
+            Thêm người dùng
+          </button>
+          <div className="form-group">
+            <input
+              type="text"
+              name="tuKhoa"
+              className="form-control"
+              placeholder="Tìm kiếm người dùng"
+              aria-describedby="helpId"
+              value={searchUser}
+              onChange={handleChangeSearchUser}
+            />
+          </div>
+
+          <div className="admin-table">
+            <Table className="table-film" striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Stt</th>
+                  <th>Tài khoản</th>
+                  <th>Mật khẩu</th>
+                  <th>Họ tên</th>
+                  <th>Email</th>
+                  <th>Số điện thoại</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>{renderListUser()}</tbody>
+            </Table>
+          </div>
+        </div>
       </div>
       <Modal
         show={showDescribeFilm}
@@ -713,37 +1010,26 @@ console.log(error);
           >
             <i className="fa fa-times"></i>
           </a>
-          {error ? (
-            <div
-              className="text-danger"
-              style={{ height: "20px", textAlign: "center" }}
-            >
-              <p>Đã xảy ra lỗi!</p>
-            </div>
-          ) : textAlert ? (
-            <div
-              className="text-danger"
-              style={{ height: "20px", textAlign: "center" }}
-            >
-              <p>Mật khẩu không đúng</p>
-            </div>
-          ) : (
-            <div
-              className="text-danger"
-              style={{ height: "20px", textAlign: "center" }}
-            ></div>
-          )}
+          <div style={{ height: "20px", textAlign: "center" }}>
+            {error === false &&
+            statusDeleteUser === true &&
+            textAlert === false ? (
+              <p className="text-success">Cập nhật thành công</p>
+            ) : null}
+            {error === true ? (
+              <p className="text-danger">Đã xảy ra lỗi!</p>
+            ) : null}
+            {error === false && textAlert === true ? (
+              <p className="text-danger">Mật khẩu không đúng</p>
+            ) : null}
+          </div>
           <div style={{ width: "50%", margin: "0 auto", textAlign: "center" }}>
             <button
               onClick={() => {
                 if (passwordDeleteFilm === userInfo.matKhau) {
                   dispatch(deleteFilmAction(idDelete));
-                  if (error) {
-                    setTextAlert(true);
-                  } else {
-                    setShowDeleteFilm(false);
-                    dispatch(reloadErrorAction());
-                  }
+
+                  setTextAlert(false);
                 } else {
                   setTextAlert(true);
                 }
@@ -885,6 +1171,253 @@ console.log(error);
               className="btn btn-secondary"
             >
               Thêm Phim
+            </button>
+          </div>
+          <a
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            <i className="fa fa-times"></i>
+          </a>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={showEditUser}
+        id="modal-editUser"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        onHide={handleClose}
+        size="lg"
+      >
+        <Modal.Body>
+          <Table className="table-film" striped bordered hover>
+            <thead>
+              <tr>
+                <th>Tài khoản</th>
+                <th>Mật khẩu</th>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Mã loại người dùng</th>
+                <th>Mã nhóm</th>
+              </tr>
+            </thead>
+            <tbody>{renderEditUser(editUser)}</tbody>
+          </Table>
+          <a
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            <i className="fa fa-times"></i>
+          </a>
+          <div style={{ height: "20px", textAlign: "center" }}>
+            {error === false &&
+            statusEditUser === true &&
+            textAlert === true ? (
+              <p className="text-success">Cập nhật thành công</p>
+            ) : null}
+            {error === true ? (
+              <p className="text-danger">Đã xảy ra lỗi!</p>
+            ) : null}
+          </div>
+
+          <div style={{ width: "50%", margin: "0 auto", textAlign: "center" }}>
+            <button
+              onClick={() => {
+                setTextAlert(true);
+                dispatch(editUserAction(editUser));
+              }}
+              className="btn btn-success"
+            >
+              Cập nhật
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={showDeleteUser}
+        id="modal-deleteUser"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        onHide={handleClose}
+      >
+        <Modal.Body>
+          <p>Vui lòng nhập mật khẩu để thực hiện xoá người dùng</p>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="matKhauDelete"
+              value={passwordDeleteFilm}
+              aria-describedby="helpId"
+              placeholder="Mật khẩu"
+              onChange={handleChangePassword}
+            />
+          </div>
+
+          <a
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            <i className="fa fa-times"></i>
+          </a>
+          <div style={{ height: "20px", textAlign: "center" }}>
+            {error === false &&
+            statusDeleteUser === true &&
+            textAlert === false ? (
+              <p className="text-success">Cập nhật thành công</p>
+            ) : null}
+            {error === true ? (
+              <p className="text-danger">Đã xảy ra lỗi!</p>
+            ) : null}
+            {error === false && textAlert === true ? (
+              <p className="text-danger">Mật khẩu không đúng</p>
+            ) : null}
+          </div>
+          <div style={{ width: "50%", margin: "0 auto", textAlign: "center" }}>
+            <button
+              onClick={() => {
+                if (passwordDeleteFilm === userInfo.matKhau) {
+                  dispatch(deleteUserAction(idDelete));
+
+                  setTextAlert(false);
+                } else {
+                  setTextAlert(true);
+                }
+              }}
+              className="btn btn-success"
+            >
+              Xác nhận
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={showAddUser}
+        id="modal-addFilm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        onHide={handleClose}
+        size="lg"
+      >
+        <Modal.Body>
+          <div className="row">
+            <div className="col-6">
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="taiKhoan"
+                  aria-describedby="helpId"
+                  value={addUser.taiKhoan}
+                  placeholder="Tài khoản"
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="matKhau"
+                  aria-describedby="helpId"
+                  value={addUser.matKhau}
+                  placeholder="Mật khẩu"
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="email"
+                  aria-describedby="helpId"
+                  placeholder="Email"
+                  value={addUser.email}
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="soDt"
+                  aria-describedby="helpId"
+                  placeholder="Số điện thoại"
+                  value={addUser.soDt}
+                  onChange={handleChangeInput}
+                />
+              </div>
+            </div>
+            <div className="col-6">
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="maNhom"
+                  aria-describedby="helpId"
+                  placeholder="Mã nhóm"
+                  value={addUser.maNhom}
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div className="form-group">
+                <select
+                  onChange={handleChangeInput}
+                  value={addUser.maLoaiNguoiDung}
+                  name="maLoaiNguoiDung"
+                  className="custom-select"
+                >
+                  <option defaultValue>Mã loại khách hàng</option>
+                  <option value="KhachHang">Khách hàng</option>
+                  <option value="QuanTri">Quản Trị</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="hoTen"
+                  aria-describedby="helpId"
+                  placeholder="Họ tên"
+                  value={addUser.hoTen}
+                  onChange={handleChangeInput}
+                />
+              </div>
+            </div>
+          </div>
+
+          {error ? (
+            <div
+              className="text-danger"
+              style={{ height: "20px", textAlign: "center" }}
+            >
+              <p>Đã xảy ra lỗi</p>
+            </div>
+          ) : textAlert ? (
+            <div
+              className="text-success"
+              style={{ height: "20px", textAlign: "center" }}
+            >
+              <p>Thêm thành công</p>
+            </div>
+          ) : (
+            <div
+              className="text-danger"
+              style={{ height: "20px", textAlign: "center" }}
+            ></div>
+          )}
+          <div className="text-center mt-3">
+            <button
+              onClick={() => {
+                setTextAlert(true);
+                dispatch(addUserAction(addUser));
+              }}
+              className="btn btn-secondary"
+            >
+              Thêm người dùng
             </button>
           </div>
           <a

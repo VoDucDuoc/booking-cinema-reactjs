@@ -18,12 +18,12 @@
     top: 0;
     left: 0;
   }
-  
+
   .admin-addSchedule {
     padding-top: 50px;
     height: 500px;
     display: none;
-    &.active{
+    &.active {
       display: block;
     }
     .dropdown {
@@ -56,7 +56,6 @@
     .table-film {
       width: 95%;
       margin: 0 auto;
-
       margin-top: 20px;
       text-align: center;
     }
@@ -65,22 +64,31 @@
       overflow: hidden;
       overflow-y: scroll;
     }
-    @keyframes fadeIn{
-      from {opacity: 0;}
-      to{opacity: 1;}
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-    @keyframes fadeOut{
-      from {opacity: 1;}
-      to{opacity: 0;}
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
     }
-    #admin-content-film, #admin-content-user{
+    #admin-content-film,
+    #admin-content-user {
       display: none;
       animation: fadeOut 0.2s;
     }
-    #admin-content-film.active, #admin-content-user.active{
+    #admin-content-film.active,
+    #admin-content-user.active {
       display: block;
       animation: fadeIn 0.2s;
     }
-    
   }
 }

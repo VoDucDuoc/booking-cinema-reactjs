@@ -4,6 +4,11 @@ import {
   DELETE_FILM,
   ADD_SCHEDULE,
   ADD_FILM,
+  GET_USER_LIST,
+  EDIT_USER,
+  DELETE_USER,
+  ADD_USER,
+  SEARCH_USER
 } from "../constants/adminConstant";
 import axios from "../utils/axiosClient";
 
@@ -100,6 +105,29 @@ export const deleteFilmAction = (id) => {
       });
   };
 };
+export const deleteUserAction = (id) => {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_USER.REQUEST,
+    });
+    axios
+      .delete(`QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${id}`)
+      .then((result) => {
+        dispatch({
+          type: DELETE_USER.SUCCESS,
+          payload: {
+            data: result.data,
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error.data);
+        dispatch({
+          type: DELETE_USER.FAIL,
+        });
+      });
+  };
+};
 export const addScheduleAction = (values) => {
   return (dispatch) => {
     dispatch({
@@ -120,6 +148,30 @@ export const addScheduleAction = (values) => {
         console.log(error.data);
         dispatch({
           type: ADD_SCHEDULE.FAIL,
+        });
+      });
+  };
+};
+export const searchUserAction = (values) => {
+  return (dispatch) => {
+    dispatch({
+      type: SEARCH_USER.REQUEST,
+    });
+    axios
+      .get(`QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP02&tuKhoa=${values}`, values)
+      .then((result) => {
+        dispatch({
+          type: SEARCH_USER.SUCCESS,
+          payload: {
+            data: result.data,
+          },
+        });
+        console.log(result.data);
+      })
+      .catch((error) => {
+        console.log(error.data);
+        dispatch({
+          type: SEARCH_USER.FAIL,
         });
       });
   };
@@ -148,6 +200,30 @@ export const addFilmAction = (values) => {
       });
   };
 };
+export const addUserAction = (values) => {
+  return (dispatch) => {
+    dispatch({
+      type: ADD_USER.REQUEST,
+    });
+    axios
+      .post(`QuanLyNguoiDung/ThemNguoiDung`, values)
+      .then((result) => {
+        dispatch({
+          type: ADD_USER.SUCCESS,
+          payload: {
+            data: result.data,
+          },
+        });
+        console.log(result.data);
+      })
+      .catch((error) => {
+        console.log(error.data);
+        dispatch({
+          type: ADD_USER.FAIL,
+        });
+      });
+  };
+};
 export const getAdminFromLocal = (values) => {
   return (dispatch) => {
     dispatch({
@@ -168,5 +244,55 @@ export const reloadErrorAction = () => {
     dispatch({
       type: "RELOAD_ERROR",
     });
+  };
+};
+
+
+export const getUserList = () => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_USER_LIST.REQUEST,
+    });
+    axios
+      .get(`QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP02`)
+      .then((result) => {
+        dispatch({
+          type: GET_USER_LIST.SUCCESS,
+          payload: {
+            data: result.data,
+          },
+        });
+       
+      })
+      .catch((error) => {
+        console.log(error.data);
+        dispatch({
+          type: GET_USER_LIST.FAIL,
+        });
+      });
+  };
+};
+export const editUserAction = (values) => {
+  return (dispatch) => {
+    dispatch({
+      type: EDIT_USER.REQUEST,
+    });
+    axios
+      .put(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, values)
+      .then((result) => {
+        dispatch({
+          type: EDIT_USER.SUCCESS,
+          payload: {
+            data: result.data,
+          },
+        });
+       
+      })
+      .catch((error) => {
+        console.log(error.data);
+        dispatch({
+          type: EDIT_USER.FAIL,
+        });
+      });
   };
 };

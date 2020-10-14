@@ -176,7 +176,7 @@ input.form-control:focus {
   }
   
 }
-#modal-describeFilm {
+#modal-describeFilm, #modal-deleteUser {
   .modal-content {
     height: 200px;
   }
@@ -190,7 +190,8 @@ input.form-control:focus {
   }
 }
 #modal-editFilm,
-#modal-addSchedule {
+#modal-addSchedule,
+#modal-editUser {
   max-width: 90%;
   .modal-content {
     height: unset;
