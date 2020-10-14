@@ -22,7 +22,7 @@ import {
   getCinemaSystemInfo,
 } from "../../actions/cinemaAction";
 import { getUserInfo } from "../../actions/userAction";
-
+import { Redirect } from "react-router-dom";
 export default function Admin(props) {
   const getAdmin = () => {
     const adminLocal = localStorage.getItem("user");
@@ -45,6 +45,7 @@ export default function Admin(props) {
     statusEditUser,
     statusDeleteUser,
     statusAddUser,
+    statusAddSchedule
   } = useSelector((state) => state.adminReducer);
 
   useEffect(() => {
@@ -62,10 +63,6 @@ export default function Admin(props) {
   );
 
   const { userInfo, user } = useSelector((state) => state.userReducer);
-
-  useEffect(() => {
-    dispatch(getUserInfo({ taiKhoan: user?.taiKhoan }));
-  }, [user]);
 
   const addScheduleRef = useRef(null);
 
@@ -88,8 +85,8 @@ export default function Admin(props) {
     ngayChieuGioChieu: "",
     giaVe: "",
   });
-  const [filmActive, setFilmActive] = useState(false);
-  const [userActive, setUserActive] = useState(true);
+  const [filmActive, setFilmActive] = useState(true);
+  const [userActive, setUserActive] = useState(false);
   const [showAddFilm, setShowAddFilm] = useState(false);
   const [activeAddSchedule, setActiveAddSchedule] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
@@ -120,7 +117,7 @@ export default function Admin(props) {
   const [searchUser, setSearchUser] = useState("");
   const handleChangeSearchUser = (evt) => {
     const { value } = evt.target;
-    console.log(value);
+
     setSearchUser(value);
     dispatch(searchUserAction(searchUser));
     if (value === "") {
@@ -854,6 +851,12 @@ export default function Admin(props) {
                     />
                   </div>
                 </div>
+                <div style={{height: '30px', width: '250px'}}>
+                  {statusAddSchedule && !error ? (
+                    <p className="text-success">Tạo lịch chiếu thành công</p>
+                  ) : null}
+                  { error && !statusAddSchedule ? (<p className="text-danger">Đã xảy ra lỗi</p>) : null}
+                </div>
                 <div style={{ width: "250px", margin: "10px auto 10px 0" }}>
                   <button
                     onClick={() => {
@@ -881,7 +884,7 @@ export default function Admin(props) {
           >
             Thêm người dùng
           </button>
-          <div className="form-group">
+          <div className="form-group mt-3 mr-4" style={{ width: "140px" }}>
             <input
               type="text"
               name="tuKhoa"
