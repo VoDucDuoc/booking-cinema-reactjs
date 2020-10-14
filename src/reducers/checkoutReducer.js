@@ -36,7 +36,7 @@ const checkoutReducer = (state = initialState, action) => {
       } else {
         listChairChoosing.splice(index, 1);
       }
-
+     
       return { ...state, listChairChoosing };
     }
     case BOOKING.REQUEST: {

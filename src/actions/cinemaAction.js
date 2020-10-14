@@ -1,4 +1,4 @@
-import { GET_CINEMA_LIST, GET_CINEMA_DETAIL_LIST } from "../constants/cinemaConstant";
+import { GET_CINEMA_LIST, GET_CINEMA_DETAIL_LIST,GET_CINEMA_SYSTEM_INFO } from "../constants/cinemaConstant";
 
 import axios from "../utils/axiosClient";
 
@@ -42,6 +42,26 @@ export const getCinemaDetailList = () =>{
     console.log(error);
     dispatch({
       type: GET_CINEMA_DETAIL_LIST.FAIL,
+    })
+  })
+}}
+export const getCinemaSystemInfo = (id) =>{
+  return (dispatch)=>{
+    dispatch({
+      type: GET_CINEMA_SYSTEM_INFO.REQUEST,
+    });
+    axios.get(`QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${id}`)
+  .then((result)=>{
+    dispatch({
+      type: GET_CINEMA_SYSTEM_INFO.SUCCESS,
+      payload: {
+        data: result.data,
+      },
+    });
+  }).catch((error)=>{
+    console.log(error);
+    dispatch({
+      type: GET_CINEMA_SYSTEM_INFO.FAIL,
     })
   })
 }}

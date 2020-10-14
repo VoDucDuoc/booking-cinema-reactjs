@@ -42,24 +42,54 @@
   opacity: 1;
 }
 .modal-content {
-  background-color: transparent;
   z-index: 1;
   height: 400px;
-  a {
-    z-index: 2;
-    cursor: pointer;
-    position: absolute;
-    top: -22px;
-    right: -22px;
-    color: white;
-    border: 1px solid white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    line-height: 40px;
-    font-size: 24px;
-    text-align: center;
+  .modal-body {
+    
+      padding-top: 40px;
+      display: flex;
+      flex-direction: column;
+   
+    a {
+      z-index: 2;
+      cursor: pointer;
+      position: absolute;
+      top: -22px;
+      right: -22px;
+      color: white;
+      border: 1px solid white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      line-height: 40px;
+      font-size: 24px;
+      text-align: center;
+    }
+    a {
+      background-color: white;
+      i {
+        color: black;
+      }
+    }
   }
+}
+#modal-trailer .modal-content {
+  background-color: transparent;
+  a {
+      z-index: 2;
+      cursor: pointer;
+      position: absolute;
+      top: -22px;
+      right: -22px;
+      color: white;
+      border: 1px solid white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      line-height: 40px;
+      font-size: 24px;
+      text-align: center;
+    }
 }
 .modal-content a i {
   color: white;
@@ -138,34 +168,38 @@ input.form-control:focus {
     align-items: center;
   }
 }
-#modal-changePassword,
-#modal-describeFilm, #modal-editFilm {
-  .modal-content {
-    background-color: white;
-    a {
-      background-color: white;
-      i {
-        color: black;
-      }
-    }
-    .modal-body {
-      padding-top: 40px;
-      display: flex;
-      flex-direction: column;
-    }
+
+#modal-addFilm {
+
+  .modal-content{
+    height: fit-content;
   }
+  
 }
 #modal-describeFilm {
   .modal-content {
     height: 200px;
   }
 }
-#modal-editFilm{
+#modal-addSchedule {
   .modal-content {
-    width: 600px;
-    height: unset;
+    height: 500px;
   }
   .modal-body {
-    width: 600px;
+    height: 500px;
+  }
+}
+#modal-editFilm,
+#modal-addSchedule {
+  max-width: 90%;
+  .modal-content {
+    height: unset;
+  }
+}
+table {
+  th,
+  td {
+    text-align: center;
+    vertical-align: middle !important;
   }
 }

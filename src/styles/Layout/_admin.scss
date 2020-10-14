@@ -1,4 +1,7 @@
 .admin-home {
+  .btn-logout {
+    width: 150px;
+  }
   font-size: 18px;
   .header {
     background-color: white;
@@ -15,13 +18,69 @@
     top: 0;
     left: 0;
   }
+  
+  .admin-addSchedule {
+    padding-top: 50px;
+    height: 500px;
+    display: none;
+    &.active{
+      display: block;
+    }
+    .dropdown {
+      width: 250px;
+      margin: 10px 0;
+      margin-left: auto;
+      .dropdown-toggle {
+        width: 100%;
+      }
+    }
+
+    .addSchedule__title::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 70%;
+      height: 0.5px;
+      background: $color-gray-2;
+      opacity: 0.5;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .addSchedule__title {
+      position: relative;
+      padding-bottom: $pd-3;
+    }
+  }
   .admin-content {
     .table-film {
       width: 95%;
       margin: 0 auto;
-      height: 700px;
+
       margin-top: 20px;
       text-align: center;
     }
+    .admin-table {
+      height: 600px;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+    @keyframes fadeIn{
+      from {opacity: 0;}
+      to{opacity: 1;}
+    }
+    @keyframes fadeOut{
+      from {opacity: 1;}
+      to{opacity: 0;}
+    }
+    #admin-content-film, #admin-content-user{
+      display: none;
+      animation: fadeOut 0.2s;
+    }
+    #admin-content-film.active, #admin-content-user.active{
+      display: block;
+      animation: fadeIn 0.2s;
+    }
+    
   }
 }

@@ -20,8 +20,7 @@ export default function Login() {
   const loginSchema = yup.object().shape({
     taiKhoan: yup
       .string()
-      .required("Tài khoản không được bỏ trống")
-      .min(5, "Tài khoản cần dài hơn 5 kí tự"),
+      .required("Tài khoản không được bỏ trống"),
     matKhau: yup
       .string()
       .required("Mật khẩu không được bỏ trống")

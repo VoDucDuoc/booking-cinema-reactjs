@@ -130,7 +130,7 @@ export default function Header() {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link m-0" href="#">
+              <a className="nav-link m-0">
                 Ứng dụng
               </a>
             </li>

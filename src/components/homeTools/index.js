@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Dropdown } from "react-bootstrap";
-
+import { useHistory } from "react-router-dom";
 export default function HomeTools() {
   const [film, setFilm] = useState({
     filmName: "Phim",
     filmId: 0,
   });
+  const history = useHistory();
   const [cinema, setCinema] = useState({
     cinemaName: "Rạp",
     cinemaId: "",
@@ -15,9 +16,7 @@ export default function HomeTools() {
   const [time, setTime] = useState("Suất chiếu");
 
   const { listFilmShowing } = useSelector((state) => state.filmReducer);
-  const { listCinemaDetail } = useSelector(
-    (state) => state.cinemaReducer
-  );
+  const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
 
   const resetState = (value) => {
     switch (value) {
@@ -46,10 +45,15 @@ export default function HomeTools() {
   };
 
   const colorBtnBooking = () => {
-    if(film.filmName !== "Phim" && cinema.cinemaName !=="Rạp" && date !== "Ngày xem" && time !=="Suất chiếu"){
-      return true
+    if (
+      film.filmName !== "Phim" &&
+      cinema.cinemaName !== "Rạp" &&
+      date !== "Ngày xem" &&
+      time !== "Suất chiếu"
+    ) {
+      return true;
     }
-  }
+  };
 
   const checkCinema = () => {
     if (film.filmName === "Phim") {
@@ -78,7 +82,7 @@ export default function HomeTools() {
       return renderTime();
     }
   };
-
+  const [scheduleId, setScheduleId] = useState();
   const renderTime = () => {
     return listCinemaDetail.map((cinemaGroup) => {
       return cinemaGroup.lstCumRap.map((cinemaDetail) => {
@@ -94,6 +98,7 @@ export default function HomeTools() {
                   <Dropdown.Item
                     onSelect={() => {
                       setTime(timeSub);
+                      setScheduleId(schedule.maLichChieu);
                     }}
                     key={index}
                   >
@@ -182,13 +187,11 @@ export default function HomeTools() {
     });
   };
 
-
-
   return (
     <section className="home-tool">
       <div className="row home-tool__content">
         <Dropdown>
-          <Dropdown.Toggle  id="dropdown-film">{film.filmName}</Dropdown.Toggle>
+          <Dropdown.Toggle id="dropdown-film">{film.filmName}</Dropdown.Toggle>
           <Dropdown.Menu flip={false}>{renderFilm()}</Dropdown.Menu>
         </Dropdown>
         <Dropdown>
@@ -205,7 +208,15 @@ export default function HomeTools() {
           <Dropdown.Toggle id="dropdown-date">{time}</Dropdown.Toggle>
           <Dropdown.Menu flip={false}>{checkTime()}</Dropdown.Menu>
         </Dropdown>
-        <button className={`btn ${colorBtnBooking() ? 'btn-booking' : 'btn-modify'}`}>MUA VÉ NGAY</button>
+        <button
+          onClick={() => {
+            window.open(`/checkout/${scheduleId}`,"_blank")
+            
+          }}
+          className={`btn ${colorBtnBooking() ? "btn-booking" : "btn-modify"}`}
+        >
+          MUA VÉ NGAY
+        </button>
       </div>
     </section>
   );

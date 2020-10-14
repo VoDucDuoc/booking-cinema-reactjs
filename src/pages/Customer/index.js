@@ -13,7 +13,7 @@ export default function Customer() {
   useEffect(() => {
     dispatch(getUserInfo({ taiKhoan: user?.taiKhoan }));
   }, [user]);
-
+  
   const [isPassword, setIsPassword] = useState(true);
   const [isPasswordChange, setIsPasswordChange] = useState(true);
   const [checkNewPassword, setCheckNewPassword] = useState(true);

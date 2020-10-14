@@ -2,7 +2,7 @@ import { GET_FILM_LIST, GET_FILM_DETAIL, CLEAR_FILM_DETAIL } from "../constants/
 import axios from "../utils/axiosClient";
 
 export const getFilmList = () => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({
       type: GET_FILM_LIST.REQUEST,
     });

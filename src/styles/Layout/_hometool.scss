@@ -61,6 +61,9 @@
     .btn-modify {
       background-color: $color-gray-1;
       color: white;
+      pointer-events: none;
+      cursor: default;
+      
     }
     .btn-booking{
       background-color: $color-red-0;

@@ -8,6 +8,8 @@ export default function MyVerticallyCenteredModal(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      
+      id="modal-trailer"
     >
       <a
         onClick={props.onHide}

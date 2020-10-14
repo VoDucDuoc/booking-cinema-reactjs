@@ -1,12 +1,14 @@
 import {
   GET_CINEMA_LIST,
   GET_CINEMA_DETAIL_LIST,
+  GET_CINEMA_SYSTEM_INFO
 } from "../constants/cinemaConstant";
 const initalStateCinema = {
   listCinema: [],
   listCinemaDetail: [],
   loading: false,
   error: false,
+  listCinemaSystemInfo: [],
 };
 
 const cinemaReducer = (state = initalStateCinema, action) => {
@@ -38,6 +40,22 @@ const cinemaReducer = (state = initalStateCinema, action) => {
       };
     }
     case GET_CINEMA_DETAIL_LIST.FAIL: {
+      return { ...state, loading: false, error: true };
+    }
+
+    case GET_CINEMA_SYSTEM_INFO.REQUEST: {
+      return { ...state, loading: true, error: false };
+    }
+    case GET_CINEMA_SYSTEM_INFO.SUCCESS: {
+      
+      return {
+        ...state,
+        listCinemaSystemInfo: action.payload.data,
+        loading: false,
+        error: false,
+      };
+    }
+    case GET_CINEMA_SYSTEM_INFO.FAIL: {
       return { ...state, loading: false, error: true };
     }
     default:
