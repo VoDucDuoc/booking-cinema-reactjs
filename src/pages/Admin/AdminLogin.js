@@ -26,7 +26,7 @@ export default function AdminLogin(props) {
           <div className="wrap_form">
             <a
               onClick={() => {
-                history.push("/");
+               
               }}
               className="close-login"
             >

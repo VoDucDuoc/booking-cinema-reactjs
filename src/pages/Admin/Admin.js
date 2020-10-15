@@ -157,6 +157,15 @@ export default function Admin(props) {
       ngayKhoiChieu: "",
       danhGia: "",
     });
+    setAddUser({
+      taiKhoan: "",
+      matKhau: "",
+      email: "",
+      soDt: "",
+      maNhom: "GP02",
+      maLoaiNguoiDung: "",
+      hoTen: "",
+    });
   };
 
   const changeFormatDate = (date) => {
@@ -889,7 +898,6 @@ export default function Admin(props) {
                         addScheduleSubmit();
                         setTextAlert(false);
                       } else {
-                       
                         setTextAlert(true);
                       }
                     }}
@@ -1408,26 +1416,14 @@ export default function Admin(props) {
             </div>
           </div>
 
-          {error ? (
-            <div
-              className="text-danger"
-              style={{ height: "20px", textAlign: "center" }}
-            >
-              <p>Đã xảy ra lỗi</p>
-            </div>
-          ) : textAlert ? (
-            <div
-              className="text-success"
-              style={{ height: "20px", textAlign: "center" }}
-            >
-              <p>Thêm thành công</p>
-            </div>
-          ) : (
-            <div
-              className="text-danger"
-              style={{ height: "20px", textAlign: "center" }}
-            ></div>
-          )}
+          <div style={{ height: "20px", textAlign: "center" }}>
+            {error === false && statusAddUser === true && textAlert === true ? (
+              <p className="text-success">Thêm thành công</p>
+            ) : null}
+            {error === true ? (
+              <p className="text-danger">Đã xảy ra lỗi!</p>
+            ) : null}
+          </div>
           <div className="text-center mt-3">
             <button
               onClick={() => {
