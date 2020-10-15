@@ -11,7 +11,6 @@ import {
   editFilmAction,
   editFilmUploadAction,
   editUserAction,
-  getAdminFromLocal,
   getUserList,
   logoutAction,
   reloadErrorAction,
@@ -21,16 +20,17 @@ import {
   getCinemaDetailList,
   getCinemaSystemInfo,
 } from "../../actions/cinemaAction";
-import { getUserInfo } from "../../actions/userAction";
+import { getUserFromLocal, getUserInfo } from "../../actions/userAction";
 import { Redirect } from "react-router-dom";
 export default function Admin(props) {
+  const dispatch = useDispatch();
   const getAdmin = () => {
     const adminLocal = localStorage.getItem("user");
     if (adminLocal) {
-      dispatch(getAdminFromLocal(JSON.parse(adminLocal)));
+      dispatch(getUserFromLocal(JSON.parse(adminLocal)));
     }
   };
-  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCinemaDetailList());
     getAdmin();
@@ -63,6 +63,10 @@ export default function Admin(props) {
   );
 
   const { userInfo, user } = useSelector((state) => state.userReducer);
+
+  useEffect(() => {
+    dispatch(getUserInfo({ taiKhoan: user?.taiKhoan }));
+  }, [user]);
 
   const addScheduleRef = useRef(null);
 
@@ -508,10 +512,10 @@ export default function Admin(props) {
 
   const addScheduleSubmit = () => {
     const submitValues = {
-      maPhim: addScheduleItem.maPhim,
-      ngayChieuGioChieu: addScheduleInput.ngayChieuGioChieu,
-      maRap: cinemaRoom.maRap,
-      giaVe: parseInt(addScheduleInput.giaVe),
+      maPhim: addScheduleItem?.maPhim,
+      ngayChieuGioChieu: addScheduleInput?.ngayChieuGioChieu,
+      maRap: cinemaRoom?.maRap,
+      giaVe: parseInt(addScheduleInput?.giaVe),
     };
     dispatch(addScheduleAction(submitValues));
   };
@@ -863,17 +867,31 @@ export default function Admin(props) {
                   </div>
                 </div>
                 <div style={{ height: "30px", width: "250px" }}>
-                  {statusAddSchedule && !error ? (
+                  {statusAddSchedule && !error && !textAlert ? (
                     <p className="text-success">Tạo lịch chiếu thành công</p>
                   ) : null}
                   {error && !statusAddSchedule ? (
+                    <p className="text-danger">Đã xảy ra lỗi</p>
+                  ) : null}
+                  {textAlert ? (
                     <p className="text-danger">Đã xảy ra lỗi</p>
                   ) : null}
                 </div>
                 <div style={{ width: "250px", margin: "10px auto 10px 0" }}>
                   <button
                     onClick={() => {
-                      addScheduleSubmit();
+                      if (
+                        addScheduleItem.maPhim &&
+                        addScheduleInput.ngayChieuGioChieu &&
+                        cinemaRoom.maRap &&
+                        addScheduleInput.giaVe
+                      ) {
+                        addScheduleSubmit();
+                        setTextAlert(false);
+                      } else {
+                       
+                        setTextAlert(true);
+                      }
                     }}
                     style={{ width: "50%", margin: "0 auto 0 0" }}
                     className="btn btn-secondary"
@@ -1027,24 +1045,18 @@ export default function Admin(props) {
             <i className="fa fa-times"></i>
           </a>
           <div style={{ height: "20px", textAlign: "center" }}>
-            {error === false &&
-            statusDeleteUser === true &&
-            textAlert === false ? (
-              <p className="text-success">Cập nhật thành công</p>
-            ) : null}
-            {error === true ? (
-              <p className="text-danger">Đã xảy ra lỗi!</p>
-            ) : null}
-            {error === false && textAlert === true ? (
+            {textAlert ? (
               <p className="text-danger">Mật khẩu không đúng</p>
+            ) : statusDelete && !error ? (
+              <p className="text-success">Xoá thành công</p>
             ) : null}
+            {error ? <p className="text-danger">Đã xảy ra lỗi</p> : null}
           </div>
           <div style={{ width: "50%", margin: "0 auto", textAlign: "center" }}>
             <button
               onClick={() => {
-                if (passwordDeleteFilm === userInfo.matKhau) {
+                if (passwordDeleteFilm === userInfo?.matKhau) {
                   dispatch(deleteFilmAction(idDelete));
-
                   setTextAlert(false);
                 } else {
                   setTextAlert(true);
@@ -1161,29 +1173,20 @@ export default function Admin(props) {
             cols="80"
             value={valuesAddFilm.moTa}
           ></textarea>
-          {error ? (
-            <div
-              className="text-danger"
-              style={{ height: "20px", textAlign: "center" }}
-            >
-              <p>Đã xảy ra lỗi</p>
-            </div>
-          ) : textAlert ? (
-            <div
-              className="text-success"
-              style={{ height: "20px", textAlign: "center" }}
-            >
-              <p>Thêm thành công</p>
-            </div>
-          ) : (
-            <div
-              className="text-danger"
-              style={{ height: "20px", textAlign: "center" }}
-            ></div>
-          )}
+          <div style={{ height: "20px", textAlign: "center" }}>
+            {error === false && statusAddFilm === true && textAlert === true ? (
+              <p className="text-success">Thêm thành công</p>
+            ) : null}
+            {error === true ? (
+              <p className="text-danger">Đã xảy ra lỗi!</p>
+            ) : null}
+          </div>
           <div className="text-center mt-3">
             <button
-              onClick={() => handleSubmitAddFilm()}
+              onClick={() => {
+                handleSubmitAddFilm();
+                setTextAlert(true);
+              }}
               className="btn btn-secondary"
             >
               Thêm Phim

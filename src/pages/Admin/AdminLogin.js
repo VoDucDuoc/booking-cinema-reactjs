@@ -1,28 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 import { loginAction } from "../../actions/adminAction";
+import { login } from "../../actions/userAction";
 export default function AdminLogin(props) {
   const { history } = props;
   const dispatch = useDispatch();
   const loginSchema = yup.object().shape({
-    taiKhoan: yup
-      .string()
-      .required("Tài khoản không được bỏ trống"),
- 
-    matKhau: yup
-      .string()
-      .required("Mật khẩu không được bỏ trống")
+    taiKhoan: yup.string().required("Tài khoản không được bỏ trống"),
 
+    matKhau: yup.string().required("Mật khẩu không được bỏ trống"),
   });
-  const {admin, error} = useSelector(state => state.adminReducer);
+  const { admin, error } = useSelector((state) => state.adminReducer);
 
   useEffect(() => {
-    if(admin !== null){
-      history.push("/private/home")
+    if (admin !== null) {
+      history.push("/private/home");
     }
-  }, [admin])
+  }, [admin]);
   return (
     <div className="login" id="adminLogin">
       <div className="login__layout">
@@ -50,9 +46,7 @@ export default function AdminLogin(props) {
                 matKhau: "",
               }}
               onSubmit={(values) => {
-                dispatch(loginAction(values));
-                
-                
+                dispatch(login(values));
               }}
               validationSchema={loginSchema}
               render={(formikProps) => (

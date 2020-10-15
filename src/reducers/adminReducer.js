@@ -182,8 +182,9 @@ const adminReducer = (state = initalState, action) => {
     case "RELOAD_ERROR": {
       return {
         ...state,
-
+        statusDelete: false,
         error: false,
+        statusAddFilm: false,
       };
     }
     case EDIT_USER.REQUEST: {
