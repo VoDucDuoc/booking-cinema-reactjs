@@ -24,7 +24,7 @@ export default function Checkout(props) {
     (state) => state.checkoutReducer
   );
   const { listChairChoosing } = useSelector((state) => state.checkoutReducer);
-    console.log(listChairChoosing);
+    
   const emptyListChairChoosing = () => {
     if (listChairChoosing.length === 0) {
       return true;
@@ -75,7 +75,7 @@ export default function Checkout(props) {
       taiKhoanNguoiDung: user.hoTen,
     };
   }
-console.log(valuesCheckOutToDisPatch);
+
   return (
     <div className="checkout">
       <div className="checkout-left">

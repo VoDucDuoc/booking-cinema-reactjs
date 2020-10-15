@@ -21,7 +21,7 @@ import {
   getCinemaSystemInfo,
 } from "../../actions/cinemaAction";
 import { getUserFromLocal, getUserInfo } from "../../actions/userAction";
-import { Redirect } from "react-router-dom";
+
 export default function Admin(props) {
   const dispatch = useDispatch();
   const getAdmin = () => {
@@ -131,7 +131,7 @@ export default function Admin(props) {
   const logout = () => {
     dispatch(logoutAction());
     localStorage.removeItem("user");
-    props.history.replace("/private/login");
+    props.history.replace("/admin/login");
   };
 
   const handleClose = () => {

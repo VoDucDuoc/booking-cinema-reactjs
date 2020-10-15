@@ -80,9 +80,7 @@ export default function Login() {
   const [signinDone, setSigninDone] = useState(true);
 
   const renderErrorOrNot = () => {
-    console.log('signinDone', signinDone);
-    console.log('errorSignin', errorSignin);
-    console.log('userSignin', userSignin);
+
     if (signinDone === true) {
       if (errorSignin === false && userSignin !== null) {
         return (

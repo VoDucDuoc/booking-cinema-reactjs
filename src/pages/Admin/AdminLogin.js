@@ -16,7 +16,7 @@ export default function AdminLogin(props) {
 
   useEffect(() => {
     if (admin !== null) {
-      history.push("/private/home");
+      history.push("/admin/home");
     }
   }, [admin]);
   return (
