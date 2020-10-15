@@ -81,7 +81,7 @@ export default function Header() {
           <img
             src="/img/layer1.png"
             style={{ width: 50, height: 50 }}
-            alt="123"
+            alt="LogoBrand"
           />
         </a>
         <button

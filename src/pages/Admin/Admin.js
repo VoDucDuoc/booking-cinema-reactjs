@@ -745,7 +745,7 @@ export default function Admin(props) {
           <img
             style={{ width: "50px", height: "50px" }}
             src="/img/layer1.png"
-            alt="/img/layer1.png"
+            alt="LogoBrand"
           />
           <p style={{ margin: "0 10px", fontWeight: "bold" }}>Dashboard</p>
         </div>

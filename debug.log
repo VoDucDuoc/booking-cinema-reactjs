@@ -1,3 +1,0 @@
-[1014/101953.199:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\ASUS\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\a9ed9f3a-9f02-4a15-acd3-a7e8c99f3a73: The system cannot find the path specified. (0x3)
-[1014/101953.200:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\ASUS\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\c381316b-6621-4c5d-8b2d-b72a1f1814ef: The system cannot find the path specified. (0x3)
-[1014/101953.201:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)

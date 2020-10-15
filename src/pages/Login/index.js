@@ -134,8 +134,8 @@ export default function Login() {
           </a>
 
           <img
-            src="/img/Layer1.png"
-            alt="/img/Layer1.png"
+            src="/img/layer1.png"
+            alt="LogoBrand"
             style={{ maxWidth: "70px", maxHeight: "70px" }}
           />
           <p style={{ marginBottom: "70px" }}>
