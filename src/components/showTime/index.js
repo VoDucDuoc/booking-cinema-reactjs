@@ -59,7 +59,7 @@ export default function ShowTime() {
               <div className="d-flex align-items-end">
                 <button
                   style={{ padding: "1px 3px" }}
-                  className="btn btn-success"
+                  className="btn btn-success "
                 >
                   C16
                 </button>

@@ -110,6 +110,9 @@
 
 @include reponds-to-max("small") {
   .home-film {
+    .btn-c16{
+      display: none;
+    }
     .home-film__items {
       .card-img-top {
         max-width: 100%;

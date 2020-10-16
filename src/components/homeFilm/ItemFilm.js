@@ -36,7 +36,7 @@ export default function ItemFilm(props) {
       </div>
       <div className="card-body p-1">
         <div className="card-title mb-0" style={{ height: "40px" }}>
-          <button style={{ padding: "1px 3px" }} className="btn btn-success">
+          <button style={{ padding: "1px 3px" }} className="btn btn-success btn-c16">
             C16
           </button>
 
