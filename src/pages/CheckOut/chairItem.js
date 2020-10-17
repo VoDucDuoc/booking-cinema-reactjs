@@ -11,7 +11,9 @@ export default function ChairItem(props) {
         <>
           {status ? <button
           style={{cursor: 'not-allowed'}}
-          className={`chairs__item btn btn-secondary`}
+          
+          disabled
+          className={`chairs__item btn chairs__item-booked`}
         >
           {chair.tenGhe}
         </button> : <button
