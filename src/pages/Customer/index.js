@@ -251,7 +251,6 @@ export default function Customer() {
   });
 
   const renderHistoryBooking = () => {
-    console.log(userInfo);
     return userInfo.thongTinDatVe.map((item, index) => {
       return (
         <div

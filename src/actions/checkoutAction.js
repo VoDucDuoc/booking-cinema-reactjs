@@ -15,7 +15,7 @@ export const getDetailCheckout = (id) =>{
         },
       });
     }).catch((error)=>{
-      console.log(error.data);
+    
       dispatch({
         type: GET_DETAIL_CHECKOUT.FAIL,
       })
@@ -45,11 +45,11 @@ export const getDetailCheckout = (id) =>{
               data: result.data,
             },
           });
-          console.log(result.data);
+         
           
         })
         .catch((error) => {
-          console.log(error);
+         
           dispatch({
             type: BOOKING.FAIL,
           });

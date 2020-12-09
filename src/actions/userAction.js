@@ -18,7 +18,7 @@ export const login = (values) => {
         localStorage.setItem("user", JSON.stringify(result.data));
       })
       .catch((error) => {
-        console.log(error);
+        
         dispatch({
           type: LOGIN.FAIL,
         });
@@ -42,7 +42,7 @@ export const getUserInfo = (values) => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        
         dispatch({
           type: GET_USER_INFO.FAIL,
         });
@@ -66,7 +66,6 @@ export const updateAction = (values) => {
         });
       })
       .catch((error) => {
-        console.log(error);
         dispatch({
           type: UPDATE.FAIL,
         });
@@ -91,7 +90,6 @@ export const signupAction = (values) => {
         
       })
       .catch((error) => {
-        console.log(error);
         dispatch({
           type: SIGNUP.FAIL,
         });

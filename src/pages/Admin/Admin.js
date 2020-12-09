@@ -63,7 +63,6 @@ export default function Admin(props) {
   );
 
   const { userInfo, user } = useSelector((state) => state.userReducer);
-
   useEffect(() => {
     dispatch(getUserInfo({ taiKhoan: user?.taiKhoan }));
   }, [user]);

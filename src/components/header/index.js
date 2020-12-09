@@ -6,8 +6,7 @@ import { logoutAction } from "../../actions/userAction";
 export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
-  
-  
+
   const location = useLocation();
 
   const { user } = useSelector((state) => state.userReducer);
@@ -21,7 +20,6 @@ export default function Header() {
   };
 
   const handleClickLogo = () => {
-    
     if (location.pathname === "/") {
       scrollTo("carousel");
     } else {
@@ -38,16 +36,21 @@ export default function Header() {
   };
 
   const logout = () => {
-    
     dispatch(logoutAction());
     localStorage.removeItem("user");
-    if(location.pathname === "/customer"){
+    if (location.pathname === "/customer") {
       history.replace("/");
     }
   };
 
-  const backHomeThenScrollTo = (element) => {
+  const backHomeThenScrollToMobile = (element) => {
     document.querySelector("#toggleNavBar").click();
+    history.push("/");
+    setTimeout(() => {
+      document.getElementById(element).scrollIntoView({ behavior: "smooth" });
+    }, 1000);
+  };
+  const backHomeThenScrollTo = (element) => {
     history.push("/");
     setTimeout(() => {
       document.getElementById(element).scrollIntoView({ behavior: "smooth" });
@@ -103,7 +106,10 @@ export default function Header() {
               <a
                 className="nav-link"
                 onClick={() => {
-                  scrollTo("filmBlock");
+                  if (checkHomePage()) {
+                    scrollTo("filmBlock");
+                  }
+                  backHomeThenScrollTo("filmBlock");
                 }}
               >
                 Lịch chiếu
@@ -113,7 +119,10 @@ export default function Header() {
               <a
                 className="nav-link"
                 onClick={() => {
-                  scrollTo("showTime");
+                  if (checkHomePage()) {
+                    scrollTo("showTime");
+                  }
+                  backHomeThenScrollTo("showTime");
                 }}
               >
                 Cụm rạp
@@ -123,16 +132,17 @@ export default function Header() {
               <a
                 className="nav-link"
                 onClick={() => {
-                  scrollTo("news");
+                  if (checkHomePage()) {
+                    scrollTo("news");
+                  }
+                  backHomeThenScrollTo("news");
                 }}
               >
                 Tin tức
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link m-0">
-                Ứng dụng
-              </a>
+              <a className="nav-link m-0">Ứng dụng</a>
             </li>
           </ul>
         </div>
@@ -140,7 +150,11 @@ export default function Header() {
           {user ? (
             <div className="header__user">
               <DropdownButton bsPrefix="btn-logout" title={user.hoTen}>
-              <Dropdown.Item onClick={() => {history.push("/customer")}}>
+                <Dropdown.Item
+                  onClick={() => {
+                    history.push("/customer");
+                  }}
+                >
                   Thông tin tài khoản
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => logout()}>
@@ -187,7 +201,10 @@ export default function Header() {
               <div
                 style={{ cursor: "pointer" }}
                 className="mobile-login"
-                onClick={()=>{document.querySelector("#toggleNavBar").click();history.push("/customer")}}
+                onClick={() => {
+                  document.querySelector("#toggleNavBar").click();
+                  history.push("/customer");
+                }}
               >
                 <i className="fa fa-user-circle mr-2" />
                 <span>{user.hoTen}</span>
@@ -209,7 +226,7 @@ export default function Header() {
                 if (checkHomePage()) {
                   scrollToMobile("filmBlock");
                 } else {
-                  backHomeThenScrollTo("filmBlock");
+                  backHomeThenScrollToMobile("filmBlock");
                 }
               }}
               className="mobile-item"
@@ -222,7 +239,7 @@ export default function Header() {
                 if (checkHomePage()) {
                   scrollToMobile("showTime");
                 } else {
-                  backHomeThenScrollTo("showTime");
+                  backHomeThenScrollToMobile("showTime");
                 }
               }}
             >
@@ -234,7 +251,7 @@ export default function Header() {
                 if (checkHomePage()) {
                   scrollToMobile("news");
                 } else {
-                  backHomeThenScrollTo("news");
+                  backHomeThenScrollToMobile("news");
                 }
               }}
             >
@@ -246,7 +263,7 @@ export default function Header() {
                 if (checkHomePage()) {
                   scrollToMobile("news");
                 } else {
-                  backHomeThenScrollTo("news");
+                  backHomeThenScrollToMobile("news");
                 }
               }}
             >

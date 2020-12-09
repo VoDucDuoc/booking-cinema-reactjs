@@ -11,7 +11,6 @@ export default function ShowTime() {
   const keyDefault = listCinema[0]?.maHeThongRap;
   const {user} = useSelector(state => state.userReducer);
   const [key, setKey] = useState(keyDefault);
-  console.log(listCinemaDetail);
   const renderButtonTime = (showTimes) => {
     return showTimes.map((item, index) => {
       if (item.ngayChieuGioChieu.substring(0, 10) !== "2019-01-01") {

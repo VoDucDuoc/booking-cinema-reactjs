@@ -17,7 +17,7 @@ export const getFilmList = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+       
         dispatch({
           type: GET_FILM_LIST.FAIL,
         });

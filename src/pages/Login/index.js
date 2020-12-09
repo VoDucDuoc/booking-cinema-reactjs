@@ -247,6 +247,7 @@ export default function Login() {
                         setSigninDone(false);
                       }
                     }, 1000);
+                    setCheckPassword(true);
                   } else {
                     setCheckPassword(false);
                   }

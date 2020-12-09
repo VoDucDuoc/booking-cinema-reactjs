@@ -18,7 +18,7 @@ export const getCinemaList = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+       
         dispatch({
           type: GET_CINEMA_LIST.FAIL,
         });
@@ -39,7 +39,7 @@ export const getCinemaDetailList = () =>{
       },
     });
   }).catch((error)=>{
-    console.log(error);
+  
     dispatch({
       type: GET_CINEMA_DETAIL_LIST.FAIL,
     })
@@ -59,7 +59,7 @@ export const getCinemaSystemInfo = (id) =>{
       },
     });
   }).catch((error)=>{
-    console.log(error);
+  
     dispatch({
       type: GET_CINEMA_SYSTEM_INFO.FAIL,
     })

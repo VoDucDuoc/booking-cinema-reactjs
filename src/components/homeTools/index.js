@@ -17,6 +17,7 @@ export default function HomeTools() {
 
   const { listFilmShowing } = useSelector((state) => state.filmReducer);
   const { listCinemaDetail } = useSelector((state) => state.cinemaReducer);
+  const {user} = useSelector((state)=>state.userReducer);
 
   const resetState = (value) => {
     switch (value) {
@@ -210,7 +211,10 @@ export default function HomeTools() {
         </Dropdown>
         <button
           onClick={() => {
-            window.open(`/checkout/${scheduleId}`,"_blank")
+            if(user){
+            window.open(`/checkout/${scheduleId}`,"_blank")}else{
+              history.push("/login")
+            }
             
           }}
           className={`btn ${colorBtnBooking() ? "btn-booking" : "btn-modify"}`}

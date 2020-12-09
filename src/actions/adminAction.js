@@ -29,7 +29,7 @@ export const editFilmUploadAction = (values) => {
         });
       })
       .catch((error) => {
-        console.log(error.data);
+        
         dispatch({
           type: EDIT_FILM.FAIL,
         });
@@ -52,7 +52,7 @@ export const editFilmAction = (values) => {
         });
       })
       .catch((error) => {
-        console.log(error.data);
+        
         dispatch({
           type: EDIT_FILM.FAIL,
         });
@@ -75,7 +75,7 @@ export const deleteFilmAction = (id) => {
         });
       })
       .catch((error) => {
-        console.log(error.data);
+       
         dispatch({
           type: DELETE_FILM.FAIL,
         });
@@ -98,7 +98,7 @@ export const deleteUserAction = (id) => {
         });
       })
       .catch((error) => {
-        console.log(error.data);
+       
         dispatch({
           type: DELETE_USER.FAIL,
         });
@@ -119,10 +119,10 @@ export const addScheduleAction = (values) => {
             data: result.data,
           },
         });
-        console.log(result.data);
+        
       })
       .catch((error) => {
-        console.log(error.data);
+       
         dispatch({
           type: ADD_SCHEDULE.FAIL,
         });
@@ -143,10 +143,10 @@ export const searchUserAction = (values) => {
             data: result.data,
           },
         });
-        console.log(result.data);
+       
       })
       .catch((error) => {
-        console.log(error.data);
+        
         dispatch({
           type: SEARCH_USER.FAIL,
         });
@@ -167,10 +167,10 @@ export const addFilmAction = (values) => {
             data: result.data,
           },
         });
-        console.log(result.data);
+       
       })
       .catch((error) => {
-        console.log(error.data);
+       
         dispatch({
           type: ADD_FILM.FAIL,
         });
@@ -191,10 +191,10 @@ export const addUserAction = (values) => {
             data: result.data,
           },
         });
-        console.log(result.data);
+     
       })
       .catch((error) => {
-        console.log(error.data);
+      
         dispatch({
           type: ADD_USER.FAIL,
         });
@@ -242,7 +242,7 @@ export const getUserList = () => {
        
       })
       .catch((error) => {
-        console.log(error.data);
+       
         dispatch({
           type: GET_USER_LIST.FAIL,
         });
@@ -266,7 +266,7 @@ export const editUserAction = (values) => {
        
       })
       .catch((error) => {
-        console.log(error.data);
+        
         dispatch({
           type: EDIT_USER.FAIL,
         });
