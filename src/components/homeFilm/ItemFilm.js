@@ -13,7 +13,7 @@ export default function ItemFilm(props) {
       }}
       style={{ border: "none" }}
     >
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", minHeight: '270px' }}>
         <img
           onError={(e) => {
             e.target.onerror = null;

@@ -1,6 +1,14 @@
 .home-film {
   padding-top: 75px;
   .home-film__content {
+    .slick-slide{
+      height: 800px;
+      
+    }
+    .slick-slide > div{
+      height: 50%;
+      display: flex;
+    }
     .slick-slider {
       // z-index: -1;
     }
@@ -110,6 +118,7 @@
 
 @include reponds-to-max("small") {
   .home-film {
+    
     .btn-c16{
       display: none;
     }
@@ -129,6 +138,7 @@
 
 @include reponds-to-max("medium") {
   .home-film {
+    display: none;
     .card-title {
       white-space: nowrap;
       overflow: hidden;
