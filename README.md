@@ -1,1 +1,1 @@
-# booking-cinema-reactjs
+# website booking cinema ticket was built on ReactJs
